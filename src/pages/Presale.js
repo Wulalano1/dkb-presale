@@ -19,6 +19,7 @@ const { Title, Text } = Typography;
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 function Presale() {
+  const { t, locale } = useI18n();
   const [provider, setProvider] = useState(null);
   const [account, setAccount] = useState('');
   const [bindingModalOpen, setBindingModalOpen] = useState(false);
@@ -197,7 +198,7 @@ function Presale() {
       ethereum.removeListener('accountsChanged', onAccountsChanged);
       ethereum.removeListener('chainChanged', onChainChanged);
     };
-  }, []);
+  }, [switchChainWarning]);
 
   useEffect(() => {
     if (!provider || !account) return;
@@ -248,7 +249,7 @@ function Presale() {
                 </Space>
                 <div className="line-row">
                   <Text type="secondary" style={{ fontSize: 12 }}>
-                    套餐：
+                    {`${packageCopy.label}${colon}`}
                   </Text>
                   <Text style={{ fontSize: 12 }}>
                     {packageInfo ? packageInfo.usdt : '--'} USDT → {packageInfo ? packageInfo.dkb : '--'} DKB
@@ -256,7 +257,7 @@ function Presale() {
                 </div>
                 <div>
                   <Text type="secondary" style={{ fontSize: 12 }}>
-                    购买 USDT 数量（固定套餐）
+                    {packageCopy.amount}
                   </Text>
                   <Input value={packageInfo ? packageInfo.usdt : ''} readOnly style={{ marginTop: 4 }} />
                 </div>
@@ -270,7 +271,7 @@ function Presale() {
                   {!account ? '请先连接钱包' : hasPurchased ? '已购买' : 'Buy'}
                 </Button>
                 <Button block disabled={!account}>
-                  Receive
+                  {packageCopy.receive}
                 </Button>
               </Space>
             </Card>
@@ -326,17 +327,15 @@ function Presale() {
           </div>
           <div className="footer-right">
             <div className="footer-box">
-              <div className="footer-box-title">链上认证</div>
+              <div className="footer-box-title">{footerCopy.certification}</div>
               <div className="footer-box-content">
                 BSC 链合约地址：
                 <span className="contract-address">0x1234567890abcdef1234567890abcdef12345678</span>
               </div>
             </div>
             <div className="footer-box">
-              <div className="footer-box-title">免责声明</div>
-              <div className="footer-box-content">
-                本项目不构成任何形式的投资建议，投资有风险，决策需谨慎。所有代币和相关信息仅用于社区公示，请勿视为对任何第三方承诺或担保。
-              </div>
+              <div className="footer-box-title">{footerCopy.disclaimer}</div>
+              <div className="footer-box-content">{footerCopy.disclaimerText}</div>
             </div>
           </div>
         </div>
