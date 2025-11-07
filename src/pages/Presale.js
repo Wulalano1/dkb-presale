@@ -8,8 +8,6 @@ import {
   Typography,
   Input,
   Space,
-  Row,
-  Col,
   message,
 } from "antd";
 import { GlobalOutlined, LinkOutlined } from "@ant-design/icons";
@@ -25,6 +23,7 @@ import {
   shortAddress,
   getInjectedProvider,
 } from "../web3/config";
+import "./Presale.css";
 
 const { Header, Content, Footer } = Layout;
 const { Title, Text } = Typography;
@@ -302,19 +301,15 @@ function Presale() {
                 {/* 这里先写死，你后面自己接倒计时逻辑 */}
                 <div className="time-item">
                   <span>00</span>
-            
                 </div>
                 <div className="time-item">
                   <span>00</span>
-          
                 </div>
                 <div className="time-item">
                   <span>00</span>
-           
                 </div>
                 <div className="time-item">
                   <span>00</span>
-             
                 </div>
               </div>
               <div className="countdown-timers">
@@ -337,7 +332,12 @@ function Presale() {
             {/* 中央预售卡片 */}
             <Card className="presale-card hero-card">
               <div className="dkb">
-              <img src={require("../images/conrt.png")}  style={{width:"20px",height:"20px",marginRight:"4px"}} alt="USDT" /> dkb
+                <img
+                  src={require("../images/conrt.png")}
+                  style={{ width: "20px", height: "20px", marginRight: "4px" }}
+                  alt="USDT"
+                />
+                dkb
               </div>
               <Space direction="vertical" style={{ width: "100%" }}>
                 <Space
@@ -356,7 +356,7 @@ function Presale() {
                     套餐：
                   </Text>
                   <Text style={{ fontSize: 12 }}>
-                    {packageInfo ? packageInfo.usdt : "--"} USDT →{" "}
+                    {packageInfo ? packageInfo.usdt : "--"} USDT → {" "}
                     {packageInfo ? packageInfo.dkb : "--"} DKB
                   </Text>
                 </div>
@@ -447,8 +447,7 @@ function Presale() {
           <div className="footer-left">
             <div className="footer-logo">DKB</div>
             <div className="footer-desc">
-              全球领先的低空经济 RWA
-              生态平台，重构低空经济生产关系，开启低空经济数字化新时代。
+              全球领先的低空经济 RWA 生态平台，重构低空经济生产关系，开启低空经济数字化新时代。
             </div>
           </div>
 
