@@ -4,7 +4,6 @@ import { LinkOutlined } from '@ant-design/icons';
 import { QRCodeCanvas } from 'qrcode.react';
 import { ethers } from 'ethers';
 import MainHeader from '../components/MainHeader';
-import { useI18n } from '../i18n/I18nProvider';
 import {
   BSC_CHAIN_ID_HEX,
   SALE_CONTRACT_ADDRESS,
@@ -29,18 +28,6 @@ function Presale() {
   const [hasPurchased, setHasPurchased] = useState(false);
   const [buyLoading, setBuyLoading] = useState(false);
   const [inviteCode, setInviteCode] = useState('');
-  const hero = t('presale.hero');
-  const packageCopy = t('presale.package');
-  const inviteCopy = t('presale.invite');
-  const partnerCopy = t('presale.partners');
-  const footerCopy = t('presale.footer');
-  const modalCopy = t('presale.modal');
-  const messages = t('presale.messages');
-  const MIN_PURCHASE = 'X';
-  const MAX_PURCHASE = 'Y';
-  const heroSubtitle = t('presale.hero.subtitle', { min: MIN_PURCHASE, max: MAX_PURCHASE });
-  const colon = locale === 'zh' ? '：' : ':';
-  const switchChainWarning = messages.switchChain;
 
   const handleConnect = async () => {
     try {
@@ -87,10 +74,10 @@ function Presale() {
       setProvider(pvd);
       setAccount(addr);
       setInviteCode(addr.slice(-5).toUpperCase());
-      message.success(messages.walletSuccess);
+      message.success('钱包连接成功');
     } catch (e) {
       console.error(e);
-      message.error(e.message || messages.walletError);
+      message.error(e.message || '连接钱包失败');
     }
   };
 
@@ -113,11 +100,11 @@ function Presale() {
       const sale = new ethers.Contract(SALE_CONTRACT_ADDRESS, saleAbi, signer);
       const tx = await sale.bindUpline(DEFAULT_REFERRER);
       await tx.wait();
-      message.success(messages.bindSuccess);
+      message.success('绑定上级成功');
       setBindingModalOpen(false);
     } catch (e) {
       console.error(e);
-      message.error(e.message || messages.bindError);
+      message.error(e.message || '绑定上级失败');
     } finally {
       setBindingLoading(false);
     }
@@ -158,7 +145,7 @@ function Presale() {
       const amount = ethers.utils.parseUnits(packageInfo.usdt.toString(), usdtDecimals);
       const balance = await usdt.balanceOf(account);
       if (balance.lt(amount)) {
-        throw new Error(messages.insufficient);
+        throw new Error('USDT 余额不足');
       }
       const allowance = await usdt.allowance(account, SALE_CONTRACT_ADDRESS);
       if (allowance.lt(amount)) {
@@ -167,11 +154,11 @@ function Presale() {
       }
       const tx = await sale.buyPresale();
       await tx.wait();
-      message.success(messages.purchaseSuccess);
+      message.success('购买成功');
       await loadPurchased();
     } catch (e) {
       console.error(e);
-      message.error(e.message || messages.purchaseError);
+      message.error(e.message || '购买失败');
     } finally {
       setBuyLoading(false);
     }
@@ -182,8 +169,8 @@ function Presale() {
   const copyInviteUrl = () => {
     navigator.clipboard
       .writeText(inviteUrl)
-      .then(() => message.success(messages.copySuccess))
-      .catch(() => message.error(messages.copyError));
+      .then(() => message.success('链接已复制'))
+      .catch(() => message.error('复制失败'));
   };
 
   useEffect(() => {
@@ -202,7 +189,7 @@ function Presale() {
     };
     const onChainChanged = (chainId) => {
       if (chainId !== BSC_CHAIN_ID_HEX) {
-        message.warning(switchChainWarning);
+        message.warning('请切换到 BSC 链');
       }
     };
     ethereum.on('accountsChanged', onAccountsChanged);
@@ -229,13 +216,13 @@ function Presale() {
         <section className="presale-hero" id="presale">
           <div className="presale-hero__container">
             <div className="presale-hero__countdown">
-              <Title level={2}>{hero.title}</Title>
-              <Text>{heroSubtitle}</Text>
+              <Title level={2}>Pre sale end</Title>
+              <Text>Min Buy X USDT · Max Buy Y USDT</Text>
               <div className="presale-countdown">
                 {['00', '00', '00', '00'].map((value, index) => (
                   <div className="presale-countdown__item" key={index}>
                     <span>{value}</span>
-                    <em>{hero.countdownLabels?.[index]}</em>
+                    <em>{['DAY', 'HOUR', 'MIN', 'SEC'][index]}</em>
                   </div>
                 ))}
               </div>
@@ -281,11 +268,7 @@ function Presale() {
                   loading={buyLoading}
                   disabled={!account || hasPurchased}
                 >
-                  {!account
-                    ? packageCopy.connect
-                    : hasPurchased
-                        ? packageCopy.purchased
-                        : packageCopy.buy}
+                  {!account ? '请先连接钱包' : hasPurchased ? '已购买' : 'Buy'}
                 </Button>
                 <Button block disabled={!account}>
                   {packageCopy.receive}
@@ -298,21 +281,21 @@ function Presale() {
         <section className="presale-invite" id="invite">
           <div className="container">
             <div className="section-title">
-              <Title level={3}>{inviteCopy.title}</Title>
-              <Text type="secondary">{inviteCopy.description}</Text>
+              <Title level={3}>Invite Rules</Title>
+              <Text type="secondary">You must participate in ido to get referral rewards:</Text>
             </div>
             <div className="invite-content">
               <Card className="invite-card">
                 <QRCodeCanvas value={inviteUrl} size={160} />
-                <div className="invite-link-text">{inviteCopy.link}</div>
+                <div className="invite-link-text">Invite Link</div>
                 <Button type="primary" block size="middle" icon={<LinkOutlined />} onClick={copyInviteUrl}>
-                  {inviteCopy.copy}
+                  Copy
                 </Button>
               </Card>
               <ul className="invite-rules">
-                {inviteCopy.rules?.map((rule) => (
-                  <li key={rule}>{rule}</li>
-                ))}
+                <li>完成预售购买后即刻获得个人邀请码。</li>
+                <li>绑定好友后可享受多级佣金奖励。</li>
+                <li>邀请链接可复制分享，支持 H5/PC 双端打开。</li>
               </ul>
             </div>
           </div>
@@ -321,10 +304,10 @@ function Presale() {
         <section className="presale-partners" id="partners">
           <div className="container">
             <Title level={3} style={{ color: '#fff', textAlign: 'center' }}>
-              {partnerCopy.title}
+              Our partners
             </Title>
             <div className="partner-grid">
-              {partnerCopy.placeholders?.map((name) => (
+              {['dapp', 'binance', 'dappradar', 'gate', 'opensea', 'tp', 'trustwallet', 'uniswap'].map((name) => (
                 <div className="partner-item" key={name}>
                   <span>{name}</span>
                 </div>
@@ -339,14 +322,14 @@ function Presale() {
           <div className="footer-left">
             <div className="footer-logo">DKB</div>
             <div className="footer-desc">
-              {footerCopy.description}
+              全球领先的低空经济 RWA 生态平台，重构低空经济生产关系，开启低空经济数字化新时代。
             </div>
           </div>
           <div className="footer-right">
             <div className="footer-box">
               <div className="footer-box-title">{footerCopy.certification}</div>
               <div className="footer-box-content">
-                {footerCopy.contract}
+                BSC 链合约地址：
                 <span className="contract-address">0x1234567890abcdef1234567890abcdef12345678</span>
               </div>
             </div>
@@ -356,19 +339,16 @@ function Presale() {
             </div>
           </div>
         </div>
-        <div className="footer-bottom">{footerCopy.copyright}</div>
+        <div className="footer-bottom">© 2025. Design with by .</div>
       </footer>
 
       <Modal open={bindingModalOpen} closable={false} maskClosable={false} footer={null} centered>
         <Space direction="vertical" style={{ width: '100%' }}>
-          <Title level={4}>{modalCopy.title}</Title>
-          <Text>{modalCopy.description}</Text>
-          <Text copyable={{ text: DEFAULT_REFERRER }}>
-            {modalCopy.defaultAddress}
-            {DEFAULT_REFERRER}
-          </Text>
+          <Title level={4}>绑定上级</Title>
+          <Text>检测到当前地址未绑定上级，需要绑定项目方默认地址才能继续预售。</Text>
+          <Text copyable={{ text: DEFAULT_REFERRER }}>默认上级地址：{DEFAULT_REFERRER}</Text>
           <Button type="primary" block loading={bindingLoading} onClick={handleBindReferrer}>
-            {modalCopy.confirm}
+            确认绑定
           </Button>
         </Space>
       </Modal>

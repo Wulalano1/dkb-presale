@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useRouter } from '../router/Router';
 import classNames from '../utils/classNames';
-import { useI18n } from '../i18n/I18nProvider';
 import './MainHeader.css';
+
+const NAV_ITEMS = [
+  { label: '首页', path: '/' },
+  { label: '预售', path: '/presale' },
+  { label: '官方介绍', path: '/introduction' },
+];
 
 function MainHeader({ showWallet = false, onConnect, account = '', theme = 'light' }) {
   const { path, navigate } = useRouter();
-  const { t, locale, setLocale } = useI18n();
   const [menuOpen, setMenuOpen] = useState(false);
-  const navItems = [
-    { label: t('common.nav.home'), path: '/' },
-    { label: t('common.nav.presale'), path: '/presale' },
-    { label: t('common.nav.introduction'), path: '/introduction' },
-  ];
 
   const handleNavigate = (target) => {
     setMenuOpen(false);
@@ -20,12 +19,6 @@ function MainHeader({ showWallet = false, onConnect, account = '', theme = 'ligh
   };
 
   const shortAccount = account ? `${account.slice(0, 6)}...${account.slice(-4)}` : '';
-  const nextLocale = locale === 'zh' ? 'en' : 'zh';
-  const languageButtonLabel = locale === 'zh' ? 'EN' : '中文';
-  const handleToggleLanguage = () => {
-    setMenuOpen(false);
-    setLocale(nextLocale);
-  };
 
   return (
     <header className={classNames('site-header', `site-header--${theme}`)}>
@@ -35,7 +28,7 @@ function MainHeader({ showWallet = false, onConnect, account = '', theme = 'ligh
           className="site-header__logo"
           onClick={() => handleNavigate('/')}
         >
-          {t('common.brand')}
+          DKB
         </button>
         <button
           className={classNames('site-header__toggle', menuOpen && 'is-open')}
@@ -48,7 +41,7 @@ function MainHeader({ showWallet = false, onConnect, account = '', theme = 'ligh
         </button>
         <nav className={classNames('site-header__nav', menuOpen && 'is-open')}>
           <ul>
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <li key={item.path}>
                 <button
                   type="button"
@@ -64,17 +57,12 @@ function MainHeader({ showWallet = false, onConnect, account = '', theme = 'ligh
             ))}
           </ul>
           <div className="site-header__actions">
-            <button
-              type="button"
-              className="site-header__lang"
-              onClick={handleToggleLanguage}
-              aria-label={t('common.language.toggleLabel')}
-            >
-              {languageButtonLabel}
+            <button type="button" className="site-header__lang">
+              中文 / EN
             </button>
             {showWallet && (
               <button type="button" className="site-header__wallet" onClick={onConnect}>
-                {account ? shortAccount : t('common.actions.connectWallet')}
+                {account ? shortAccount : 'Connect Wallet'}
               </button>
             )}
           </div>
