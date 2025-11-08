@@ -533,6 +533,41 @@
   display: none;
 }
 
+.home-network__card {
+  height: 100%;
+  border-radius: 24px;
+  padding: 26px 24px;
+  background: rgba(10, 18, 42, 0.85);
+  border: 1px solid rgba(110, 130, 255, 0.35);
+  box-shadow: 0 26px 54px rgba(3, 6, 20, 0.5);
+}
+
+.home-network__card .ant-card-body {
+  padding: 0;
+}
+
+.home-network__card img {
+  width: 48px;
+  height: 48px;
+}
+
+.home-network__visual-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-network__visual-wrapper img,
+.home-network__visual-mobile {
+  max-width: 420px;
+  width: 100%;
+  filter: drop-shadow(0 28px 60px rgba(3, 6, 18, 0.6));
+}
+
+.home-network__visual-mobile {
+  display: none;
+}
+
 .home-incentive {
   background: radial-gradient(75% 85% at 10% 0%, rgba(99, 102, 241, 0.25), transparent 70%);
 }

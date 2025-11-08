@@ -187,7 +187,6 @@ function Home() {
   };
 
   const handleFormSubmit = (values) => {
-    console.log('Join form submit', values);
     messageApi.success('感谢提交，我们会尽快与您联系。');
     form.resetFields();
   };
