@@ -18,6 +18,7 @@ const scenarioBgPrimary = require('../images/home/矩形 35@2x.png');
 const scenarioBgSecondary = require('../images/home/矩形 35@2x(1).png');
 const scenarioBgTertiary = require('../images/home/矩形 35@2x(2).png');
 const membershipVisual = require('../images/home/容器@2x(6).png');
+const membershipBadge = require('../images/home/容器 383@2x(15).png');
 const incentiveVisual = require('../images/home/容器@2x(7).png');
 const joinBackdrop = require('../images/home/容器 383@2x(17).png');
 
@@ -173,6 +174,7 @@ const joinHighlights = [
 function Home() {
   const { navigate } = useRouter();
   const screens = Grid.useBreakpoint();
+  const isMobile = !screens.md;
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -387,6 +389,66 @@ function Home() {
           </div>
         </section>
 
+        <section className="home-section home-network">
+          <div className="container">
+            <Row gutter={[48, 48]} align="middle">
+              <Col xs={24} lg={8}>
+                <Space direction="vertical" size={28} className="home-network__content">
+                  <div className="section-heading section-heading--left">
+                    <div className="section-badge">
+                      <img src={valueBadge} alt="生态联盟" />
+                      <span>ALLIANCE</span>
+                    </div>
+                    <Title level={2}>全球生态联盟协作</Title>
+                    <Paragraph>
+                      打造覆盖航旅、文旅、零售与金融的协同网络，提供本地化服务与跨境价值互联。
+                    </Paragraph>
+                  </div>
+                  <img className="home-network__visual-mobile" src={networkVisual} alt="生态节点图" />
+                </Space>
+              </Col>
+              <Col xs={24} lg={10}>
+                {isMobile ? (
+                  <Carousel dots className="home-carousel">
+                    {allianceHighlights.map((item) => (
+                      <div key={item.title} className="home-carousel__slide">
+                        <Card bordered={false} className="home-network__card">
+                          <Space align="start" size={18}>
+                            <img src={item.icon} alt="" aria-hidden="true" />
+                            <div>
+                              <Title level={3}>{item.title}</Title>
+                              <Paragraph>{item.description}</Paragraph>
+                            </div>
+                          </Space>
+                        </Card>
+                      </div>
+                    ))}
+                  </Carousel>
+                ) : (
+                  <Row gutter={[24, 24]}>
+                    {allianceHighlights.map((item) => (
+                      <Col xs={24} sm={12} key={item.title}>
+                        <Card bordered={false} className="home-network__card">
+                          <Space align="start" size={18}>
+                            <img src={item.icon} alt="" aria-hidden="true" />
+                            <div>
+                              <Title level={3}>{item.title}</Title>
+                              <Paragraph>{item.description}</Paragraph>
+                            </div>
+                          </Space>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                )}
+              </Col>
+              <Col xs={24} lg={6} className="home-network__visual-wrapper">
+                <img src={networkVisual} alt="生态节点图" />
+              </Col>
+            </Row>
+          </div>
+        </section>
+
         <section className="home-section home-incentive">
           <div className="container">
             <Row gutter={[48, 48]} align="middle">
@@ -437,6 +499,11 @@ function Home() {
                       </List.Item>
                     )}
                   />
+                  <Divider className="home-join__divider" />
+                  <Space direction="vertical" size={12} className="home-join__contact">
+                    <Text className="home-join__contact-label">商务合作</Text>
+                    <Text className="home-join__contact-value">contact@dkb.global</Text>
+                  </Space>
                 </Space>
               </Col>
               <Col xs={24} lg={12}>
