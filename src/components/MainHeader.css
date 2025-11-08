@@ -11,6 +11,10 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
+.site-header--dark {
+  background: rgba(10, 14, 39, 0.95);
+}
+
 .site-header__inner {
   margin: 0 auto;
   max-width: 1200px;
@@ -33,6 +37,10 @@
 
 .site-header--light .site-header__logo {
   color: #0b1f44;
+}
+
+.site-header--dark .site-header__logo {
+  color: #6366f1;
 }
 
 .site-header__toggle {
