@@ -42,7 +42,6 @@
 .home-hero__badge {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
   padding: 10px 24px;
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.72);
@@ -86,14 +85,6 @@
 
 .home-hero__highlight-grid {
   margin-top: 12px;
-}
-
-.home-hero__highlight-carousel .slick-slide {
-  padding: 8px 0;
-}
-
-.home-hero__highlight-slide {
-  padding: 0 4px;
 }
 
 .home-hero__highlight-card {
@@ -314,6 +305,61 @@
   background: radial-gradient(60% 80% at 20% 0%, rgba(63, 81, 181, 0.28), transparent 60%);
 }
 
+.home-capability {
+  background: linear-gradient(180deg, rgba(16, 33, 88, 0.55), rgba(6, 12, 31, 0));
+}
+
+.home-capability__card {
+  height: 100%;
+  border-radius: 28px;
+  background-size: cover;
+  background-position: center;
+  padding: 36px 30px 40px;
+  border: 1px solid rgba(96, 124, 255, 0.25);
+  box-shadow: 0 34px 70px rgba(3, 8, 23, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.home-capability__card .ant-card-body {
+  padding: 0;
+}
+
+.home-capability__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.home-capability__icon img {
+  width: 44px;
+  height: 44px;
+}
+
+.home-capability__card h3.ant-typography,
+.home-scenario__card h3.ant-typography,
+.home-value__card h3.ant-typography {
+  margin-bottom: 16px;
+  font-size: 22px;
+  color: #ffffff;
+}
+
+.home-capability__card p.ant-typography,
+.home-scenario__card p.ant-typography,
+.home-value__card p.ant-typography {
+  margin: 0;
+  color: rgba(224, 231, 255, 0.84);
+  line-height: 1.8;
+}
+
+.home-scenario {
+  background: radial-gradient(60% 80% at 20% 0%, rgba(63, 81, 181, 0.28), transparent 60%);
+}
+
 .home-scenario__card {
   height: 100%;
   border-radius: 28px;
@@ -355,24 +401,6 @@
   width: 54px;
   height: 54px;
   margin-bottom: 24px;
-}
-
-.home-carousel {
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-.home-carousel .slick-dots li button {
-  background: rgba(130, 145, 255, 0.4);
-  opacity: 1;
-}
-
-.home-carousel .slick-dots li.slick-active button {
-  background: #8b5cf6;
-}
-
-.home-carousel__slide {
-  padding: 8px;
 }
 
 .home-roadmap {
@@ -466,17 +494,43 @@
 }
 
 .home-membership__visual img {
-  max-width: 520px;
+  max-width: 500px;
   width: 100%;
-  filter: drop-shadow(0 32px 68px rgba(4, 9, 28, 0.72));
 }
 
-.home-network {
-  background: linear-gradient(160deg, rgba(6, 12, 35, 0.9), rgba(10, 21, 52, 0.92));
+.home-network__card {
+  height: 100%;
+  border-radius: 24px;
+  padding: 26px 24px;
+  background: rgba(10, 18, 42, 0.85);
+  border: 1px solid rgba(110, 130, 255, 0.35);
+  box-shadow: 0 26px 54px rgba(3, 6, 20, 0.5);
 }
 
-.home-network__content {
+.home-network__card .ant-card-body {
+  padding: 0;
+}
+
+.home-network__card img {
+  width: 48px;
+  height: 48px;
+}
+
+.home-network__visual-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-network__visual-wrapper img,
+.home-network__visual-mobile {
+  max-width: 420px;
   width: 100%;
+  filter: drop-shadow(0 28px 60px rgba(3, 6, 18, 0.6));
+}
+
+.home-network__visual-mobile {
+  display: none;
 }
 
 .home-network__card {
@@ -567,32 +621,9 @@
 }
 
 .home-join__item {
-  display: flex;
   align-items: flex-start;
   gap: 18px;
   padding: 12px 0;
-}
-
-.home-join__divider {
-  border-color: rgba(136, 149, 255, 0.35);
-  margin: 20px 0;
-}
-
-.home-join__contact {
-  color: rgba(223, 231, 255, 0.78);
-}
-
-.home-join__contact-label {
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  color: rgba(170, 182, 255, 0.75);
-  text-transform: uppercase;
-}
-
-.home-join__contact-value {
-  font-size: 18px;
-  font-weight: 600;
-  color: #ffffff;
 }
 
 .home-join__icon {
@@ -644,33 +675,21 @@
 
 @media (max-width: 1199px) {
   .home-hero {
-    padding: 132px 0 110px;
-  }
-
-  .home-hero__visual img {
-    max-width: 480px;
+    padding: 140px 0 110px;
   }
 
   .home-join__inner {
-    padding: 52px 48px;
+    padding: 50px 44px;
   }
 }
 
 @media (max-width: 991px) {
   .home-hero {
-    padding: 128px 0 96px;
-  }
-
-  .home-hero__visual img {
-    max-width: 420px;
+    padding: 120px 0 96px;
   }
 
   .home-section {
     padding: 96px 0;
-  }
-
-  .home-section::before {
-    display: none;
   }
 
   .home-join__inner {
@@ -679,17 +698,13 @@
 }
 
 @media (max-width: 767px) {
-  .home-hero {
-    padding: 120px 0 80px;
-  }
-
   .home-hero__badge {
     padding: 8px 18px;
     font-size: 12px;
   }
 
   .home-hero__title {
-    font-size: clamp(36px, 10vw, 44px);
+    font-size: 40px;
   }
 
   .home-hero__subtitle {
@@ -735,17 +750,8 @@
 
   .home-capability__card,
   .home-scenario__card,
-  .home-value__card,
-  .home-network__card {
-    padding: 26px 24px;
-  }
-
-  .home-network__visual-wrapper {
-    display: none;
-  }
-
-  .home-network__visual-mobile {
-    display: block;
+  .home-value__card {
+    padding: 28px 24px 34px;
   }
 
   .home-roadmap__wrapper {
@@ -757,7 +763,7 @@
   }
 
   .home-join__inner {
-    padding: 38px 28px;
+    padding: 36px 26px;
   }
 
   .home-join__form-card .ant-card-body {
