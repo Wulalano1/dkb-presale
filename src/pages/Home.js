@@ -1,22 +1,5 @@
 import React from 'react';
-import {
-  Layout,
-  Row,
-  Col,
-  Typography,
-  Button,
-  Space,
-  Card,
-  List,
-  Statistic,
-  Steps,
-  Form,
-  Input,
-  Grid,
-  message,
-  Carousel,
-  Divider,
-} from 'antd';
+import { Layout, Row, Col, Typography, Button, Space, Card, List, Statistic, Steps, Form, Input, Grid, message } from 'antd';
 import MainHeader from '../components/MainHeader';
 import { useRouter } from '../router/Router';
 import './Home.css';
@@ -34,36 +17,33 @@ const capabilityBgD = require('../images/home/容器 383@2x(13).png');
 const scenarioBgPrimary = require('../images/home/矩形 35@2x.png');
 const scenarioBgSecondary = require('../images/home/矩形 35@2x(1).png');
 const scenarioBgTertiary = require('../images/home/矩形 35@2x(2).png');
-const scenarioBadge = require('../images/home/矩形 35@2x(3).png');
-const valueBadge = require('../images/home/容器 383@2x(14).png');
 const membershipVisual = require('../images/home/容器@2x(6).png');
 const membershipBadge = require('../images/home/容器 383@2x(15).png');
 const incentiveVisual = require('../images/home/容器@2x(7).png');
-const networkVisual = require('../images/home/容器@2x(9).png');
 const joinBackdrop = require('../images/home/容器 383@2x(17).png');
 
 const heroHighlights = [
   {
     icon: require('../images/home/容器 383@2x.png'),
-    title: 'AI 数智调度中枢',
-    description: '实时融合航班、客座、气象等数据，自动完成分钟级调度优化。',
+    title: 'AI 智能调度指挥塔',
+    description: '汇聚航线、客座率、天气等多维数据，实现分钟级调度优化。',
   },
   {
     icon: require('../images/home/容器 383@2x(1).png'),
-    title: '全域权益互联网络',
-    description: '机票、里程、会员权益链上确权，跨生态一键兑换。',
+    title: '航旅权益全链协同',
+    description: '票务、积分、里程实时上链，权益流转透明安全。',
   },
   {
     icon: require('../images/home/容器 383@2x(2).png'),
-    title: '全球节点协同矩阵',
-    description: '连接航司、机场、文旅伙伴与旅客，构筑跨区域服务矩阵。',
+    title: '全球生态协作网络',
+    description: '联接航司、机场、服务商与旅客，构筑跨区域服务矩阵。',
   },
 ];
 
 const heroStats = [
-  { value: '36+', label: '深度合作航旅伙伴' },
-  { value: '95%', label: '协同效率提升幅度' },
-  { value: '180+', label: '全球生态节点覆盖' },
+  { value: '13+', label: '核心航旅合作方' },
+  { value: '98%', label: '资源协同效率提升' },
+  { value: '150+', label: '全球节点触达' },
 ];
 
 const capabilityMatrix = [
@@ -191,29 +171,6 @@ const joinHighlights = [
   '实时掌握产品动态与行业洞察，洞见增长机会。',
 ];
 
-const allianceHighlights = [
-  {
-    icon: require('../images/home/容器 383@2x(4).png'),
-    title: '航旅供应协同',
-    description: '航司、机场、地服联动排布资源，保障全链路高效运转。',
-  },
-  {
-    icon: require('../images/home/容器 383@2x(15).png'),
-    title: '文旅商业拓展',
-    description: '携程式文旅、免税与零售伙伴共创主题权益，放大商业价值。',
-  },
-  {
-    icon: require('../images/home/容器 383@2x(16).png'),
-    title: '品牌共建计划',
-    description: '定制联名权益包与品牌任务，驱动粉丝经济与跨界合作。',
-  },
-  {
-    icon: require('../images/home/容器 383@2x(17).png'),
-    title: '全球节点运营',
-    description: '重点枢纽部署线下节点团队，提供本地化运营与客户支持。',
-  },
-];
-
 function Home() {
   const { navigate } = useRouter();
   const screens = Grid.useBreakpoint();
@@ -250,51 +207,34 @@ function Home() {
                 <Space direction="vertical" size={32} className="home-hero__content">
                   <Space size={14} align="center" className="home-hero__badge">
                     <img src={heroBadgeIcon} alt="DKB" />
-                    <span>DKB 数字航旅生态矩阵</span>
+                    <span>DKB 数字航旅生态</span>
                   </Space>
                   <div className="home-hero__headline">
                     <Title level={1} className="home-hero__title">
-                      <span>飞航数智引擎</span>
-                      <br />引领航空经济系统级焕新
+                      <span>飞航数智</span>
+                      <br />
+                      引领航空经济系统级焕新
                     </Title>
-                    <Paragraph className="home-hero__subtitle">AI 调度 × Web3 激励 × 全域生态协同</Paragraph>
+                    <Paragraph className="home-hero__subtitle">AI 智能调度 × Web3 激励 × 全域生态协同</Paragraph>
                     <Paragraph className="home-hero__description">
                       打通航司、机场、服务商与旅客之间的数据与价值流，以链上激励驱动协同增长，打造面向未来的数字航旅基础设施。
                     </Paragraph>
                   </div>
-                  {isMobile ? (
-                    <Carousel className="home-hero__highlight-carousel" dots>
-                      {heroHighlights.map((item) => (
-                        <div key={item.title} className="home-hero__highlight-slide">
-                          <Card bordered={false} className="home-hero__highlight-card">
-                            <Space align="start" size={16}>
-                              <img src={item.icon} alt="" aria-hidden="true" />
-                              <div>
-                                <Text className="home-hero__highlight-title">{item.title}</Text>
-                                <Paragraph className="home-hero__highlight-desc">{item.description}</Paragraph>
-                              </div>
-                            </Space>
-                          </Card>
-                        </div>
-                      ))}
-                    </Carousel>
-                  ) : (
-                    <Row gutter={[16, 16]} className="home-hero__highlight-grid">
-                      {heroHighlights.map((item) => (
-                        <Col xs={24} sm={12} key={item.title}>
-                          <Card bordered={false} className="home-hero__highlight-card">
-                            <Space align="start" size={16}>
-                              <img src={item.icon} alt="" aria-hidden="true" />
-                              <div>
-                                <Text className="home-hero__highlight-title">{item.title}</Text>
-                                <Paragraph className="home-hero__highlight-desc">{item.description}</Paragraph>
-                              </div>
-                            </Space>
-                          </Card>
-                        </Col>
-                      ))}
-                    </Row>
-                  )}
+                  <Row gutter={[16, 16]} className="home-hero__highlight-grid">
+                    {heroHighlights.map((item) => (
+                      <Col xs={24} sm={12} key={item.title}>
+                        <Card bordered={false} className="home-hero__highlight-card">
+                          <Space align="start" size={16}>
+                            <img src={item.icon} alt="" aria-hidden="true" />
+                            <div>
+                              <Text className="home-hero__highlight-title">{item.title}</Text>
+                              <Paragraph className="home-hero__highlight-desc">{item.description}</Paragraph>
+                            </div>
+                          </Space>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
                   <Space size={18} wrap className="home-hero__actions">
                     <Button type="primary" size="large" shape="round" className="home-button" onClick={handlePresaleClick}>
                       立即参与预售
@@ -326,118 +266,62 @@ function Home() {
         <section className="home-section home-capability">
           <div className="container">
             <div className="section-heading">
-              <div className="section-badge">
-                <img src={scenarioBadge} alt="能力矩阵" />
-                <span>CORE CAPABILITY</span>
-              </div>
               <Title level={2}>四大核心能力矩阵</Title>
               <Paragraph>构筑航空产业数智化底座，打通数据、资产与服务的协同路径。</Paragraph>
             </div>
-            {isMobile ? (
-              <Carousel dots className="home-carousel">
-                {capabilityMatrix.map((item) => (
-                  <div key={item.title} className="home-carousel__slide">
-                    <Card bordered={false} className="home-capability__card" style={{ backgroundImage: `url(${item.background})` }}>
-                      <div className="home-capability__icon">
-                        <img src={item.icon} alt="" aria-hidden="true" />
-                      </div>
-                      <Title level={3}>{item.title}</Title>
-                      <Paragraph>{item.description}</Paragraph>
-                    </Card>
-                  </div>
-                ))}
-              </Carousel>
-            ) : (
-              <Row gutter={[24, 24]}>
-                {capabilityMatrix.map((item) => (
-                  <Col xs={24} sm={12} lg={6} key={item.title}>
-                    <Card bordered={false} className="home-capability__card" style={{ backgroundImage: `url(${item.background})` }}>
-                      <div className="home-capability__icon">
-                        <img src={item.icon} alt="" aria-hidden="true" />
-                      </div>
-                      <Title level={3}>{item.title}</Title>
-                      <Paragraph>{item.description}</Paragraph>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-            )}
+            <Row gutter={[24, 24]}>
+              {capabilityMatrix.map((item) => (
+                <Col xs={24} sm={12} lg={6} key={item.title}>
+                  <Card bordered={false} className="home-capability__card" style={{ backgroundImage: `url(${item.background})` }}>
+                    <div className="home-capability__icon">
+                      <img src={item.icon} alt="" aria-hidden="true" />
+                    </div>
+                    <Title level={3}>{item.title}</Title>
+                    <Paragraph>{item.description}</Paragraph>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
           </div>
         </section>
 
         <section className="home-section home-scenario">
           <div className="container">
             <div className="section-heading">
-              <div className="section-badge">
-                <img src={scenarioBadge} alt="航旅消费场景" />
-                <span>SCENARIO</span>
-              </div>
               <Title level={2}>多元航旅消费场景</Title>
               <Paragraph>以用户旅程为中心，提供覆盖出行全链路的数智化服务体验。</Paragraph>
             </div>
-            {isMobile ? (
-              <Carousel dots className="home-carousel">
-                {scenarioHighlights.map((item) => (
-                  <div key={item.title} className="home-carousel__slide">
-                    <Card bordered={false} className="home-scenario__card" style={{ backgroundImage: `url(${item.background})` }}>
-                      <img src={item.icon} alt="" aria-hidden="true" />
-                      <Title level={3}>{item.title}</Title>
-                      <Paragraph>{item.description}</Paragraph>
-                    </Card>
-                  </div>
-                ))}
-              </Carousel>
-            ) : (
-              <Row gutter={[24, 24]}>
-                {scenarioHighlights.map((item) => (
-                  <Col xs={24} md={8} key={item.title}>
-                    <Card bordered={false} className="home-scenario__card" style={{ backgroundImage: `url(${item.background})` }}>
-                      <img src={item.icon} alt="" aria-hidden="true" />
-                      <Title level={3}>{item.title}</Title>
-                      <Paragraph>{item.description}</Paragraph>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-            )}
+            <Row gutter={[24, 24]}>
+              {scenarioHighlights.map((item) => (
+                <Col xs={24} md={8} key={item.title}>
+                  <Card bordered={false} className="home-scenario__card" style={{ backgroundImage: `url(${item.background})` }}>
+                    <img src={item.icon} alt="" aria-hidden="true" />
+                    <Title level={3}>{item.title}</Title>
+                    <Paragraph>{item.description}</Paragraph>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
           </div>
         </section>
 
         <section className="home-section home-value">
           <div className="container">
             <div className="section-heading">
-              <div className="section-badge">
-                <img src={valueBadge} alt="价值闭环" />
-                <span>VALUE LOOP</span>
-              </div>
               <Title level={2}>价值闭环驱动增长</Title>
               <Paragraph>AI 与 Web3 双引擎，赋能多角色协同，释放航旅产业新动能。</Paragraph>
             </div>
-            {isMobile ? (
-              <Carousel dots className="home-carousel">
-                {valueHighlights.map((item) => (
-                  <div key={item.title} className="home-carousel__slide">
-                    <Card bordered={false} className="home-value__card">
-                      <img src={item.icon} alt="" aria-hidden="true" />
-                      <Title level={3}>{item.title}</Title>
-                      <Paragraph>{item.description}</Paragraph>
-                    </Card>
-                  </div>
-                ))}
-              </Carousel>
-            ) : (
-              <Row gutter={[24, 24]}>
-                {valueHighlights.map((item) => (
-                  <Col xs={24} sm={12} lg={6} key={item.title}>
-                    <Card bordered={false} className="home-value__card">
-                      <img src={item.icon} alt="" aria-hidden="true" />
-                      <Title level={3}>{item.title}</Title>
-                      <Paragraph>{item.description}</Paragraph>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-            )}
+            <Row gutter={[24, 24]}>
+              {valueHighlights.map((item) => (
+                <Col xs={24} sm={12} lg={6} key={item.title}>
+                  <Card bordered={false} className="home-value__card">
+                    <img src={item.icon} alt="" aria-hidden="true" />
+                    <Title level={3}>{item.title}</Title>
+                    <Paragraph>{item.description}</Paragraph>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
           </div>
         </section>
 
@@ -476,10 +360,6 @@ function Home() {
               <Col xs={24} lg={12}>
                 <Space direction="vertical" size={36} className="home-membership__content">
                   <div className="section-heading section-heading--left">
-                    <div className="section-badge">
-                      <img src={membershipBadge} alt="会员体系" />
-                      <span>MEMBERSHIP</span>
-                    </div>
                     <Title level={2}>会员权益进阶体系</Title>
                     <Paragraph>多层级成长路径覆盖航旅出行场景，激励旅客持续参与。</Paragraph>
                   </div>
