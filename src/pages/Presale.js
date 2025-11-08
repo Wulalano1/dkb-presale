@@ -27,8 +27,9 @@ import {
 } from "../web3/config";
 import "./Presale.css";
 import MainHeader from '../components/MainHeader';
+import Footer from '../components/Footer';
 
-const { Header, Content, Footer } = Layout;
+const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -266,110 +267,128 @@ function Presale() {
   return (
     <Layout className="presale-layout">
       {/* 顶部导航 */}
-      <MainHeader theme="light" />
+      <MainHeader 
+        showWallet={true}
+        onConnect={handleConnect}
+        account={account}
+      />
 
       {/* 中间内容 */}
       <Content className="presale-content">
         {/* 顶部大背景 + 预售卡片 */}
         <section className="hero-section" id="presale">
-          {/* 背景图片通过 CSS 设置，你自己换 img 地址 */}
           <div className="hero-inner">
             <div className="countdown-block">
-              <Title level={2} style={{ color: "#fff", marginBottom: 8 }}>
-                Pre sale end
-              </Title>
-              <Text style={{ color: "rgba(255,255,255,0.8)" }}>
-                Min Buy X USDT, Max Buy Y USDT
-              </Text>
-              <div className="countdown-timer">
-                {/* 这里先写死，你后面自己接倒计时逻辑 */}
-                <div className="time-item">
-                  <span>00</span>
-            
+              <h2 className="countdown-title">Pre-sale end</h2>
+              <p className="countdown-subtitle">Min Buy 0 USDT, Max Buy 0USDT</p>
+              
+              <div className="countdown-container">
+                <div className="countdown-timer">
+                  <div className="time-box">
+                    <span className="time-number">00</span>
+                  </div>
+                  <div className="time-box">
+                    <span className="time-number">00</span>
+                  </div>
+                  <div className="time-box">
+                    <span className="time-number">00</span>
+                  </div>
+                  <div className="time-box">
+                    <span className="time-number">00</span>
+                  </div>
                 </div>
-                <div className="time-item">
-                  <span>00</span>
-          
-                </div>
-                <div className="time-item">
-                  <span>00</span>
-           
-                </div>
-                <div className="time-item">
-                  <span>00</span>
-             
-                </div>
-              </div>
-              <div className="countdown-timers">
-                {/* 这里先写死，你后面自己接倒计时逻辑 */}
-                <div className="time-items">
-                  <span>DAY</span>
-                </div>
-                <div className="time-items">
-                  <span>HOUR</span>
-                </div>
-                <div className="time-items">
-                  <span>MIN</span>
-                </div>
-                <div className="time-items">
-                  <span>SEC</span>
+                <div className="countdown-labels">
+                  <span className="time-label">DAY</span>
+                  <span className="time-label">HOUR</span>
+                  <span className="time-label">MIN</span>
+                  <span className="time-label">SEC</span>
                 </div>
               </div>
             </div>
 
             {/* 中央预售卡片 */}
-            <Card className="presale-card hero-card">
-              <div className="dkb">
-              <img src={require("../images/conrt.png")}  style={{width:"20px",height:"20px",marginRight:"4px"}} alt="USDT" /> dkb
+            <div className="presale-card-wrapper">
+              <div className="presale-card">
+                <div className="card-header">
+                  <div className="card-arrows">
+                    <img src={require("../images/Presale/00@2x.png")} alt="arrows" className="arrows-bg" />
+                  </div>
+                  <div className="card-tab">
+                    <img src={require("../images/Presale/容器@2x.png")} alt="icon" className="tab-icon" />
+                    <span className="tab-text">pre</span>
+                  </div>
+                </div>
+
+                <div className="card-body">
+                  <div className="card-row">
+                    <div className="row-left">
+                      <img src={require("../images/Presale/容器@2x.png")} alt="icon" className="row-icon" />
+                      <span className="row-label">Price</span>
+                    </div>
+                    <div className="row-right">
+                      <span className="row-value">0/100 Usdt</span>
+                    </div>
+                  </div>
+
+                  <div className="card-row">
+                    <div className="row-left">
+                      <span className="row-label">Time：</span>
+                    </div>
+                    <div className="row-right">
+                      <span className="row-value-small">12/1/62,04:08:08-2022-12-31,23:11</span>
+                    </div>
+                  </div>
+
+                  <div className="card-input-section">
+                    <div className="input-header">
+                      <div className="input-header-left">
+                        <span className="input-label">Min</span>
+                        <span className="input-value">0 Usdt</span>
+                      </div>
+                      <div className="input-header-right">
+                        <span className="input-label">Max</span>
+                        <span className="input-value">0 Usdt</span>
+                      </div>
+                    </div>
+
+                    <div className="input-container">
+                      <button className="btn-decrease">
+                        <img src={require("../images/Presale/remove@2x.png")} alt="decrease" />
+                      </button>
+                      <input 
+                        type="number" 
+                        className="amount-input" 
+                        defaultValue="100"
+                        placeholder="100"
+                      />
+                      <button className="btn-increase">
+                        <img src={require("../images/Presale/add@2x.png")} alt="increase" />
+                      </button>
+                    </div>
+
+                    <div className="usdt-badge">
+                      <img src={require("../images/Presale/usdt.0fd59501@2x.png")} alt="USDT" className="usdt-icon" />
+                      <span className="usdt-text">USDT</span>
+                    </div>
+                  </div>
+
+                  <button className="btn-buy">Buy</button>
+
+                  <div className="card-rewards">
+                    <div className="rewards-row">
+                      <span className="rewards-label">Rewards：</span>
+                      <span className="rewards-value">0</span>
+                    </div>
+                    <div className="rewards-row">
+                      <span className="rewards-label">Amount：</span>
+                      <span className="rewards-value"></span>
+                    </div>
+                  </div>
+
+                  <button className="btn-receive">Receive</button>
+                </div>
               </div>
-              <Space direction="vertical" style={{ width: "100%" }}>
-                <Space
-                  style={{
-                    width: "100%",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text strong>DKB</Text>
-                  <Text>0.20 USDT</Text>
-                </Space>
-
-                <div className="line-row">
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    套餐：
-                  </Text>
-                  <Text style={{ fontSize: 12 }}>
-                    {packageInfo ? packageInfo.usdt : "--"} USDT →{" "}
-                    {packageInfo ? packageInfo.dkb : "--"} DKB
-                  </Text>
-                </div>
-
-                <div>
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    购买 USDT 数量（固定套餐）
-                  </Text>
-                  <Input
-                    value={packageInfo ? packageInfo.usdt : ""}
-                    readOnly
-                    style={{ marginTop: 4 }}
-                  />
-                </div>
-
-                <Button
-                  type="primary"
-                  block
-                  onClick={handleBuy}
-                  loading={buyLoading}
-                  disabled={!account || hasPurchased}
-                >
-                  {!account ? "请先连接钱包" : hasPurchased ? "已购买" : "Buy"}
-                </Button>
-
-                <Button block disabled={!account}>
-                  Receive
-                </Button>
-              </Space>
-            </Card>
+            </div>
           </div>
         </section>
 
@@ -405,19 +424,16 @@ function Presale() {
         <section className="partners-section" id="partners">
           <div className="partners-bg">
             <div className="partners-inner">
-              <Title level={3} style={{ color: "#fff", textAlign: "center" }}>
-                Our partners
-              </Title>
+              <h3 className="partners-title">Our partners</h3>
               <div className="partner-logos">
-                {/* 下面这些图片你自己换路径即可 */}
-                <img src="" alt="dapp" className="partner-logo" />
-                <img src="" alt="binance" className="partner-logo" />
-                <img src="" alt="dappradar" className="partner-logo" />
-                <img src="" alt="gate" className="partner-logo" />
-                <img src="" alt="opensea" className="partner-logo" />
-                <img src="" alt="tp" className="partner-logo" />
-                <img src="" alt="trustwallet" className="partner-logo" />
-                <img src="" alt="uniswap" className="partner-logo" />
+                <img src={require("../images/Presale/容器 357@2x.png")} alt="dapp" className="partner-logo" />
+                <img src={require("../images/Presale/容器 358@2x.png")} alt="binance" className="partner-logo" />
+                <img src={require("../images/Presale/容器 359@2x.png")} alt="dappradar" className="partner-logo" />
+                <img src={require("../images/Presale/容器 360@2x.png")} alt="gate" className="partner-logo" />
+                <img src={require("../images/Presale/容器 357@2x(1).png")} alt="opensea" className="partner-logo" />
+                <img src={require("../images/Presale/容器 358@2x(1).png")} alt="tp" className="partner-logo" />
+                <img src={require("../images/Presale/容器 359@2x(1).png")} alt="trustwallet" className="partner-logo" />
+                <img src={require("../images/Presale/容器 360@2x(1).png")} alt="uniswap" className="partner-logo" />
               </div>
             </div>
           </div>

@@ -7,39 +7,7 @@ body,
 
 .presale-layout {
   min-height: 100%;
-  background: #020617;
-}
-
-/* 顶部导航 */
-.presale-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-inline: 24px;
-  background: #ffffff;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.logo {
-  font-weight: 700;
-  font-size: 20px;
-  color: #111827;
-}
-
-.nav-links a {
-  color: #111827;
-  margin-right: 16px;
-  font-size: 14px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
+  background: #000000;
 }
 
 /* 内容容器 */
@@ -47,111 +15,395 @@ body,
   padding: 0;
 }
 
-/* 顶部 Hero 区域 */
 /* ===== Hero Section ===== */
 .hero-section {
- position: relative;
-  padding: 60px 16px 80px;
+  position: relative;
+  min-height: 100vh;
+  padding: 60px 20px 80px;
   background-color: #000;
-  background-size: 100% 100%;  /* 使背景图的宽高填满整个容器 */
+  background-image: url('../images/Presale/矩形\ 20@2x.png');
+  background-size: cover;
   background-position: center;
-  background-image: url('../images/hero-bg.png');
-  margin-left: 16%;
-  margin-right: 16%;
-}
-.dkb{
-   padding: 10px 0;
-  background-size: 100% 100%;  /* 使背景图的宽高填满整个容器 */
-  background-position: center;
-  background-image: url('../images/bg.png');
- font-weight: 400;
-font-size: 14px;
-color: #1A1A1A;
-line-height: 22px;
-font-style: normal;
-text-transform: none;
-}
-
-/* 针对移动端（H5） */
-@media (max-width: 768px) {
-  .hero-section {
-    margin-left: 0;
-    margin-right: 0;
-    background-image: url('../images/mobile-bg.png'); /* 移动端背景图 */
-  }
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-inner {
-  max-width: 1100px;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
 }
 
+/* ===== Countdown Block ===== */
 .countdown-block {
-  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.countdown-title {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+  text-shadow: 0 4px 12px rgba(0, 85, 255, 0.5);
+}
+
+.countdown-subtitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
 }
 
 .countdown-timer {
-  margin-top: 16px;
   display: flex;
   justify-content: center;
-  gap: 12px;
- 
-}
-.countdown-timers {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
- 
-}
-.time-item {
-  width: 67px;
- height: 72px;
-  border-radius: 1px;
-  background: rgba(15, 23, 42, 0.8);
-   background-color: #ffffff;
-  color: #0055FF ;
-   line-height: 72px;  /* 设置行高为元素的高度 */
-  text-align: center; /* 水平居中 */
-   box-shadow: 4px 4px 4px 6px rgba(241, 244, 250, 0.5);
+  align-items: center;
+  gap: 16px;
 }
 
-.time-items {
-  width: 64px;
-  padding: 2px 0;
-  color: #ffffff ;
+.time-box {
+  width: 80px;
+  height: 90px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 85, 255, 0.3);
+  position: relative;
 }
-.time-item span {
-  display: block;
-  font-size: 36px;
+
+.time-number {
+  font-size: 48px;
   font-weight: 700;
+  color: #0055FF;
+  line-height: 1;
 }
 
-.time-item em {
-  display: block;
-  font-size: 10px;
-  font-style: normal;
-  opacity: 0.8;
+.countdown-labels {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
 }
 
-/* 中央预售卡片 */
-.hero-card {
-  max-width: 420px;
-  margin: 0 auto;
+.time-label {
+  width: 80px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ===== Presale Card ===== */
+.presale-card-wrapper {
+  width: 100%;
+  max-width: 660px;
+  display: flex;
+  justify-content: center;
+}
+
+.presale-card {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.85) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 0 16px 48px rgba(0, 85, 255, 0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+.card-header {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-arrows {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.arrows-bg {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+.card-tab {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  background: linear-gradient(135deg, #0055FF 0%, #0099FF 100%);
   border-radius: 20px;
-  background: rgba(254, 254, 254, 0.7);
-  color: #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 85, 255, 0.3);
 }
 
-.hero-card .ant-card-body {
-  padding: 20px 18px;
+.tab-icon {
+  width: 24px;
+  height: 24px;
 }
 
-.line-row {
+.tab-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-transform: lowercase;
+}
+
+.card-body {
+  padding: 24px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 85, 255, 0.1);
+}
+
+.row-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.row-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.row-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1A1A1A;
+}
+
+.row-right {
+  display: flex;
+  align-items: center;
+}
+
+.row-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0055FF;
+}
+
+.row-value-small {
   font-size: 12px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.card-input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(240, 244, 250, 0.6);
+  border-radius: 16px;
+  position: relative;
+}
+
+.input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-header-left,
+.input-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.input-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666666;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 8px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btn-decrease,
+.btn-increase {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #F0F4FA;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-decrease:hover,
+.btn-increase:hover {
+  background: #E0E8F4;
+  transform: scale(1.05);
+}
+
+.btn-decrease img,
+.btn-increase img {
+  width: 16px;
+  height: 16px;
+}
+
+.amount-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1A1A1A;
+  text-align: center;
+  background: transparent;
+}
+
+.amount-input::-webkit-inner-spin-button,
+.amount-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.usdt-badge {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #26A17B 0%, #1E8562 100%);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(38, 161, 123, 0.3);
+}
+
+.usdt-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.usdt-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.btn-buy {
+  width: 100%;
+  height: 56px;
+  border: none;
+  background: linear-gradient(135deg, #0055FF 0%, #0099FF 100%);
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 24px rgba(0, 85, 255, 0.4);
+}
+
+.btn-buy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 85, 255, 0.5);
+}
+
+.card-rewards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(240, 244, 250, 0.4);
+  border-radius: 12px;
+}
+
+.rewards-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rewards-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666666;
+}
+
+.rewards-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0055FF;
+}
+
+.btn-receive {
+  width: 100%;
+  height: 48px;
+  border: 2px solid #0055FF;
+  background: transparent;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0055FF;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-receive:hover {
+  background: rgba(0, 85, 255, 0.1);
+  transform: translateY(-1px);
 }
 
 /* Invite Rules */
@@ -168,7 +420,7 @@ text-transform: none;
 .invite-card-wrapper {
    background-size: 100% 100%;  /* 使背景图的宽高填满整个容器 */
   background-position: center;
-    background-image: url('../images/19.png'); /* TODO: 换成你的背景图 */
+    background-image: url('../images/Presale/容器\ 18@2x.png'); /* TODO: 换成你的背景图 */
   background-position: center;
   display: flex;
   justify-content: center;
@@ -193,40 +445,59 @@ text-transform: none;
   color: #111827;
 }
 
-/* 合作伙伴区域 */
+/* ===== Partners Section ===== */
 .partners-section {
-  background: #020617;
+  background: #000000;
+
 }
 
 .partners-bg {
-   background-size: 100% 100%;  /* 使背景图的宽高填满整个容器 */
-  background-position: center;
-  background-image: url('../images/partners-bg.png'); /* TODO: 换成你的背景图 */
+  margin: 0 auto;
+  background-image: url('../images/Presale/矩形\ 21@2x.png');
   background-size: cover;
   background-position: center;
-  padding: 48px 16px 60px;
+  background-repeat: no-repeat;
+  padding: 60px 40px;
 }
 
 .partners-inner {
-  max-width: 1100px;
-  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.partners-title {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-align: center;
 }
 
 .partner-logos {
-  margin-top: 32px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
 }
 
 .partner-logo {
-  height: 32px;
+  width: 100%;
+  height: auto;
   object-fit: contain;
-  background: #ffffff;
-  border-radius: 999px;
-  padding: 8px 18px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 16px 24px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.partner-logo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
 }
 
 /* Footer */
@@ -292,21 +563,187 @@ text-transform: none;
   color: rgba(148, 163, 184, 0.9);
 }
 
-/* 移动端适配 */
+/* ===== 移动端适配 (H5) ===== */
 @media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
   .hero-section {
-    padding: 40px 12px 60px;
+    min-height: 100vh;
+    padding: 40px 16px 60px;
+    background-image: url('../images/Presale/矩形\ 20@2x.png');
   }
 
-  .hero-card {
-    max-width: 340px;
+  .hero-inner {
+    gap: 32px;
+  }
+
+  .countdown-title {
+    font-size: 32px;
+  }
+
+  .countdown-subtitle {
+    font-size: 14px;
+  }
+
+  .time-box {
+    width: 64px;
+    height: 72px;
+  }
+
+  .time-number {
+    font-size: 36px;
+  }
+
+  .time-label {
+    width: 64px;
+    font-size: 12px;
+  }
+
+  .countdown-timer {
+    gap: 12px;
+  }
+
+  .countdown-labels {
+    gap: 12px;
+  }
+
+  .presale-card-wrapper {
+    max-width: 100%;
+    padding: 0 8px;
+  }
+
+  .presale-card {
+    border-radius: 20px;
+  }
+
+  .card-body {
+    padding: 20px 20px 24px;
+    gap: 16px;
+  }
+
+  .card-input-section {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .input-container {
+    padding: 6px 12px;
+  }
+
+  .amount-input {
+    font-size: 18px;
+  }
+
+  .btn-buy {
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .btn-receive {
+    height: 44px;
+    font-size: 14px;
+  }
+
+  .row-value-small {
+    font-size: 11px;
   }
 
   .footer-inner {
     flex-direction: column;
+  }
+
+  .partners-section {
+    padding: 60px 16px;
+  }
+
+  .partners-bg {
+    padding: 40px 24px;
+    border-radius: 16px;
+  }
+
+  .partners-title {
+    font-size: 28px;
+  }
+
+  .partner-logos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .partner-logo {
+    padding: 12px 16px;
+  }
+}
+
+/* ===== 超小屏幕适配 ===== */
+@media (max-width: 480px) {
+  .countdown-title {
+    font-size: 28px;
+  }
+
+  .time-box {
+    width: 56px;
+    height: 64px;
+  }
+
+  .time-number {
+    font-size: 32px;
+  }
+
+  .time-label {
+    width: 56px;
+    font-size: 11px;
+  }
+
+  .countdown-timer {
+    gap: 8px;
+  }
+
+  .countdown-labels {
+    gap: 8px;
+  }
+
+  .card-body {
+    padding: 16px;
+  }
+
+  .card-input-section {
+    padding: 12px;
+  }
+
+  .btn-decrease,
+  .btn-increase {
+    width: 28px;
+    height: 28px;
+  }
+
+  .btn-decrease img,
+  .btn-increase img {
+    width: 14px;
+    height: 14px;
+  }
+
+  .amount-input {
+    font-size: 16px;
+  }
+
+  .partners-section {
+    padding: 40px 12px;
+  }
+
+  .partners-bg {
+    padding: 32px 16px;
+    border-radius: 12px;
+  }
+
+  .partners-title {
+    font-size: 24px;
+  }
+
+  .partner-logos {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .partner-logo {
+    padding: 10px 12px;
   }
 }

@@ -1,0 +1,330 @@
+/* Footer 组件样式 */
+.app-footer {
+  width: 100%;
+  background: #000000;
+  padding: 80px 20px 40px;
+  margin-top: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  margin-bottom: 60px;
+}
+
+/* Footer左侧 */
+.footer-left {
+  max-width: 450px;
+}
+
+.footer-logo {
+  margin-bottom: 24px;
+}
+
+.footer-logo-img {
+  height: 50px;
+  width: auto;
+}
+
+.footer-description {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 32px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 16px;
+}
+
+.social-link {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-3px);
+}
+
+.social-link img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Footer右侧 */
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.footer-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* 链上认证 */
+.footer-verification {
+}
+
+.verification-box {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 6px;
+  transition: all 0.3s ease;
+}
+
+.verification-box:focus-within {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.verification-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  padding: 10px 14px;
+  font-family: 'Courier New', monospace;
+  outline: none;
+}
+
+.copy-button {
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #818cf8;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.copy-button:hover {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: rgba(99, 102, 241, 0.5);
+  transform: scale(1.05);
+}
+
+.copy-button:active {
+  transform: scale(0.98);
+}
+
+/* 免责声明 */
+.footer-disclaimer {
+}
+
+.disclaimer-text {
+  font-size: 12px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+/* Footer底部 */
+.footer-bottom {
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.footer-copyright {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 1024px) {
+  .app-footer {
+    padding: 60px 20px 32px;
+  }
+
+  .footer-content {
+    gap: 60px;
+    margin-bottom: 50px;
+  }
+
+  .footer-logo-img {
+    height: 42px;
+  }
+
+  .footer-description {
+    font-size: 13px;
+    margin-bottom: 28px;
+  }
+
+  .footer-section-title {
+    font-size: 17px;
+    margin-bottom: 14px;
+  }
+
+  .footer-copyright {
+    font-size: 12px;
+  }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 768px) {
+  .app-footer {
+    padding: 50px 16px 28px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+
+  .footer-left {
+    max-width: 100%;
+  }
+
+  .footer-logo {
+    text-align: center;
+  }
+
+  .footer-logo-img {
+    height: 40px;
+  }
+
+  .footer-description {
+    text-align: center;
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+
+  .footer-social {
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .footer-right {
+    gap: 36px;
+  }
+
+  .footer-section-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .verification-input {
+    font-size: 11px;
+    padding: 9px 12px;
+  }
+
+  .copy-button {
+    padding: 9px 14px;
+    font-size: 14px;
+  }
+
+  .disclaimer-text {
+    font-size: 11px;
+    text-align: center;
+  }
+
+  .footer-bottom {
+    padding-top: 24px;
+  }
+
+  .footer-copyright {
+    font-size: 11px;
+  }
+}
+
+/* Responsive Design - Small Mobile */
+@media (max-width: 480px) {
+  .app-footer {
+    padding: 40px 12px 24px;
+  }
+
+  .footer-content {
+    gap: 40px;
+    margin-bottom: 32px;
+  }
+
+  .footer-logo-img {
+    height: 36px;
+  }
+
+  .footer-description {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+
+  .footer-social {
+    gap: 12px;
+  }
+
+  .social-link {
+    width: 38px;
+    height: 38px;
+  }
+
+  .social-link img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer-right {
+    gap: 32px;
+  }
+
+  .footer-section-title {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .verification-input {
+    font-size: 10px;
+    padding: 9px 10px;
+  }
+
+  .copy-button {
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+
+  .disclaimer-text {
+    font-size: 10px;
+    line-height: 1.7;
+  }
+
+  .footer-bottom {
+    padding-top: 20px;
+  }
+
+  .footer-copyright {
+    font-size: 10px;
+  }
+}
+
