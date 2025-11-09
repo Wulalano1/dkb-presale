@@ -397,11 +397,6 @@ const translations = {
           },
         ],
       },
-      cta: {
-        title: '即刻加入数字航空新纪元',
-        description: '参与预售即可抢先解锁 DKB 生态权益与激励。',
-        action: '前往预售',
-      },
     },
     introduction: {
       hero: {
@@ -1216,11 +1211,6 @@ const translations = {
               'All contracts are audited, protected by multisig and risk controls, with transparent and traceable operations.',
           },
         ],
-      },
-      cta: {
-        title: 'Join the New Era of Digital Aviation',
-        description: 'Join the presale now to unlock DKB ecosystem rewards and privileges ahead of time.',
-        action: 'Go to Presale',
       },
     },
     introduction: {

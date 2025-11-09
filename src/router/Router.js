@@ -6,17 +6,57 @@ const RouterContext = createContext({
 });
 
 export function RouterProvider({ children }) {
-  const [path, setPath] = useState(() => window.location.pathname || '/');
+  // 获取初始路径，支持 hash 路由和 pathname 路由
+  const getInitialPath = () => {
+    // 优先使用 hash 路由（如果存在）
+    if (window.location.hash) {
+      const hash = window.location.hash.slice(1); // 移除 # 号
+      if (hash) {
+        return hash.startsWith('/') ? hash : `/${hash}`;
+      }
+    }
+    // 对于 file:// 协议或包含 .html 的路径，默认返回 '/'
+    const pathname = window.location.pathname;
+    const isFileProtocol = window.location.protocol === 'file:';
+    if (isFileProtocol || pathname.includes('.html') || pathname === '/' || pathname === '') {
+      return '/';
+    }
+    return pathname;
+  };
+
+  const [path, setPath] = useState(getInitialPath);
 
   useEffect(() => {
+    // 初始化时，如果没有 hash，设置默认 hash 为 '/'
+    // 使用 history.replaceState 而不是 location.replace，避免页面重新加载
+    const currentHash = window.location.hash;
+    if (!currentHash || currentHash === '#') {
+      // 确保 URL 有 hash，即使是空 hash 也要设置为 '#/'
+      window.history.replaceState(null, '', '#/');
+      setPath('/');
+    } else {
+      // 如果已经有 hash，确保 path 状态同步
+      const hashPath = getInitialPath();
+      setPath(hashPath);
+    }
+
     const handlePopState = () => {
-      setPath(window.location.pathname || '/');
+      const newPath = getInitialPath();
+      setPath(newPath);
+    };
+
+    const handleHashChange = () => {
+      const newPath = getInitialPath();
+      setPath(newPath);
     };
 
     window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handleHashChange);
     return () => {
       window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handleHashChange);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const value = useMemo(
@@ -26,7 +66,8 @@ export function RouterProvider({ children }) {
         if (!to || to === path) {
           return;
         }
-        window.history.pushState({}, '', to);
+        // 使用 hash 路由，更兼容静态部署
+        window.location.hash = to;
         setPath(to);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },

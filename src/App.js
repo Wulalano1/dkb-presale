@@ -7,7 +7,10 @@ import { I18nProvider } from './i18n/I18nProvider';
 
 function AppRoutes() {
   const { path } = useRouter();
-  switch (path) {
+  // 确保 path 始终是有效的字符串
+  const normalizedPath = path || '/';
+  
+  switch (normalizedPath) {
     case '/presale':
       return <Presale />;
     case '/introduction':
