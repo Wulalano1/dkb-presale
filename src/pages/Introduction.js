@@ -4,59 +4,6 @@ import Footer from '../components/Footer';
 import { useRouter } from '../router/Router';
 import './Introduction.css';
 
-// 导入图片资源
-import heroImage from '../images/Introduction/image@2x.png';
-import logoImage from '../images/Introduction/Logo@2x.png';
-import droneImage from '../images/Introduction/矩形 35@2x(2).png';
-import bitcoinImage from '../images/Introduction/矩形 35@2x(3).png';
-import planeIcon from '../images/Introduction/容器@2x.png';
-import planeIcon2 from '../images/Introduction/容器@2x(1).png';
-import coinVisual from '../images/Introduction/容器@2x(2).png';
-import locationIcon from '../images/Introduction/容器 383@2x.png';
-import warningIcon from '../images/Introduction/容器 384@2x.png';
-import checkIcon from '../images/Introduction/容器@2x(12).png';
-import errorIcon from '../images/Introduction/容器@2x(15).png';
-import checkCircleIcon from '../images/Introduction/容器@2x(16).png';
-import checkGreenIcon from '../images/Introduction/容器@2x(19).png';
-
-// 核心优势图标
-import advantage1 from '../images/Introduction/容器 383@2x(1).png';
-import advantage2 from '../images/Introduction/容器 383@2x(2).png';
-import advantage3 from '../images/Introduction/容器 383@2x(3).png';
-import advantage4 from '../images/Introduction/容器 383@2x(4).png';
-
-// 飞行器主图
-import mainDroneImage from '../images/Introduction/矩形 35@2x.png';
-import reconstructionDrone from '../images/Introduction/矩形 35@2x(1).png';
-
-// 核心优势图标 - 第二个模块
-import coreAdvantage1 from '../images/Introduction/容器 384@2x(4).png';
-import coreAdvantage2 from '../images/Introduction/容器 384@2x(5).png';
-import coreAdvantage3 from '../images/Introduction/容器 384@2x(6).png';
-import coreAdvantage4 from '../images/Introduction/容器 384@2x(3).png';
-
-// Web3可信底座模块图标 - 第三个模块
-import blockchainIcon from '../images/Introduction/容器 383@2x(6).png';
-import smartContractIcon from '../images/Introduction/容器 383@2x(7).png';
-import daoIcon from '../images/Introduction/容器 383@2x(8).png';
-import lightningIcon from '../images/Introduction/容器 383@2x(9).png';
-import shieldIcon from '../images/Introduction/容器 383@2x(10).png';
-import checkMarkIcon from '../images/Introduction/容器@2x(19).png';
-
-// DAO生态共生模块图标 - 第四个模块
-import warningIconRed from '../images/Introduction/容器@2x(15).png';
-import limitIcon1 from '../images/Introduction/容器 384@2x.png';
-import limitIcon2 from '../images/Introduction/容器 384@2x(1).png';
-import limitIcon3 from '../images/Introduction/容器 384@2x(2).png';
-import ecosystemIcon1 from '../images/Introduction/容器 383@2x(12).png';
-import ecosystemIcon2 from '../images/Introduction/容器 383@2x(13).png';
-import ecosystemIcon3 from '../images/Introduction/容器 383@2x(14).png';
-
-// 加入社区模块图标
-import emailIcon from '../images/Introduction/容器 383@2x(15).png';
-import twitterIcon from '../images/Introduction/容器 383@2x(16).png';
-import communityLocationIcon from '../images/Introduction/容器 383@2x(17).png';
-
 function Introduction() {
   const { navigate } = useRouter();
   const [formData, setFormData] = useState({
@@ -77,6 +24,7 @@ function Introduction() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('表单提交:', formData);
+    alert('感谢您的提交！我们会尽快联系您。');
     // 这里可以添加实际的提交逻辑
   };
 
@@ -126,15 +74,15 @@ function Introduction() {
           <div className="intro-hero-right">
             <div className="hero-3d-card">
               <div className="card-badge">
-                <img src={checkMarkIcon} alt="" className="badge-icon" />
+                <img src={require("../images/Introduction/check-green-icon.png")} alt="" className="badge-icon" />
                 <span>已验证</span>
                 <span className="badge-number">1,584,329</span>
               </div>
               <div className="visual-3d-wrapper">
-                <img src={heroImage} alt="DKB 3D Visualization" className="visual-3d-img" />
+                <img src={require("../images/Introduction/hero-visual.png")} alt="DKB 3D Visualization" className="visual-3d-img" />
               </div>
               <div className="card-badge card-badge--bottom">
-                <img src={checkMarkIcon} alt="" className="badge-icon" />
+                <img src={require("../images/Introduction/check-green-icon.png")} alt="" className="badge-icon" />
                 <span>节点数量</span>
                 <span className="badge-number">1,200+</span>
               </div>
@@ -155,7 +103,7 @@ function Introduction() {
             <div className="reconstruction-left">
               <div className="reconstruction-image-wrapper">
                 <img 
-                  src={reconstructionDrone} 
+                  src={require("../images/Introduction/reconstruction-drone.png")} 
                   alt="Low Altitude Economy Aircraft" 
                   className="reconstruction-drone" 
                 />
@@ -180,7 +128,7 @@ function Introduction() {
               <div className="advantages-list">
                 <div className="advantage-item">
                   <div className="advantage-icon">
-                    <img src={coreAdvantage1} alt="Asset Tokenization" />
+                    <img src={require("../images/Introduction/core-advantage-1.png")} alt="Asset Tokenization" />
                   </div>
                   <div className="advantage-content">
                     <h4>资产通证化</h4>
@@ -190,7 +138,7 @@ function Introduction() {
 
                 <div className="advantage-item">
                   <div className="advantage-icon">
-                    <img src={coreAdvantage2} alt="RWA Exchange" />
+                    <img src={require("../images/Introduction/core-advantage-2.png")} alt="RWA Exchange" />
                   </div>
                   <div className="advantage-content">
                     <h4>RWA交易</h4>
@@ -200,7 +148,7 @@ function Introduction() {
 
                 <div className="advantage-item">
                   <div className="advantage-icon">
-                    <img src={coreAdvantage3} alt="Smart Contract" />
+                    <img src={require("../images/Introduction/core-advantage-3.png")} alt="Smart Contract" />
                   </div>
                   <div className="advantage-content">
                     <h4>算法合约</h4>
@@ -210,7 +158,7 @@ function Introduction() {
 
                 <div className="advantage-item">
                   <div className="advantage-icon">
-                    <img src={coreAdvantage4} alt="Decentralized Pool" />
+                    <img src={require("../images/Introduction/core-advantage-4.png")} alt="Decentralized Pool" />
                   </div>
                   <div className="advantage-content">
                     <h4>去中心化资金池</h4>
@@ -238,7 +186,7 @@ function Introduction() {
             <div className="web3-card">
               <div className="web3-card-badge">核心技术</div>
               <div className="web3-card-icon-wrapper">
-                <img src={blockchainIcon} alt="Blockchain" className="web3-card-icon" />
+                <img src={require("../images/Introduction/blockchain-icon.png")} alt="Blockchain" className="web3-card-icon" />
               </div>
               <h3 className="web3-card-title">区块链基础设施</h3>
               <p className="web3-card-description">
@@ -246,15 +194,15 @@ function Introduction() {
               </p>
               <ul className="web3-feature-list">
                 <li>
-                  <img src={checkMarkIcon} alt="Check" className="feature-check-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="Check" className="feature-check-icon" />
                   <span>采用新型共识机制</span>
                 </li>
                 <li>
-                  <img src={checkMarkIcon} alt="Check" className="feature-check-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="Check" className="feature-check-icon" />
                   <span>全球数据交叉验证机制</span>
                 </li>
                 <li>
-                  <img src={checkMarkIcon} alt="Check" className="feature-check-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="Check" className="feature-check-icon" />
                   <span>防篡改加密账本基础</span>
                 </li>
               </ul>
@@ -263,7 +211,7 @@ function Introduction() {
             {/* 智能合约 */}
             <div className="web3-card">
               <div className="web3-card-icon-wrapper">
-                <img src={smartContractIcon} alt="Smart Contract" className="web3-card-icon" />
+                <img src={require("../images/Introduction/smart-contract-icon.png")} alt="Smart Contract" className="web3-card-icon" />
               </div>
               <h3 className="web3-card-title">智能合约</h3>
               <p className="web3-card-description">
@@ -271,15 +219,15 @@ function Introduction() {
               </p>
               <ul className="web3-feature-list">
                 <li>
-                  <img src={checkMarkIcon} alt="Check" className="feature-check-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="Check" className="feature-check-icon" />
                   <span>自动化股权分账机制</span>
                 </li>
                 <li>
-                  <img src={checkMarkIcon} alt="Check" className="feature-check-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="Check" className="feature-check-icon" />
                   <span>定时条件触发机制</span>
                 </li>
                 <li>
-                  <img src={checkMarkIcon} alt="Check" className="feature-check-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="Check" className="feature-check-icon" />
                   <span>完备中介约执行体系</span>
                 </li>
               </ul>
@@ -288,7 +236,7 @@ function Introduction() {
             {/* DAO治理 */}
             <div className="web3-card">
               <div className="web3-card-icon-wrapper">
-                <img src={daoIcon} alt="DAO" className="web3-card-icon" />
+                <img src={require("../images/Introduction/dao-icon.png")} alt="DAO" className="web3-card-icon" />
               </div>
               <h3 className="web3-card-title">DAO治理</h3>
               <p className="web3-card-description">
@@ -296,15 +244,15 @@ function Introduction() {
               </p>
               <ul className="web3-feature-list">
                 <li>
-                  <img src={checkMarkIcon} alt="Check" className="feature-check-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="Check" className="feature-check-icon" />
                   <span>分布式集权机制</span>
                 </li>
                 <li>
-                  <img src={checkMarkIcon} alt="Check" className="feature-check-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="Check" className="feature-check-icon" />
                   <span>透明度高的问责化</span>
                 </li>
                 <li>
-                  <img src={checkMarkIcon} alt="Check" className="feature-check-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="Check" className="feature-check-icon" />
                   <span>提供化的立即工具</span>
                 </li>
               </ul>
@@ -318,7 +266,7 @@ function Introduction() {
               {/* 高性能交易处理 */}
               <div className="tech-breakthrough-card">
                 <div className="tech-breakthrough-icon-wrapper">
-                  <img src={lightningIcon} alt="Lightning" className="tech-breakthrough-icon" />
+                  <img src={require("../images/Introduction/lightning-icon.png")} alt="Lightning" className="tech-breakthrough-icon" />
                 </div>
                 <div className="tech-breakthrough-content">
                   <h4 className="tech-breakthrough-card-title">高性能交易处理</h4>
@@ -331,7 +279,7 @@ function Introduction() {
               {/* 链上合规体系 */}
               <div className="tech-breakthrough-card">
                 <div className="tech-breakthrough-icon-wrapper tech-breakthrough-icon-wrapper--green">
-                  <img src={shieldIcon} alt="Shield" className="tech-breakthrough-icon" />
+                  <img src={require("../images/Introduction/shield-icon.png")} alt="Shield" className="tech-breakthrough-icon" />
                 </div>
                 <div className="tech-breakthrough-content">
                   <h4 className="tech-breakthrough-card-title">链上合规体系</h4>
@@ -368,15 +316,15 @@ function Introduction() {
               <h4 className="token-subtitle">传统痛点</h4>
               <ul className="token-list token-list--error">
                 <li>
-                  <img src={errorIcon} alt="" className="list-icon" />
+                  <img src={require("../images/Introduction/error-icon.png")} alt="" className="list-icon" />
                   <span>空域资源分配不均，大型企业垄断严重</span>
                 </li>
                 <li>
-                  <img src={errorIcon} alt="" className="list-icon" />
+                  <img src={require("../images/Introduction/error-icon.png")} alt="" className="list-icon" />
                   <span>交易成本高，中小企业参与门槛高</span>
                 </li>
                 <li>
-                  <img src={errorIcon} alt="" className="list-icon" />
+                  <img src={require("../images/Introduction/error-icon.png")} alt="" className="list-icon" />
                   <span>空域利用率低，资源浪费严重</span>
                 </li>
               </ul>
@@ -424,7 +372,7 @@ function Introduction() {
               </div>
 
               <div className="token-highlight">
-                <img src={locationIcon} alt="" className="highlight-icon" />
+                <img src={require("../images/Introduction/location-icon.png")} alt="" className="highlight-icon" />
                 <div>
                   <div className="highlight-title">普惠金融实践</div>
                   <p>将无人机资产通证化，降低投资门槛，让普通民众也能参与低空经济投资，共享产业发展红利。</p>
@@ -458,15 +406,15 @@ function Introduction() {
               <h4 className="case-section-title">项目方案</h4>
               <ul className="case-list">
                 <li>
-                  <img src={checkCircleIcon} alt="" className="list-icon" />
+                  <img src={require("../images/Introduction/check-circle-icon.png")} alt="" className="list-icon" />
                   <span>发行"SKY Elf（SE）"通证，总量30亿枚（单价不超盘），始发价格0.13USDT</span>
                 </li>
                 <li>
-                  <img src={checkCircleIcon} alt="" className="list-icon" />
+                  <img src={require("../images/Introduction/check-circle-icon.png")} alt="" className="list-icon" />
                   <span>通证链接无人机销售数据、交换资收、物流服务并奖励资产评价值</span>
                 </li>
                 <li>
-                  <img src={checkCircleIcon} alt="" className="list-icon" />
+                  <img src={require("../images/Introduction/check-circle-icon.png")} alt="" className="list-icon" />
                   <span>基于ETH专属子链实现高并发交易，结合联盟链守护基础架构使用情况</span>
                 </li>
               </ul>
@@ -488,14 +436,14 @@ function Introduction() {
               </div>
             </div>
             <div className="case-image">
-              <img src={droneImage} alt="SKY Elf Project" />
+              <img src={require("../images/Introduction/drone-case.png")} alt="SKY Elf Project" />
             </div>
           </div>
 
           {/* 案例 2 */}
           <div className="case-item case-item--reverse">
             <div className="case-image">
-              <img src={bitcoinImage} alt="CT-CHAIN Project" />
+              <img src={require("../images/Introduction/bitcoin-case.png")} alt="CT-CHAIN Project" />
             </div>
             <div className="case-content">
               <div className="case-tag case-tag--green">生态系统建设</div>
@@ -510,15 +458,15 @@ function Introduction() {
               <h4 className="case-section-title">项目方案</h4>
               <ul className="case-list">
                 <li>
-                  <img src={checkGreenIcon} alt="" className="list-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="" className="list-icon" />
                   <span>采用"主链-侧链集-流通链"分层架构，确保资产真实可信息高效流转</span>
                 </li>
                 <li>
-                  <img src={checkGreenIcon} alt="" className="list-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="" className="list-icon" />
                   <span>建立多中心化协同治理机制，支持多参数产主旨，对接多河谷协同网络</span>
                 </li>
                 <li>
-                  <img src={checkGreenIcon} alt="" className="list-icon" />
+                  <img src={require("../images/Introduction/check-green-icon.png")} alt="" className="list-icon" />
                   <span>通过跨空院跨技术大突破，支持千万TPS并显与多种区块链</span>
                 </li>
               </ul>
@@ -555,7 +503,7 @@ function Introduction() {
               
               <div className="limitation-item">
                 <div className="limitation-icon">
-                  <img src={limitIcon1} alt="Issue" />
+                  <img src={require("../images/Introduction/limit-icon-1.png")} alt="Issue" />
                 </div>
                 <div className="limitation-content">
                   <h4 className="limitation-title">信息不对称</h4>
@@ -567,7 +515,7 @@ function Introduction() {
 
               <div className="limitation-item">
                 <div className="limitation-icon">
-                  <img src={limitIcon2} alt="Issue" />
+                  <img src={require("../images/Introduction/limit-icon-2.png")} alt="Issue" />
                 </div>
                 <div className="limitation-content">
                   <h4 className="limitation-title">信任成本高</h4>
@@ -579,7 +527,7 @@ function Introduction() {
 
               <div className="limitation-item">
                 <div className="limitation-icon">
-                  <img src={limitIcon3} alt="Issue" />
+                  <img src={require("../images/Introduction/limit-icon-3.png")} alt="Issue" />
                 </div>
                 <div className="limitation-content">
                   <h4 className="limitation-title">资源整合难</h4>
@@ -591,7 +539,7 @@ function Introduction() {
 
               <div className="limitation-item">
                 <div className="limitation-icon">
-                  <img src={warningIconRed} alt="Issue" />
+                  <img src={require("../images/Introduction/error-icon.png")} alt="Issue" />
                 </div>
                 <div className="limitation-content">
                   <h4 className="limitation-title">创新动力不足</h4>
@@ -613,7 +561,7 @@ function Introduction() {
               {/* 可信数据共享 */}
               <div className="ecosystem-card">
                 <div className="ecosystem-card-icon">
-                  <img src={ecosystemIcon1} alt="Data Sharing" />
+                  <img src={require("../images/Introduction/ecosystem-icon-1.png")} alt="Data Sharing" />
                 </div>
                 <div className="ecosystem-card-content">
                   <h4 className="ecosystem-card-title">可信数据共享</h4>
@@ -627,7 +575,7 @@ function Introduction() {
               {/* Token激励机制 */}
               <div className="ecosystem-card ecosystem-card--purple">
                 <div className="ecosystem-card-icon">
-                  <img src={ecosystemIcon2} alt="Token" />
+                  <img src={require("../images/Introduction/ecosystem-icon-2.png")} alt="Token" />
                 </div>
                 <div className="ecosystem-card-content">
                   <h4 className="ecosystem-card-title">Token激励机制</h4>
@@ -641,7 +589,7 @@ function Introduction() {
               {/* 高效资源整合 */}
               <div className="ecosystem-card ecosystem-card--green">
                 <div className="ecosystem-card-icon">
-                  <img src={ecosystemIcon3} alt="Resource Integration" />
+                  <img src={require("../images/Introduction/ecosystem-icon-3.png")} alt="Resource Integration" />
                 </div>
                 <div className="ecosystem-card-content">
                   <h4 className="ecosystem-card-title">高效资源整合</h4>
@@ -670,7 +618,7 @@ function Introduction() {
               
               <div className="cooperation-card">
                 <div className="cooperation-icon">
-                  <img src={locationIcon} alt="Location" />
+                  <img src={require("../images/Introduction/location-icon.png")} alt="Location" />
                 </div>
                 <div className="cooperation-content">
                   <h4>去中心化空中交通管理</h4>
@@ -680,7 +628,7 @@ function Introduction() {
 
               <div className="cooperation-card">
                 <div className="cooperation-icon">
-                  <img src={warningIcon} alt="Warning" />
+                  <img src={require("../images/Introduction/limit-icon-1.png")} alt="Warning" />
                 </div>
                 <div className="cooperation-content">
                   <h4>实物资产通证化</h4>
@@ -690,7 +638,7 @@ function Introduction() {
 
               <div className="cooperation-card">
                 <div className="cooperation-icon">
-                  <img src={planeIcon} alt="Plane" />
+                  <img src={require("../images/Introduction/plane-icon.png")} alt="Plane" />
                 </div>
                 <div className="cooperation-content">
                   <h4>共建RWA实验区</h4>
@@ -790,7 +738,7 @@ function Introduction() {
               {/* 官方邮箱 */}
               <div className="community-card">
                 <div className="community-card-icon-wrapper">
-                  <img src={emailIcon} alt="Email" className="community-card-icon" />
+                  <img src={require("../images/Introduction/email-icon.png")} alt="Email" className="community-card-icon" />
                 </div>
                 <h3 className="community-card-title">官方邮箱</h3>
                 <p className="community-card-description">发送邮件获得回复</p>
@@ -802,7 +750,7 @@ function Introduction() {
               {/* 官方推特 */}
               <div className="community-card">
                 <div className="community-card-icon-wrapper">
-                  <img src={twitterIcon} alt="Twitter" className="community-card-icon" />
+                  <img src={require("../images/Introduction/twitter-icon.png")} alt="Twitter" className="community-card-icon" />
                 </div>
                 <h3 className="community-card-title">官方推特</h3>
                 <p className="community-card-description">关注我们获取最新消息</p>
@@ -814,7 +762,7 @@ function Introduction() {
               {/* 社区中心 */}
               <div className="community-card">
                 <div className="community-card-icon-wrapper">
-                  <img src={communityLocationIcon} alt="Location" className="community-card-icon" />
+                  <img src={require("../images/Introduction/community-location-icon.png")} alt="Location" className="community-card-icon" />
                 </div>
                 <h3 className="community-card-title">社区中心</h3>
                 <p className="community-card-description">自定义访问我们访问</p>

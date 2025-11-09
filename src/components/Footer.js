@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import './Footer.css';
 
-// 导入图片资源
-import footerLogo from '../images/Introduction/Logo@2x.png';
-import telegramIcon from '../images/Introduction/容器@2x(23).png';
-import twitterIconFooter from '../images/Introduction/容器@2x(24).png';
-
 function Footer() {
   const [copied, setCopied] = useState(false);
 
@@ -24,17 +19,17 @@ function Footer() {
           {/* 左侧：Logo和描述 */}
           <div className="footer-left">
             <div className="footer-logo">
-              <img src={footerLogo} alt="DKB" className="footer-logo-img" />
+              <img src={require("../images/Introduction/logo.png")} alt="DKB" className="footer-logo-img" />
             </div>
             <p className="footer-description">
               全球领先的去中心化RWA生态平台，重塑低空经济生产关系，开创区块链赋能实体资产的全新时代。
             </p>
             <div className="footer-social">
               <a href="https://t.me/dkbio" target="_blank" rel="noopener noreferrer" className="social-link">
-                <img src={telegramIcon} alt="Telegram" />
+                <img src={require("../images/Introduction/telegram-icon.png")} alt="Telegram" />
               </a>
               <a href="https://twitter.com/dkbio" target="_blank" rel="noopener noreferrer" className="social-link">
-                <img src={twitterIconFooter} alt="Twitter" />
+                <img src={require("../images/Introduction/twitter-icon-footer.png")} alt="Twitter" />
               </a>
             </div>
           </div>

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useRouter } from '../router/Router';
 import classNames from '../utils/classNames';
 import './MainHeader.css';
-import logoImage from '../images/Introduction/Logo@2x.png';
 
 const NAV_ITEMS = [
   { label: '首页', path: '/' },
@@ -33,7 +32,7 @@ function MainHeader({ showWallet = false, onConnect, account = '' }) {
           className={classNames('site-header__logo-wrapper', isPresalePage && 'has-border')}
           onClick={() => handleNavigate('/')}
         >
-          <img src={logoImage} alt="DKB" className="site-header__logo" />
+          <img src={require("../images/Introduction/logo.png")} alt="DKB" className="site-header__logo" />
         </div>
 
         {/* Mobile Toggle */}

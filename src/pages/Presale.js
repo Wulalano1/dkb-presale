@@ -311,10 +311,10 @@ function Presale() {
               <div className="presale-card">
                 <div className="card-header">
                   <div className="card-arrows">
-                    <img src={require("../images/Presale/00@2x.png")} alt="arrows" className="arrows-bg" />
+                    <img src={require("../images/Presale/arrows.png")} alt="arrows" className="arrows-bg" />
                   </div>
                   <div className="card-tab">
-                    <img src={require("../images/Presale/容器@2x.png")} alt="icon" className="tab-icon" />
+                    <img src={require("../images/Presale/icon.png")} alt="icon" className="tab-icon" />
                     <span className="tab-text">pre</span>
                   </div>
                 </div>
@@ -322,7 +322,7 @@ function Presale() {
                 <div className="card-body">
                   <div className="card-row">
                     <div className="row-left">
-                      <img src={require("../images/Presale/容器@2x.png")} alt="icon" className="row-icon" />
+                      <img src={require("../images/Presale/icon.png")} alt="icon" className="row-icon" />
                       <span className="row-label">Price</span>
                     </div>
                     <div className="row-right">
@@ -353,7 +353,7 @@ function Presale() {
 
                     <div className="input-container">
                       <button className="btn-decrease">
-                        <img src={require("../images/Presale/remove@2x.png")} alt="decrease" />
+                        <img src={require("../images/Presale/remove.png")} alt="decrease" />
                       </button>
                       <input 
                         type="number" 
@@ -362,12 +362,12 @@ function Presale() {
                         placeholder="100"
                       />
                       <button className="btn-increase">
-                        <img src={require("../images/Presale/add@2x.png")} alt="increase" />
+                        <img src={require("../images/Presale/add.png")} alt="increase" />
                       </button>
                     </div>
 
                     <div className="usdt-badge">
-                      <img src={require("../images/Presale/usdt.0fd59501@2x.png")} alt="USDT" className="usdt-icon" />
+                      <img src={require("../images/Presale/usdt.png")} alt="USDT" className="usdt-icon" />
                       <span className="usdt-text">USDT</span>
                     </div>
                   </div>
@@ -426,14 +426,14 @@ function Presale() {
             <div className="partners-inner">
               <h3 className="partners-title">Our partners</h3>
               <div className="partner-logos">
-                <img src={require("../images/Presale/容器 357@2x.png")} alt="dapp" className="partner-logo" />
-                <img src={require("../images/Presale/容器 358@2x.png")} alt="binance" className="partner-logo" />
-                <img src={require("../images/Presale/容器 359@2x.png")} alt="dappradar" className="partner-logo" />
-                <img src={require("../images/Presale/容器 360@2x.png")} alt="gate" className="partner-logo" />
-                <img src={require("../images/Presale/容器 357@2x(1).png")} alt="opensea" className="partner-logo" />
-                <img src={require("../images/Presale/容器 358@2x(1).png")} alt="tp" className="partner-logo" />
-                <img src={require("../images/Presale/容器 359@2x(1).png")} alt="trustwallet" className="partner-logo" />
-                <img src={require("../images/Presale/容器 360@2x(1).png")} alt="uniswap" className="partner-logo" />
+                <img src={require("../images/Presale/partner-dapp.png")} alt="dapp" className="partner-logo" />
+                <img src={require("../images/Presale/partner-binance.png")} alt="binance" className="partner-logo" />
+                <img src={require("../images/Presale/partner-dappradar.png")} alt="dappradar" className="partner-logo" />
+                <img src={require("../images/Presale/partner-gate.png")} alt="gate" className="partner-logo" />
+                <img src={require("../images/Presale/partner-opensea.png")} alt="opensea" className="partner-logo" />
+                <img src={require("../images/Presale/partner-tp.png")} alt="tp" className="partner-logo" />
+                <img src={require("../images/Presale/partner-trustwallet.png")} alt="trustwallet" className="partner-logo" />
+                <img src={require("../images/Presale/partner-uniswap.png")} alt="uniswap" className="partner-logo" />
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ body,
   min-height: 100vh;
   padding: 60px 20px 80px;
   background-color: #000;
-  background-image: url('../images/Presale/矩形\ 20@2x.png');
+  background-image: url('../images/Presale/hero-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -420,7 +420,7 @@ body,
 .invite-card-wrapper {
    background-size: 100% 100%;  /* 使背景图的宽高填满整个容器 */
   background-position: center;
-    background-image: url('../images/Presale/容器\ 18@2x.png'); /* TODO: 换成你的背景图 */
+    background-image: url('../images/Presale/invite-bg.png'); /* TODO: 换成你的背景图 */
   background-position: center;
   display: flex;
   justify-content: center;
@@ -453,7 +453,7 @@ body,
 
 .partners-bg {
   margin: 0 auto;
-  background-image: url('../images/Presale/矩形\ 21@2x.png');
+  background-image: url('../images/Presale/partners-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -568,7 +568,7 @@ body,
   .hero-section {
     min-height: 100vh;
     padding: 40px 16px 60px;
-    background-image: url('../images/Presale/矩形\ 20@2x.png');
+    background-image: url('../images/Presale/hero-bg.png');
   }
 
   .hero-inner {
