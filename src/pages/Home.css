@@ -8,7 +8,7 @@
 }
 
 .home-content {
-  background: #000000;
+  background: #0F1118 ;
 }
 
 /* Hero Section - Scoped to home-layout */
@@ -35,7 +35,17 @@
   z-index: 0;
   overflow: hidden;
 }
-
+.home-hero-backgrounds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  overflow: hidden;
+}
 .home-hero-bg-image {
   width: 100%;
   object-fit: cover;
@@ -365,7 +375,7 @@
 .home-hero-btn-primary {
   min-width: 160px;
   height: 48px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
   border: none;
   border-radius: 6px;
   font-size: 16px;
@@ -792,7 +802,6 @@
   font-size: 18px;
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 8px;
   line-height: 1.5;
 }
 
@@ -878,21 +887,11 @@
 }
 
 .home-tokenomics-card-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 24px;
+ 
 }
 
 .home-tokenomics-card-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(6, 182, 212, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+
 }
 
 .home-tokenomics-card-title-group {
@@ -903,8 +902,8 @@
   font-size: 16px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 8px;
-  line-height: 1.4;
+  
+
 }
 
 .home-tokenomics-card-value {
@@ -929,8 +928,9 @@
 .home-tokenomics-donut-chart {
   position: relative;
   width: 100%;
-  max-width: 180px;
+  max-width: 50px;
   margin: 0 auto 24px;
+  margin-top: 10px;
   aspect-ratio: 1;
 }
 
@@ -942,7 +942,7 @@
 
 .home-tokenomics-legend {
   display: flex;
-  flex-direction: column;
+ 
   gap: 10px;
 }
 
@@ -972,7 +972,7 @@
 }
 
 .home-legend-text {
-  font-size: 13px;
+  font-size: 8px;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.4;
 }
@@ -982,7 +982,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+   margin-top: 30px;
+  gap: 5px;
 }
 
 .home-tax-item {
@@ -1042,12 +1043,9 @@
 .home-tokenomics-verify-link {
   display: inline-block;
   margin-top: 16px;
-  padding: 8px 16px;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  border-radius: 6px;
+
   font-size: 13px;
-  font-weight: 600;
+ 
   color: #06B6D4;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -1080,7 +1078,7 @@
 }
 
 .home-roadmap-title-highlight {
-  color: #06B6D4;
+  color: #6960E6 ;
 }
 
 .home-roadmap-subtitle {
@@ -1123,6 +1121,7 @@
 
 /* 左侧布局 */
 .home-timeline-item-left {
+  margin-left: 60px;
   justify-content: flex-start;
 }
 
@@ -1138,6 +1137,7 @@
 
 /* 右侧布局 */
 .home-timeline-item-right {
+      margin-left: -60px;
   justify-content: flex-end;
 }
 
@@ -1171,19 +1171,46 @@
   box-shadow: 0 0 0 2px #06B6D4, 0 0 16px rgba(6, 182, 212, 0.5);
   position: relative;
 }
-
+.home-timeline-nodes {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #6960E6;
+  border: 4px solid #0A0A0F;
+  box-shadow: 0 0 0 2px #6960E6, 0 0 16px rgba(6, 182, 212, 0.5);
+  position: relative;
+}
 .home-timeline-badge {
   display: inline-block;
-  padding: 6px 16px;
+  padding: 4px 12px;
   background: rgba(6, 182, 212, 0.15);
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  border-radius: 20px;
+ 
+  border-radius: 4px;
   font-size: 12px;
   font-weight: 600;
-  color: #06B6D4;
-  margin-bottom: 16px;
+  color: #01EFD0 ;
+  margin-bottom: 8px;
 }
-
+.home-timeline-badges {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #0F1118;
+ color: #979EAB;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.home-timeline-badgess {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #0F1118;
+ color: #C084FC;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
 .home-timeline-item-left .home-timeline-badge {
   margin-left: auto;
 }
@@ -1289,7 +1316,6 @@
   background: linear-gradient(135deg, rgba(26, 29, 41, 0.95) 0%, rgba(20, 23, 35, 0.95) 100%);
   border: 1px solid rgba(112, 105, 255, 0.2);
   border-radius: 12px;
-  padding: 20px 24px;
   transition: all 0.3s ease;
 }
 
@@ -1323,7 +1349,6 @@
   background: linear-gradient(135deg, rgba(26, 29, 41, 0.95) 0%, rgba(20, 23, 35, 0.95) 100%);
   border: 1px solid rgba(112, 105, 255, 0.2);
   border-radius: 12px;
-  padding: 24px;
   margin-bottom: 32px;
 }
 
@@ -1339,12 +1364,11 @@
 .home-rebate-table-header {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background: rgba(6, 182, 212, 0.1);
-  border-bottom: 1px solid rgba(6, 182, 212, 0.3);
-  border-radius: 8px 8px 0 0;
+  background: rgba(27, 38, 63, 1);
 }
 
 .home-rebate-table-row {
+    text-align: center;
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-bottom: 1px solid rgba(112, 105, 255, 0.1);
@@ -1364,11 +1388,11 @@
   padding: 12px 16px;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.8);
-  display: flex;
   align-items: center;
 }
 
 .home-rebate-table-cell-header {
+  text-align: center;
   color: #06B6D4;
   font-weight: 600;
 }
@@ -1394,7 +1418,6 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #EF4444;
   flex-shrink: 0;
   margin-top: 4px;
 }
@@ -1515,16 +1538,17 @@
 
 /* 底部大卡片 */
 .home-advantages-bottom {
-  width: 100%;
-  margin-top: 32px;
+  width: 60%;
+    margin-left: 20%;
+    margin-top: 32px;
 }
 
 .home-advantage-large-card {
   background: linear-gradient(135deg, rgba(26, 29, 41, 0.95) 0%, rgba(20, 23, 35, 0.95) 100%);
   border: 1px solid rgba(112, 105, 255, 0.2);
   border-radius: 16px;
-  padding: 48px 40px;
-  text-align: center;
+  padding: 10px;
+
   transition: all 0.3s ease;
 }
 
@@ -1560,7 +1584,7 @@
 }
 
 .home-advantage-large-title {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 600;
   color: #FFFFFF;
   margin: 0 0 20px 0;
@@ -1568,7 +1592,7 @@
 }
 
 .home-advantage-large-desc {
-  font-size: 16px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.8;
   max-width: 900px;
@@ -1630,10 +1654,10 @@
   background: linear-gradient(135deg, rgba(26, 29, 41, 0.95) 0%, rgba(20, 23, 35, 0.95) 100%);
   border: 1px solid rgba(112, 105, 255, 0.2);
   border-radius: 16px;
-  padding: 28px 24px;
+  padding: 14px 10px;
   text-align: center;
   height: 100%;
-  min-height: 220px;
+  min-height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1696,7 +1720,7 @@
   background: linear-gradient(135deg, rgba(26, 29, 41, 0.95) 0%, rgba(20, 23, 35, 0.95) 100%);
   border: 1px solid rgba(112, 105, 255, 0.2);
   border-radius: 16px;
-  padding: 32px 28px;
+  padding: 20px;
   height: 100%;
 }
 
@@ -1710,10 +1734,10 @@
 }
 
 .home-community-slogan-box {
-  background: rgba(6, 182, 212, 0.1);
+  background: #0F1118 ;
   border: 1px solid rgba(6, 182, 212, 0.3);
   border-radius: 12px;
-  padding: 24px 20px;
+  padding: 25px;
   margin-bottom: 32px;
 }
 
@@ -1736,7 +1760,7 @@
 
 .home-dao-icons {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   margin-bottom: 32px;
 }
@@ -1746,17 +1770,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 20px 16px;
-  background: rgba(6, 182, 212, 0.05);
-  border: 1px solid rgba(6, 182, 212, 0.2);
-  border-radius: 12px;
+
+  padding: 10px 0;
+
 }
 
 .home-dao-label {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.50);
+
   text-align: center;
 }
 
