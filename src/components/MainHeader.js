@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { useRouter } from '../router/Router';
+import { useI18n } from '../i18n/I18nProvider';
 import classNames from '../utils/classNames';
 import './MainHeader.css';
 
-const NAV_ITEMS = [
-  { label: '首页', path: '/' },
-  { label: '预售', path: '/presale' },
-  { label: '官方介绍', path: '/introduction' },
-];
-
 function MainHeader({ showWallet = false, onConnect, account = '' }) {
   const { path, navigate } = useRouter();
+  const { locale, setLocale, t } = useI18n();
   const [menuOpen, setMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
+
+  const NAV_ITEMS = [
+    { label: t('common.nav.home'), path: '/' },
+    { label: t('common.nav.presale'), path: '/presale' },
+    { label: t('common.nav.introduction'), path: '/introduction' },
+  ];
 
   const handleNavigate = (target) => {
     setMenuOpen(false);
@@ -74,15 +76,19 @@ function MainHeader({ showWallet = false, onConnect, account = '' }) {
                 className="site-header__lang"
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
               >
-                {isPresalePage ? 'English' : '中文'}
+                {locale === 'zh' ? t('common.language.zh') : t('common.language.en')}
                 <svg width="12" height="8" viewBox="0 0 12 8" fill="none" className="lang-arrow">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
               {langMenuOpen && (
                 <div className="site-header__lang-menu">
-                  <button onClick={() => setLangMenuOpen(false)}>中文</button>
-                  <button onClick={() => setLangMenuOpen(false)}>English</button>
+                  <button onClick={() => { setLocale('zh'); setLangMenuOpen(false); }}>
+                    {t('common.language.zh')}
+                  </button>
+                  <button onClick={() => { setLocale('en'); setLangMenuOpen(false); }}>
+                    {t('common.language.en')}
+                  </button>
                 </div>
               )}
             </div>
@@ -94,7 +100,7 @@ function MainHeader({ showWallet = false, onConnect, account = '' }) {
                 className="site-header__wallet" 
                 onClick={onConnect}
               >
-                {account ? shortAccount : 'Connect Wallet'}
+                {account ? shortAccount : t('common.actions.connectWallet')}
               </button>
             )}
           </div>

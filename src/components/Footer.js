@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useI18n } from '../i18n/I18nProvider';
 import './Footer.css';
 
 function Footer() {
+  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
 
   const handleCopyAddress = () => {
@@ -19,17 +21,17 @@ function Footer() {
           {/* 左侧：Logo和描述 */}
           <div className="footer-left">
             <div className="footer-logo">
-              <img src={require("../images/Introduction/logo.png")} alt="DKB" className="footer-logo-img" />
+              <img src={require("../images/logo (1).png")} alt="DKB" className="footer-logo-img" /><span style={{color:"#ffffff",marginLeft:4}}>DKB</span>
             </div>
             <p className="footer-description">
-              全球领先的去中心化RWA生态平台，重塑低空经济生产关系，开创区块链赋能实体资产的全新时代。
+              {t('common.footer.description')}
             </p>
             <div className="footer-social">
               <a href="https://t.me/dkbio" target="_blank" rel="noopener noreferrer" className="social-link">
-                <img src={require("../images/Introduction/telegram-icon.png")} alt="Telegram" />
+                <img src={require("../images/logo (2).png")} alt="Telegram" />
               </a>
               <a href="https://twitter.com/dkbio" target="_blank" rel="noopener noreferrer" className="social-link">
-                <img src={require("../images/Introduction/twitter-icon-footer.png")} alt="Twitter" />
+                <img src={require("../images/logo (3).png")} alt="Twitter" />
               </a>
             </div>
           </div>
@@ -38,7 +40,7 @@ function Footer() {
           <div className="footer-right">
             {/* 链上认证 */}
             <div className="footer-verification">
-              <h3 className="footer-section-title">链上认证</h3>
+              <h3 className="footer-section-title">{t('common.footer.certification')}</h3>
               <div className="verification-box">
                 <input 
                   type="text" 
@@ -49,7 +51,7 @@ function Footer() {
                 <button 
                   onClick={handleCopyAddress} 
                   className="copy-button"
-                  title={copied ? '已复制' : '复制地址'}
+                  title={copied ? t('common.footer.copied') : t('common.footer.copyAddress')}
                 >
                   {copied ? '✓' : '📋'}
                 </button>
@@ -58,10 +60,9 @@ function Footer() {
 
             {/* 免责声明 */}
             <div className="footer-disclaimer">
-              <h3 className="footer-section-title">免责声明</h3>
+              <h3 className="footer-section-title">{t('common.footer.disclaimer')}</h3>
               <p className="disclaimer-text">
-                本项目为区块链研究平台，展示作品均为，关于贸易、所有权纠纷、技术故障或临时系统
-                无意为综合法律体系，堪察补偿要求三方布同投资建议。
+                {t('common.footer.disclaimerText')}
               </p>
             </div>
           </div>
@@ -69,7 +70,7 @@ function Footer() {
 
         {/* 底部版权 */}
         <div className="footer-bottom">
-          <p className="footer-copyright">© 2025. Design with by:</p>
+          <p className="footer-copyright">{t('common.footer.copyright')}</p>
         </div>
       </div>
     </footer>

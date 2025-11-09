@@ -1975,8 +1975,13 @@ background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
 
 /* Responsive Design - Mobile (H5) */
 @media (max-width: 768px) {
+  .home-hero-section {
+    min-height: auto;
+  }
+
   .home-hero-content {
     padding: 60px 16px 40px;
+    min-height: auto;
   }
 
   .home-hero-badge {
@@ -2114,28 +2119,124 @@ background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
     padding: 0 16px;
   }
 
-  .home-ecosystem-cards {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px;
+  /* Ecosystem + Blockchain Section Mobile */
+  .home-ecosystem-blockchain-section {
+    padding: 60px 0;
   }
-  
+
+  .home-ecosystem-part {
+    margin-bottom: 60px;
+  }
+
+  .home-blockchain-part {
+    margin-top: 60px;
+  }
+
+  .home-section-title {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .home-ecosystem-cards-row {
+    margin-bottom: 24px;
+  }
+
   .home-feature-card {
-    flex: 1;
-    min-width: calc(33.333% - 12px);
-    text-align: center;
+    padding: 20px 16px;
+    min-height: auto;
   }
-  
+
   .home-feature-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 12px;
     justify-content: center;
   }
-  
-  .home-feature-title {
-    text-align: center;
+
+  .home-feature-icon img {
+    width: 40px;
+    height: 40px;
   }
-  
+
+  .home-feature-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
   .home-feature-desc {
-    text-align: center;
+    font-size: 12px;
+    text-align: left;
+  }
+
+  .home-ecosystem-desc {
+    margin-top: 24px;
+  }
+
+  .home-ecosystem-desc-text {
+    font-size: 13px;
+  }
+
+  .home-market-size {
+    margin-top: 24px;
+    padding: 20px;
+  }
+
+  .home-market-visual {
+    margin-bottom: 20px;
+  }
+
+  .home-market-content {
+    padding: 0;
+  }
+
+  .home-market-title {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .home-market-status-text {
+    font-size: 12px;
+  }
+
+  .home-market-projection {
+    font-size: 14px;
+  }
+
+  .home-blockchain-feature-list {
+    margin-bottom: 24px;
+  }
+
+  .home-blockchain-feature-item {
+    margin-bottom: 24px;
+    gap: 12px;
+  }
+
+  .home-check-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .home-blockchain-feature-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .home-blockchain-feature-desc {
+    font-size: 13px;
+  }
+
+  .home-blockchain-desc-wrapper {
+    margin-top: 24px;
+    padding-left: 16px;
+  }
+
+  .home-blockchain-desc {
+    font-size: 13px;
+  }
+
+  .home-crypto-image {
+    margin-bottom: 16px;
   }
   
   /* Tokenomics Mobile Styles */
@@ -2213,55 +2314,89 @@ background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
 
   .home-roadmap-timeline {
     padding: 20px 0;
+    max-width: 100%;
   }
 
   .home-roadmap-timeline::before {
     left: 20px;
+    transform: none;
+    width: 2px;
   }
 
   .home-timeline-item {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     margin-bottom: 40px;
-    padding-left: 48px;
+    padding-left: 0;
+    position: relative;
   }
 
   .home-timeline-item-left,
   .home-timeline-item-right {
     justify-content: flex-start;
+    margin-left: 0;
   }
 
   .home-timeline-item-left .home-timeline-content,
   .home-timeline-item-right .home-timeline-content {
-    order: 1;
-    padding: 0;
+    order: 2;
+    padding: 0 0 0 40px;
     text-align: left;
-    flex: 1 1 100%;
-    max-width: 100%;
+    flex: 1 1 auto;
+    max-width: calc(100% - 40px);
+    width: 100%;
   }
 
   .home-timeline-item-left .home-timeline-line,
   .home-timeline-item-right .home-timeline-line {
-    order: 0;
+    order: 1;
     position: absolute;
-    left: 10px;
+    left: 12px;
     top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-timeline-line {
+    position: absolute;
+    left: 12px;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .home-timeline-node {
     width: 16px;
     height: 16px;
     border: 3px solid #0A0A0F;
+    box-shadow: 0 0 0 2px #06B6D4, 0 0 12px rgba(6, 182, 212, 0.4);
+  }
+
+  .home-timeline-nodes {
+    width: 16px;
+    height: 16px;
+    border: 3px solid #0A0A0F;
+    box-shadow: 0 0 0 2px #6960E6, 0 0 12px rgba(105, 96, 230, 0.4);
   }
 
   .home-timeline-item-left .home-timeline-badge,
-  .home-timeline-item-right .home-timeline-badge {
+  .home-timeline-item-right .home-timeline-badge,
+  .home-timeline-item-left .home-timeline-badges,
+  .home-timeline-item-right .home-timeline-badges,
+  .home-timeline-item-left .home-timeline-badgess,
+  .home-timeline-item-right .home-timeline-badgess {
     margin-left: 0;
     margin-right: auto;
+    display: inline-block;
   }
 
   .home-timeline-card {
     padding: 20px 16px;
+    width: 100%;
   }
 
   .home-timeline-card-title {
@@ -2271,6 +2406,7 @@ background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
 
   .home-timeline-card-desc {
     font-size: 13px;
+    line-height: 1.6;
   }
 
   .home-timeline-item-left .home-timeline-card,
@@ -2390,7 +2526,22 @@ background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
   }
 
   .home-advantage-large-desc {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .home-advantages-bottom {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 24px;
+  }
+
+  .home-advantage-large-card {
+    padding: 24px 20px;
+  }
+
+  .home-advantage-large-title {
+    font-size: 18px;
+    margin-bottom: 12px;
   }
 
   /* Culture Mobile Styles */
@@ -2456,22 +2607,24 @@ background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
   }
 
   .home-dao-icons {
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     margin-bottom: 28px;
   }
 
   .home-dao-icon {
-    padding: 16px 12px;
-    gap: 10px;
+    padding: 12px 8px;
+    gap: 8px;
   }
 
-  .home-dao-icon svg {
-    width: 28px;
-    height: 28px;
+  .home-dao-icon img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px !important;
   }
 
   .home-dao-label {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .home-join-button {

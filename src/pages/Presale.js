@@ -28,6 +28,7 @@ import {
 import "./Presale.css";
 import MainHeader from '../components/MainHeader';
 import Footer from '../components/Footer';
+import { useI18n } from '../i18n/I18nProvider';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -35,6 +36,7 @@ const { Title, Text } = Typography;
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 function Presale() {
+  const { t } = useI18n();
   const [provider, setProvider] = useState(null);
   const [account, setAccount] = useState("");
 
@@ -46,6 +48,7 @@ function Presale() {
   const [buyLoading, setBuyLoading] = useState(false);
 
   const [inviteCode, setInviteCode] = useState("");
+  const [inviteModalOpen, setInviteModalOpen] = useState(false);
 
   // ============== 连接钱包 & 切 BSC ==============
   const handleConnect = async () => {
@@ -57,7 +60,7 @@ function Presale() {
         method: "eth_requestAccounts",
       });
       if (!accounts || !accounts.length) {
-        throw new Error("未获取到钱包地址");
+        throw new Error(t('presale.messages.walletError'));
       }
       const addr = ethers.utils.getAddress(accounts[0]);
 
@@ -101,10 +104,10 @@ function Presale() {
       setProvider(pvd);
       setAccount(addr);
       setInviteCode(addr.slice(-5).toUpperCase());
-      message.success("钱包连接成功");
+      message.success(t('presale.messages.walletSuccess'));
     } catch (e) {
       console.error(e);
-      message.error(e.message || "连接钱包失败");
+      message.error(e.message || t('presale.messages.walletError'));
     }
   };
 
@@ -131,11 +134,11 @@ function Presale() {
 
       const tx = await sale.bindUpline(DEFAULT_REFERRER);
       await tx.wait();
-      message.success("绑定上级成功");
+      message.success(t('presale.messages.bindSuccess'));
       setBindingModalOpen(false);
     } catch (e) {
       console.error(e);
-      message.error(e.message || "绑定上级失败");
+      message.error(e.message || t('presale.messages.bindError'));
     } finally {
       setBindingLoading(false);
     }
@@ -190,7 +193,7 @@ function Presale() {
 
       const balance = await usdt.balanceOf(account);
       if (balance.lt(amount)) {
-        throw new Error("USDT 余额不足");
+        throw new Error(t('presale.messages.insufficient'));
       }
 
       const allowance = await usdt.allowance(account, SALE_CONTRACT_ADDRESS);
@@ -202,11 +205,11 @@ function Presale() {
       const tx = await sale.buyPresale();
       await tx.wait();
 
-      message.success("购买成功");
+      message.success(t('presale.messages.purchaseSuccess'));
       await loadPurchased();
     } catch (e) {
       console.error(e);
-      message.error(e.message || "购买失败");
+      message.error(e.message || t('presale.messages.purchaseError'));
     } finally {
       setBuyLoading(false);
     }
@@ -216,10 +219,21 @@ function Presale() {
   const inviteUrl = `${window.location.origin}/?code=${inviteCode || ""}`;
 
   const copyInviteUrl = () => {
+    setInviteModalOpen(true);
+  };
+
+  const handleCopyUrl = () => {
     navigator.clipboard
       .writeText(inviteUrl)
-      .then(() => message.success("链接已复制"))
-      .catch(() => message.error("复制失败"));
+      .then(() => message.success(t('presale.messages.copySuccess')))
+      .catch(() => message.error(t('presale.messages.copyError')));
+  };
+
+  const handleCopyInviteCode = () => {
+    navigator.clipboard
+      .writeText(inviteCode)
+      .then(() => message.success(t('presale.messages.copyCodeSuccess')))
+      .catch(() => message.error(t('presale.messages.copyError')));
   };
 
   // ============== 监听账户/链变化 ==============
@@ -241,7 +255,7 @@ function Presale() {
 
     const onChainChanged = (chainId) => {
       if (chainId !== BSC_CHAIN_ID_HEX) {
-        message.warning("请切换到 BSC 链");
+        message.warning(t('presale.messages.switchChain'));
       }
     };
 
@@ -279,8 +293,8 @@ function Presale() {
         <section className="hero-section" id="presale">
           <div className="hero-inner">
             <div className="countdown-block">
-              <h2 className="countdown-title">Pre-sale end</h2>
-              <p className="countdown-subtitle">Min Buy 0 USDT, Max Buy 0USDT</p>
+              <h2 className="countdown-title">{t('presale.hero.title')}</h2>
+              <p className="countdown-subtitle">{t('presale.hero.subtitle', { min: 0, max: 0 })}</p>
               
               <div className="countdown-container">
                 <div className="countdown-timer">
@@ -298,32 +312,30 @@ function Presale() {
                   </div>
                 </div>
                 <div className="countdown-labels">
-                  <span className="time-label">DAY</span>
-                  <span className="time-label">HOUR</span>
-                  <span className="time-label">MIN</span>
-                  <span className="time-label">SEC</span>
+                  {t('presale.hero.countdownLabels').map((label, index) => (
+                    <span key={index} className="time-label">{label}</span>
+                  ))}
                 </div>
               </div>
+              {/* 连接光束 */}
+              <div className="countdown-connector"></div>
             </div>
 
             {/* 中央预售卡片 */}
             <div className="presale-card-wrapper">
               <div className="presale-card">
                 <div className="card-header">
-                  <div className="card-arrows">
-                    <img src={require("../images/Presale/arrows.png")} alt="arrows" className="arrows-bg" />
-                  </div>
-                  <div className="card-tab">
-                    <img src={require("../images/Presale/icon.png")} alt="icon" className="tab-icon" />
-                    <span className="tab-text">pre</span>
+                  <div className="token-selector">
+                    <img src={require("../images/Presale/arrows.png")} alt="arrows" className="token-arrows-bg" />
+                    <span className="token-name">  <img src={require("../images/Presale/icon1.png")} alt="icon" className="row-icon" style={{marginTop:-5,marginRight:5}}/>DKB</span>
                   </div>
                 </div>
 
                 <div className="card-body">
                   <div className="card-row">
                     <div className="row-left">
-                      <img src={require("../images/Presale/icon.png")} alt="icon" className="row-icon" />
-                      <span className="row-label">Price</span>
+                      <img src={require("../images/Presale/icon1.png")} alt="icon" className="row-icon" />
+                      <span className="row-label">{t('presale.card.price')}</span>
                     </div>
                     <div className="row-right">
                       <span className="row-value">0/100 Usdt</span>
@@ -332,60 +344,66 @@ function Presale() {
 
                   <div className="card-row">
                     <div className="row-left">
-                      <span className="row-label">Time：</span>
+                      <img src={require("../images/Presale/icon1.png")} alt="icon" className="row-icon" />
+                      <span className="row-label">{t('presale.card.time')}</span>
                     </div>
                     <div className="row-right">
-                      <span className="row-value-small">12/1/62,04:08:08-2022-12-31,23:11</span>
+                      <span className="row-value-small">1970-01-01 08:00 2022-10-10 10:10</span>
+                    </div>
+                  </div>
+
+                  <div className="card-row">
+                    <div className="row-left">
+                      <img src={require("../images/Presale/usdt.png")} alt="icon" className="row-icon" />
+                    </div>
+                    <div className="row-right">
+                      <span className="row-value">USDT</span>
                     </div>
                   </div>
 
                   <div className="card-input-section">
-                    <div className="input-header">
-                      <div className="input-header-left">
-                        <span className="input-label">Min</span>
-                        <span className="input-value">0 Usdt</span>
+                    <div className="input-wrapper">
+                      <div className="input-label-left">
+                        <span className="input-label">{t('presale.card.min')}</span>
+                        <span className="input-value">0 USDT</span>
                       </div>
-                      <div className="input-header-right">
-                        <span className="input-label">Max</span>
-                        <span className="input-value">0 Usdt</span>
+                      
+                      <div className="input-container">
+                        <button className="btn-expand-left">
+                          <img src={require("../images/Presale/remove.png")} alt="expand" />
+                        </button>
+                        <input 
+                          type="number" 
+                          className="amount-input" 
+                          defaultValue="100"
+                          placeholder="100"
+                        />
+                        <button className="btn-expand-right">
+                          <img src={require("../images/Presale/add.png")} alt="expand" />
+                        </button>
                       </div>
-                    </div>
-
-                    <div className="input-container">
-                      <button className="btn-decrease">
-                        <img src={require("../images/Presale/remove.png")} alt="decrease" />
-                      </button>
-                      <input 
-                        type="number" 
-                        className="amount-input" 
-                        defaultValue="100"
-                        placeholder="100"
-                      />
-                      <button className="btn-increase">
-                        <img src={require("../images/Presale/add.png")} alt="increase" />
-                      </button>
-                    </div>
-
-                    <div className="usdt-badge">
-                      <img src={require("../images/Presale/usdt.png")} alt="USDT" className="usdt-icon" />
-                      <span className="usdt-text">USDT</span>
+                      
+                      <div className="input-label-right">
+                        <span className="input-label">{t('presale.card.max')}</span>
+                        <span className="input-value">0 USDT</span>
+                      </div>
                     </div>
                   </div>
 
-                  <button className="btn-buy">Buy</button>
+                  <button className="btn-buy">{t('presale.card.buy')}</button>
 
                   <div className="card-rewards">
                     <div className="rewards-row">
-                      <span className="rewards-label">Rewards：</span>
-                      <span className="rewards-value">0</span>
+                      <span className="rewards-label">{t('presale.card.reward')}</span>
+                      <span className="rewards-value"></span>
                     </div>
                     <div className="rewards-row">
-                      <span className="rewards-label">Amount：</span>
-                      <span className="rewards-value"></span>
+                      <span className="rewards-label">{t('presale.card.amount')}</span>
+                      <span className="rewards-value">0</span>
                     </div>
                   </div>
 
-                  <button className="btn-receive">Receive</button>
+                  <button className="btn-receive">{t('presale.card.receive')}</button>
                 </div>
               </div>
             </div>
@@ -396,17 +414,17 @@ function Presale() {
         <section className="invite-section" id="invite">
           <div className="invite-title-block">
             <Title level={3} style={{ marginBottom: 4 }}>
-              Invite Rules
+              {t('presale.invite.title')}
             </Title>
             <Text type="secondary" style={{ fontSize: 13 }}>
-              You must participate in ido to get referral rewards:
+              {t('presale.invite.description')}
             </Text>
           </div>
 
           <div className="invite-card-wrapper">
             <Card className="invite-card">
               <QRCodeCanvas value={inviteUrl} size={160} />
-              <div className="invite-link-text">Invite Link</div>
+              <div className="invite-link-text">{t('presale.invite.link')}</div>
               <Button
                 type="primary"
                 block
@@ -414,7 +432,7 @@ function Presale() {
                 icon={<LinkOutlined />}
                 onClick={copyInviteUrl}
               >
-                Copy
+                {t('presale.invite.copy')}
               </Button>
             </Card>
           </div>
@@ -424,7 +442,7 @@ function Presale() {
         <section className="partners-section" id="partners">
           <div className="partners-bg">
             <div className="partners-inner">
-              <h3 className="partners-title">Our partners</h3>
+              <h3 className="partners-title">{t('presale.partners.title')}</h3>
               <div className="partner-logos">
                 <img src={require("../images/Presale/partner-dapp.png")} alt="dapp" className="partner-logo" />
                 <img src={require("../images/Presale/partner-binance.png")} alt="binance" className="partner-logo" />
@@ -446,30 +464,29 @@ function Presale() {
           <div className="footer-left">
             <div className="footer-logo">DKB</div>
             <div className="footer-desc">
-              全球领先的低空经济 RWA
-              生态平台，重构低空经济生产关系，开启低空经济数字化新时代。
+              {t('presale.footer.description')}
             </div>
           </div>
 
           <div className="footer-right">
             <div className="footer-box">
-              <div className="footer-box-title">链上认证</div>
+              <div className="footer-box-title">{t('presale.footer.certification')}</div>
               <div className="footer-box-content">
-                BSC 链合约地址：
+                {t('presale.footer.contract')}
                 <span className="contract-address">
                   0x1234567890abcdef1234567890abcdef12345678
                 </span>
               </div>
             </div>
             <div className="footer-box">
-              <div className="footer-box-title">免责声明</div>
+              <div className="footer-box-title">{t('presale.footer.disclaimer')}</div>
               <div className="footer-box-content">
-                本项目不构成任何形式的投资建议，投资有风险，决策需谨慎。所有代币和相关信息仅用于社区公示，请勿视为对任何第三方承诺或担保。
+                {t('presale.footer.disclaimerText')}
               </div>
             </div>
           </div>
         </div>
-        <div className="footer-bottom">© 2025. Design with by .</div>
+        <div className="footer-bottom">{t('presale.footer.copyright')}</div>
       </Footer>
 
       {/* 绑定上级弹窗（必须绑定才让过） */}
@@ -481,12 +498,12 @@ function Presale() {
         centered
       >
         <Space direction="vertical" style={{ width: "100%" }}>
-          <Title level={4}>绑定上级</Title>
+          <Title level={4}>{t('presale.modal.title')}</Title>
           <Text>
-            检测到当前地址未绑定上级，需要绑定项目方默认地址才能继续预售。
+            {t('presale.modal.description')}
           </Text>
           <Text copyable={{ text: DEFAULT_REFERRER }}>
-            默认上级地址：{DEFAULT_REFERRER}
+            {t('presale.modal.defaultAddress')}{DEFAULT_REFERRER}
           </Text>
           <Button
             type="primary"
@@ -494,9 +511,50 @@ function Presale() {
             loading={bindingLoading}
             onClick={handleBindReferrer}
           >
-            确认绑定
+            {t('presale.modal.confirm')}
           </Button>
         </Space>
+      </Modal>
+
+      {/* 邀请链接弹窗 */}
+      <Modal
+        open={inviteModalOpen}
+        onCancel={() => setInviteModalOpen(false)}
+        footer={null}
+        centered
+        className="invite-modal"
+        width={"50%"}
+      >
+        <div className="invite-modal-content">
+          {/* 二维码 */}
+          <div className="invite-modal-qr">
+            <QRCodeCanvas value={inviteUrl} size={200} />
+          </div>
+
+          {/* URL链接 */}
+          <div className="invite-modal-url">
+            <div className="invite-url-text">{inviteUrl}</div>
+            <button className="invite-url-copy-btn" onClick={handleCopyUrl}>
+              <img src={require("../images/Presale/copy.png")} alt="copy" />
+            </button>
+          </div>
+
+          {/* 邀请码部分 */}
+          <div className="invite-modal-code-section">
+            <div className="invite-code-label">{t('presale.modal.inviteCode')}</div>
+            <div className="invite-code-field">
+              <input 
+                type="text" 
+                value={inviteCode} 
+                readOnly 
+                className="invite-code-input"
+              />
+            </div>
+            <button className="btn-receive" onClick={handleCopyInviteCode}>
+              {t('presale.modal.share')}
+            </button>
+          </div>
+        </div>
       </Modal>
     </Layout>
   );

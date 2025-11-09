@@ -4,6 +4,7 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import MainHeader from "../components/MainHeader";
 import Footer from "../components/Footer";
 import { useRouter } from "../router/Router";
+import { useI18n } from "../i18n/I18nProvider";
 import "./Home.css";
 
 const { Content } = Layout;
@@ -11,12 +12,13 @@ const { Title, Text } = Typography;
 
 function Home() {
   const { navigate } = useRouter();
+  const { t } = useI18n();
 
   // 返佣比例数据
   const rebateData = [
-    { level: "一代", ratio: "6%" },
-    { level: "二代", ratio: "3%" },
-    { level: "三代", ratio: "2%" },
+    { level: t('home.rebate.ratio.levels.0'), ratio: "6%" },
+    { level: t('home.rebate.ratio.levels.1'), ratio: "3%" },
+    { level: t('home.rebate.ratio.levels.2'), ratio: "2%" },
   ];
 
   return (
@@ -43,7 +45,7 @@ function Home() {
                   alt="Aircraft Manufacturing"
                 />
               </div>
-              <Text className="home-badge-text">基于BSC链的航空经济通证</Text>
+              <Text className="home-badge-text">{t('home.hero.badge')}</Text>
             </div>
 
             <div className="home-hero-inner">
@@ -51,10 +53,10 @@ function Home() {
               <div className="home-hero-title-pc">
                 <div className="home-hero-title-line1">
                   <span className="home-hero-title-dkb">DKB</span>
-                  <span className="home-hero-title-coin">低空币:</span>
+                  <span className="home-hero-title-coin">{t('home.hero.titleLine1')}</span>
                 </div>
                 <div className="home-hero-title-line2">
-                  引领低空经济的数字生态先驱
+                  {t('home.hero.titleLine2')}
                 </div>
               </div>
 
@@ -62,37 +64,29 @@ function Home() {
               <div className="home-hero-title-mobile">
                 <div className="home-hero-title-line1">
                   <span className="home-hero-title-dkb">DKB</span>
-                  <span className="home-hero-title-coin">低空币:</span>
+                  <span className="home-hero-title-coin">{t('home.hero.titleLine1')}</span>
                 </div>
                 <div className="home-hero-title-line2">
-                  引领低空经济的数字生态先驱
+                  {t('home.hero.titleLine2')}
                 </div>
               </div>
 
               <Text className="home-hero-subtitle">
-                基于BSC链的去中心化通证,打造低空经济生态的"血液"与"润滑剂"
+                {t('home.hero.subtitle')}
               </Text>
 
               {/* Feature Tags - Below buttons on PC, Above buttons on Mobile */}
               <div className="home-hero-features">
-                <span className="home-feature-tag home-feature-tag-pc">
-                  链上原生资产
-                </span>
-                <span className="home-feature-tag home-feature-tag-pc">
-                  DAO社区治理
-                </span>
-                <span className="home-feature-tag home-feature-tag-pc">
-                  实体场景映射
-                </span>
-                <span className="home-feature-tag home-feature-tag-mobile">
-                  链上顶生资产
-                </span>
-                <span className="home-feature-tag home-feature-tag-mobile">
-                  DAO社区治理
-                </span>
-                <span className="home-feature-tag home-feature-tag-mobile">
-                  实体场景映射
-                </span>
+                {t('home.hero.features.pc').map((feature, index) => (
+                  <span key={index} className="home-feature-tag home-feature-tag-pc">
+                    {feature}
+                  </span>
+                ))}
+                {t('home.hero.features.mobile').map((feature, index) => (
+                  <span key={index} className="home-feature-tag home-feature-tag-mobile">
+                    {feature}
+                  </span>
+                ))}
               </div>
 
               {/* 移动端按钮 */}
@@ -110,7 +104,7 @@ function Home() {
                       alt="Aircraft Manufacturing"
                     />
                   </span>
-                  下载白皮书
+                  {t('home.hero.buttons.download')}
                 </Button>
                 <Button
                   size="large"
@@ -124,30 +118,30 @@ function Home() {
                       alt="Aircraft Manufacturing"
                     />
                   </span>
-                  购买DKB
+                  {t('home.hero.buttons.buy')}
                 </Button>
               </div>
 
               {/* PC端统计数据 */}
               <div className="home-hero-stats-container home-hero-stats-pc">
                 <div className="home-hero-stats-labels-row">
-                  <Text className="home-stat-label">总供应量</Text>
-                  <Text className="home-stat-label">销毁比例</Text>
-                  <Text className="home-stat-label">链上台约</Text>
-                  <Text className="home-stat-label">共识机制</Text>
+                  <Text className="home-stat-label">{t('home.hero.stats.totalSupply')}</Text>
+                  <Text className="home-stat-label">{t('home.hero.stats.burnRatio')}</Text>
+                  <Text className="home-stat-label">{t('home.hero.stats.contract')}</Text>
+                  <Text className="home-stat-label">{t('home.hero.stats.consensus')}</Text>
                 </div>
                 <div className="home-hero-stats-values-row">
                   <Text className="home-stat-value home-stat-value-white">
-                    10亿枚
+                    {t('home.hero.stats.totalSupplyValue')}
                   </Text>
                   <Text className="home-stat-value home-stat-value-pink">
-                    70%
+                    {t('home.hero.stats.burnRatioValue')}
                   </Text>
                   <Text className="home-stat-value home-stat-value-cyan">
-                    0x123...4567
+                    {t('home.hero.stats.contractValue')}
                   </Text>
                   <Text className="home-stat-value home-stat-value-white">
-                    PoS + DAO
+                    {t('home.hero.stats.consensusValue')}
                   </Text>
                 </div>
               </div>
@@ -156,27 +150,27 @@ function Home() {
               <div className="home-hero-stats-container home-hero-stats-mobile">
                 <div className="home-hero-stats-grid">
                   <div className="home-stat-item-mobile">
-                    <Text className="home-stat-label">总供应量</Text>
+                    <Text className="home-stat-label">{t('home.hero.stats.totalSupply')}</Text>
                     <Text className="home-stat-value home-stat-value-white">
-                      10亿枚
+                      {t('home.hero.stats.totalSupplyValue')}
                     </Text>
                   </div>
                   <div className="home-stat-item-mobile">
-                    <Text className="home-stat-label">销毁比例</Text>
+                    <Text className="home-stat-label">{t('home.hero.stats.burnRatio')}</Text>
                     <Text className="home-stat-value home-stat-value-pink">
-                      70%
+                      {t('home.hero.stats.burnRatioValue')}
                     </Text>
                   </div>
                   <div className="home-stat-item-mobile">
-                    <Text className="home-stat-label">链上台约</Text>
+                    <Text className="home-stat-label">{t('home.hero.stats.contract')}</Text>
                     <Text className="home-stat-value home-stat-value-cyan">
-                      0x123...4567
+                      {t('home.hero.stats.contractValue')}
                     </Text>
                   </div>
                   <div className="home-stat-item-mobile">
-                    <Text className="home-stat-label">共识机制</Text>
+                    <Text className="home-stat-label">{t('home.hero.stats.consensus')}</Text>
                     <Text className="home-stat-value home-stat-value-white">
-                      PoS + DAO
+                      {t('home.hero.stats.consensusValue')}
                     </Text>
                   </div>
                 </div>
@@ -199,10 +193,10 @@ function Home() {
                     className="home-section-title home-section-title-left"
                   >
                     <span className="home-ecosystem-title-icon">
-                      ➤万亿级新赛道:{" "}
+                      ➤{t('home.ecosystem.title')}{" "}
                     </span>{" "}
                     <span className="home-ecosystem-title-highlight">
-                      低空经济的核心生态
+                      {t('home.ecosystem.highlight')}
                     </span>
                   </Title>
                   <Row gutter={[24, 24]} className="home-ecosystem-cards-row">
@@ -214,9 +208,9 @@ function Home() {
                             alt="Aircraft Manufacturing"
                           />
                         </div>
-                        <div className="home-feature-title">飞行器制造</div>
+                        <div className="home-feature-title">{t('home.ecosystem.features.manufacturing.title')}</div>
                         <Text className="home-feature-desc">
-                          无人机、EVTOL、直升机等核心装备研发与生产
+                          {t('home.ecosystem.features.manufacturing.desc')}
                         </Text>
                       </Card>
                     </Col>
@@ -228,9 +222,9 @@ function Home() {
                             alt="Infrastructure"
                           />
                         </div>
-                        <div className="home-feature-title">基础设施</div>
+                        <div className="home-feature-title">{t('home.ecosystem.features.infrastructure.title')}</div>
                         <Text className="home-feature-desc">
-                          起降场、充电桩、低空通信网络、空管系统搭建
+                          {t('home.ecosystem.features.infrastructure.desc')}
                         </Text>
                       </Card>
                     </Col>
@@ -242,16 +236,16 @@ function Home() {
                             alt="Diverse Services"
                           />
                         </div>
-                        <div className="home-feature-title">多元服务</div>
+                        <div className="home-feature-title">{t('home.ecosystem.features.services.title')}</div>
                         <Text className="home-feature-desc">
-                          物流配送、载人交通、应急救援、文旅观光等场景
+                          {t('home.ecosystem.features.services.desc')}
                         </Text>
                       </Card>
                     </Col>
                   </Row>
                   <div className="home-ecosystem-desc">
                     <Text className="home-ecosystem-desc-text">
-                      低空经济是以AI无人驾驶航空器的低空飞行活动为牵引,辐射带动相关领域的综合性经济形态,通常指垂直高度1000-3000米空域进行的经济活动,是实体经济与Web3数字经济深度融合的前沿领域
+                      {t('home.ecosystem.description')}
                     </Text>
                   </div>
                 </Col>
@@ -272,14 +266,14 @@ function Home() {
                       <div className="home-market-status">
                         <span className="home-market-dot"></span>
                         <Text className="home-market-status-text">
-                          实时发展中
+                          {t('home.ecosystem.marketSize.status')}
                         </Text>
                       </div>
                       <div className="home-market-title">
-                        全球低空经济市场规模
+                        {t('home.ecosystem.marketSize.title')}
                       </div>
                       <Text className="home-market-projection">
-                        预计2030年突破5万亿美元
+                        {t('home.ecosystem.marketSize.projection')}
                       </Text>
                     </div>
                   </div>
@@ -312,13 +306,13 @@ function Home() {
                       />
                       <span className="home-blockchain-title-icon">
                         {" "}
-                        区块链赋能:
+                        {t('home.blockchain.title')}
                       </span>{" "}
                       <span className="home-section-title-highlight">
-                        低率经济
+                        {t('home.blockchain.highlight')}
                       </span>
                       <span className="home-blockchain-title-icon">
-                        的数字通证
+                        {t('home.blockchain.suffix')}
                       </span>
                     </Title>
                     <div className="home-blockchain-feature-item">
@@ -329,10 +323,10 @@ function Home() {
 
                       <div className="home-blockchain-feature-content">
                         <div className="home-blockchain-feature-title">
-                          去中心化底层
+                          {t('home.blockchain.features.decentralized.title')}
                         </div>
                         <Text className="home-blockchain-feature-desc">
-                          基于BSC链技术,分布式账本保障透明可信,符合区块链去中心化核心特性
+                          {t('home.blockchain.features.decentralized.desc')}
                         </Text>
                       </div>
                     </div>
@@ -343,10 +337,10 @@ function Home() {
                       />
                       <div className="home-blockchain-feature-content">
                         <div className="home-blockchain-feature-title">
-                          强场景绑定
+                          {t('home.blockchain.features.binding.title')}
                         </div>
                         <Text className="home-blockchain-feature-desc">
-                          与低空经济生态深度绑定,通过经济激励构建活跃、自驱、共治的DAO生态系统
+                          {t('home.blockchain.features.binding.desc')}
                         </Text>
                       </div>
                     </div>
@@ -357,17 +351,17 @@ function Home() {
                       />
                       <div className="home-blockchain-feature-content">
                         <div className="home-blockchain-feature-title">
-                          公平经济模型
+                          {t('home.blockchain.features.fair.title')}
                         </div>
                         <Text className="home-blockchain-feature-desc">
-                          70%黑洞销毁,项目方零预留,链上实时可查,保障代币分配公平性
+                          {t('home.blockchain.features.fair.desc')}
                         </Text>
                       </div>
                     </div>
                   </div>
                   <div className="home-blockchain-desc-wrapper">
                     <Text className="home-blockchain-desc">
-                      DKB不止是加密代币,更是连接低空经济全产业链的价值媒介,是探索低空经济庞大生态的Web3密钥。
+                      {t('home.blockchain.description')}
                     </Text>
                   </div>
                 </Col>
@@ -381,14 +375,14 @@ function Home() {
           <div className="home-container">
             <div className="home-tokenomics-header">
               <h2 className="home-tokenomics-main-title">
-                透明可信的代币经济模型
+                {t('home.tokenomics.title')}
               </h2>
               <img
                 src={require("../images/home/654.png")}
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-tokenomics-subtitle">
-                基于简约而公平的锻造工艺，构建可持续的代币生态，将赋能一位参与者的权益
+                {t('home.tokenomics.subtitle')}
               </p>
             </div>
 
@@ -404,8 +398,8 @@ function Home() {
                       />
                     </div>
                     <div className="home-tokenomics-card-title-group">
-                      <div className="home-tokenomics-card-title">总供应量</div>
-                      <div className="home-tokenomics-card-value">10亿枚</div>
+                      <div className="home-tokenomics-card-title">{t('home.tokenomics.cards.totalSupply.title')}</div>
+                      <div className="home-tokenomics-card-value">{t('home.tokenomics.cards.totalSupply.value')}</div>
                     </div>
                   </div>
 
@@ -472,15 +466,15 @@ function Home() {
                     <div className="home-tokenomics-legend">
                       <div className="home-legend-item">
                         <span className="home-legend-dot home-legend-dot-red"></span>
-                        <span className="home-legend-text">黑洞销毁(70%)</span>
+                        <span className="home-legend-text">{t('home.tokenomics.cards.totalSupply.legend.burn')}</span>
                       </div>
                       <div className="home-legend-item">
                         <span className="home-legend-dot home-legend-dot-purple"></span>
-                        <span className="home-legend-text">私募预售(20%)</span>
+                        <span className="home-legend-text">{t('home.tokenomics.cards.totalSupply.legend.presale')}</span>
                       </div>
                       <div className="home-legend-item">
                         <span className="home-legend-dot home-legend-dot-cyan"></span>
-                        <span className="home-legend-text">流动性(10%)</span>
+                        <span className="home-legend-text">{t('home.tokenomics.cards.totalSupply.legend.liquidity')}</span>
                       </div>
                     </div>
                   </div>
@@ -498,17 +492,17 @@ function Home() {
                       />
                     </div>
                     <div className="home-tokenomics-card-title-group">
-                      <div className="home-tokenomics-card-title">买卖税费</div>
-                      <div className="home-tokenomics-card-value">2%</div>
+                      <div className="home-tokenomics-card-title">{t('home.tokenomics.cards.tax.title')}</div>
+                      <div className="home-tokenomics-card-value">{t('home.tokenomics.cards.tax.value')}</div>
                     </div>
                   </div>
 
                   <div className="home-tokenomics-tax-details">
                     <div className="home-tax-item">
                       <div className="home-tax-label">
-                        <span>回购销毁</span>
+                        <span>{t('home.tokenomics.cards.tax.buyback')}</span>
                       </div>
-                      <div className="home-tax-percentage">1%</div>
+                      <div className="home-tax-percentage">{t('home.tokenomics.cards.tax.buybackValue')}</div>
                     </div>
                     <div className="home-tax-progress">
                       <div
@@ -519,9 +513,9 @@ function Home() {
 
                     <div className="home-tax-item">
                       <div className="home-tax-label">
-                        <span>第6代佣金</span>
+                        <span>{t('home.tokenomics.cards.tax.commission')}</span>
                       </div>
-                      <div className="home-tax-percentage">1%</div>
+                      <div className="home-tax-percentage">{t('home.tokenomics.cards.tax.commissionValue')}</div>
                     </div>
                     <div className="home-tax-progress">
                       <div
@@ -544,15 +538,15 @@ function Home() {
                       />
                     </div>
                     <div className="home-tokenomics-card-title-group">
-                      <div className="home-tokenomics-card-title">黑洞销毁</div>
+                      <div className="home-tokenomics-card-title">{t('home.tokenomics.cards.burn.title')}</div>
                       <div className="home-tokenomics-card-value home-tokenomics-value-burn">
-                        70亿枚
+                        {t('home.tokenomics.cards.burn.value')}
                       </div>
                     </div>
                   </div>
 
                   <div className="home-tokenomics-card-desc">
-                    占总供应量70%，全部打入黑洞地址即时销毁，永久退出流通，系统自动执行无法撤销
+                    {t('home.tokenomics.cards.burn.desc')}
                   </div>
                 </Card>
               </Col>
@@ -569,17 +563,17 @@ function Home() {
                     </div>
                     <div className="home-tokenomics-card-title-group">
                       <div className="home-tokenomics-card-title">
-                        零预留·全透明
+                        {t('home.tokenomics.cards.transparent.title')}
                       </div>
                     </div>
                   </div>
 
                   <div className="home-tokenomics-card-desc">
-                    项目方零预留份额，所有代币分配在链上实时可查，确保公平公正，符合去中心化核心精神
+                    {t('home.tokenomics.cards.transparent.desc')}
                   </div>
 
                   <a href="#" className="home-tokenomics-verify-link">
-                    链上验证 →
+                    {t('home.tokenomics.cards.transparent.verify')}
                   </a>
                 </Card>
               </Col>
@@ -592,16 +586,16 @@ function Home() {
           <div className="home-container">
             <div className="home-roadmap-header">
               <h2 className="home-roadmap-main-title">
-                分步落地：
-                <span className="home-roadmap-title-highlight">低空币</span>
-                的成长之旅
+                {t('home.roadmap.title')}
+                <span className="home-roadmap-title-highlight">{t('home.roadmap.highlight')}</span>
+                {t('home.roadmap.suffix')}
               </h2>
               <img
                 src={require("../images/home/654.png")}
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-roadmap-subtitle">
-                从社交通证到生态驱动，稳步一帮积累试点，实现可持续成长闭环
+                {t('home.roadmap.subtitle')}
               </p>
             </div>
 
@@ -613,14 +607,15 @@ function Home() {
                 </div>
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badge">进行中</div>
-                    <h3 className="home-timeline-card-title">奠基</h3>
+                    <div className="home-timeline-badge">{t('home.roadmap.stages.foundation.status')}</div>
+                    <h3 className="home-timeline-card-title">{t('home.roadmap.stages.foundation.title')}</h3>
                     <div className="home-timeline-card-desc">
-                      • 智能合约部署与审计
-                      <br />
-                      • 创建mint通道，聚集核心社区成员 <br />
-                      • 建立DAO治理框架与初始社区
-                      <br />
+                      {t('home.roadmap.stages.foundation.items').map((item, idx) => (
+                        <React.Fragment key={idx}>
+                          • {item}
+                          {idx < t('home.roadmap.stages.foundation.items').length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
                     </div>
                   </Card>
                 </div>
@@ -630,12 +625,15 @@ function Home() {
               <div className="home-timeline-item home-timeline-item-right">
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badges">待启动</div>
-                    <h3 className="home-timeline-card-title">奖励勇士</h3>
+                    <div className="home-timeline-badges">{t('home.roadmap.stages.warriors.status')}</div>
+                    <h3 className="home-timeline-card-title">{t('home.roadmap.stages.warriors.title')}</h3>
                     <div className="home-timeline-card-desc">
-                      • 启动社区驱动的模因创作与传播
-                      <br /> • 推出NFT系列，奖励早期贡献者 <br />•
-                      建立内容传播奖励机制
+                      {t('home.roadmap.stages.warriors.items').map((item, idx) => (
+                        <React.Fragment key={idx}>
+                          • {item}
+                          {idx < t('home.roadmap.stages.warriors.items').length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
                     </div>
                   </Card>
                 </div>
@@ -650,12 +648,15 @@ function Home() {
                 </div>
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badges">待启动</div>
-                    <h3 className="home-timeline-card-title">铸造铠甲</h3>
+                    <div className="home-timeline-badges">{t('home.roadmap.stages.armor.status')}</div>
+                    <h3 className="home-timeline-card-title">{t('home.roadmap.stages.armor.title')}</h3>
                     <div className="home-timeline-card-desc">
-                      • 启动铁军DAO，凝聚核心社区共识 <br />•
-                      质押销毁95%低空币，提升代币价值 <br />•
-                      部署跨链桥，实现多链互通
+                      {t('home.roadmap.stages.armor.items').map((item, idx) => (
+                        <React.Fragment key={idx}>
+                          • {item}
+                          {idx < t('home.roadmap.stages.armor.items').length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
                     </div>
                   </Card>
                 </div>
@@ -663,12 +664,15 @@ function Home() {
               <div className="home-timeline-item home-timeline-item-right">
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badges">待启动</div>
-                    <h3 className="home-timeline-card-title">名扬四海</h3>
+                    <div className="home-timeline-badges">{t('home.roadmap.stages.fame.status')}</div>
+                    <h3 className="home-timeline-card-title">{t('home.roadmap.stages.fame.title')}</h3>
                     <div className="home-timeline-card-desc">
-                      • 百大Web3社区联合推广
-                      <br /> • 邀请区块链KOL参与生态建设 <br />•
-                      登陆主流去中心化交易所
+                      {t('home.roadmap.stages.fame.items').map((item, idx) => (
+                        <React.Fragment key={idx}>
+                          • {item}
+                          {idx < t('home.roadmap.stages.fame.items').length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
                     </div>
                   </Card>
                 </div>
@@ -682,15 +686,17 @@ function Home() {
                 </div>
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badgess">未来规划</div>
+                    <div className="home-timeline-badgess">{t('home.roadmap.stages.explosion.status')}</div>
                     <h3 className="home-timeline-card-title">
-                      生态爆发·价值兑现
+                      {t('home.roadmap.stages.explosion.title')}
                     </h3>
                     <div className="home-timeline-card-desc">
-                      • 与实体低空经济企业达成战略合作
-                      <br /> • 发行实体权益映射NFT <br />•
-                      开发DKB元宇宙低空飞行场景 <br />•
-                      成为连接物理与数字世界的价值枢纽
+                      {t('home.roadmap.stages.explosion.items').map((item, idx) => (
+                        <React.Fragment key={idx}>
+                          • {item}
+                          {idx < t('home.roadmap.stages.explosion.items').length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
                     </div>
                   </Card>
                 </div>
@@ -704,9 +710,9 @@ function Home() {
           <div className="home-container">
             <div className="home-rebate-header">
               <h2 className="home-rebate-main-title">
-                预售期 -{" "}
+                {t('home.rebate.title')}{" "}
                 <span className="home-rebate-title-highlight">
-                  推广返佣机制
+                  {t('home.rebate.highlight')}
                 </span>
               </h2>
               <img
@@ -714,7 +720,7 @@ function Home() {
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-rebate-subtitle">
-                激励清晰、到账高效、助力预售期快速推广
+                {t('home.rebate.subtitle')}
               </p>
             </div>
 
@@ -722,34 +728,34 @@ function Home() {
               {/* 左侧：核心机制说明 */}
               <Col xs={24} lg={12}>
                 <div className="home-rebate-mechanisms">
-                  <h3 className="home-rebate-section-title">核心机制说明</h3>
+                  <h3 className="home-rebate-section-title">{t('home.rebate.mechanisms.title')}</h3>
 
                   <div className="home-rebate-mechanism-list">
                     <Card className="home-rebate-mechanism-card">
-                      <div className="home-mechanism-card-title">绑定关系</div>
+                      <div className="home-mechanism-card-title">{t('home.rebate.mechanisms.binding.title')}</div>
                       <div className="home-mechanism-card-desc">
-                        每个用户唯独「邀请链接」永久帮定上下级
+                        {t('home.rebate.mechanisms.binding.desc')}
                       </div>
                     </Card>
 
                     <Card className="home-rebate-mechanism-card">
-                      <div className="home-mechanism-card-title">触发条件</div>
+                      <div className="home-mechanism-card-title">{t('home.rebate.mechanisms.trigger.title')}</div>
                       <div className="home-mechanism-card-desc">
-                        用户在售期间购买代币（USDT ⇒ DKB）
+                        {t('home.rebate.mechanisms.trigger.desc')}
                       </div>
                     </Card>
 
                     <Card className="home-rebate-mechanism-card">
-                      <div className="home-mechanism-card-title">返佣逻辑</div>
+                      <div className="home-mechanism-card-title">{t('home.rebate.mechanisms.logic.title')}</div>
                       <div className="home-mechanism-card-desc">
-                        自动向上级分配 USDT 返酬
+                        {t('home.rebate.mechanisms.logic.desc')}
                       </div>
                     </Card>
 
                     <Card className="home-rebate-mechanism-card">
-                      <div className="home-mechanism-card-title">有效期</div>
+                      <div className="home-mechanism-card-title">{t('home.rebate.mechanisms.validity.title')}</div>
                       <div className="home-mechanism-card-desc">
-                        仅颁售期间有效
+                        {t('home.rebate.mechanisms.validity.desc')}
                       </div>
                     </Card>
                   </div>
@@ -760,7 +766,7 @@ function Home() {
               <Col xs={24} lg={12}>
                 <div className="home-rebate-right">
                   <h3 className="home-rebate-section-title">
-                    返佣比例（层级式分布）
+                    {t('home.rebate.ratio.title')}
                   </h3>
                   {/* 返佣比例表格 */}
                   <Card
@@ -771,10 +777,10 @@ function Home() {
                       {/* 表头 */}
                       <div className="home-rebate-table-header">
                         <div className="home-rebate-table-cell home-rebate-table-cell-header">
-                          层级
+                          {t('home.rebate.ratio.level')}
                         </div>
                         <div className="home-rebate-table-cell home-rebate-table-cell-header">
-                          返佣比例
+                          {t('home.rebate.ratio.ratio')}
                         </div>
                       </div>
                       {/* 表格数据行 */}
@@ -793,7 +799,7 @@ function Home() {
 
                   {/* 执行亮点 */}
                   <div className="home-rebate-highlights">
-                    <h3 className="home-rebate-section-title">执行亮点</h3>
+                    <h3 className="home-rebate-section-title">{t('home.rebate.highlights.title')}</h3>
 
                     <div className="home-highlight-list">
                       <div className="home-highlight-item">
@@ -806,10 +812,10 @@ function Home() {
                         </div>
                         <div className="home-highlight-content">
                           <span className="home-highlight-label">
-                            到账效率：
+                            {t('home.rebate.highlights.efficiency.label')}
                           </span>
                           <span className="home-highlight-text">
-                            实时转账即时到账（无需人工操作）
+                            {t('home.rebate.highlights.efficiency.text')}
                           </span>
                         </div>
                       </div>
@@ -824,10 +830,10 @@ function Home() {
                         </div>
                         <div className="home-highlight-content">
                           <span className="home-highlight-label">
-                            奖励形式：
+                            {t('home.rebate.highlights.reward.label')}
                           </span>
                           <span className="home-highlight-text">
-                            USDT 直接发放（从营销收款中划出）
+                            {t('home.rebate.highlights.reward.text')}
                           </span>
                         </div>
                       </div>
@@ -844,9 +850,9 @@ function Home() {
           <div className="home-container">
             <div className="home-advantages-header">
               <h2 className="home-advantages-main-title">
-                万亿赛道的
+                {t('home.advantages.title')}
                 <span className="home-advantages-title-highlight">
-                  核心优势
+                  {t('home.advantages.highlight')}
                 </span>
               </h2>
                <img
@@ -854,7 +860,7 @@ function Home() {
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-advantages-subtitle">
-                政策、技术、市场三重驱动，低空经济迎来黄金发展期
+                {t('home.advantages.subtitle')}
               </p>
             </div>
 
@@ -870,9 +876,9 @@ function Home() {
               />
                     </div>
                   </div>
-                  <h3 className="home-advantage-card-title">国家战略加持</h3>
+                  <h3 className="home-advantage-card-title">{t('home.advantages.cards.strategy.title')}</h3>
                   <p className="home-advantage-card-desc">
-                    全球主要经济体将低空经济列为未来产业重点扶持方向，政府政策倾斜与中央财政补贴，将持续赋能发展。
+                    {t('home.advantages.cards.strategy.desc')}
                   </p>
                 </Card>
               </Col>
@@ -888,9 +894,9 @@ function Home() {
               />
                     </div>
                   </div>
-                  <h3 className="home-advantage-card-title">技术突破赋能</h3>
+                  <h3 className="home-advantage-card-title">{t('home.advantages.cards.technology.title')}</h3>
                   <p className="home-advantage-card-desc">
-                    电池、人工智能、复合材料、通信等研发突破性成熟度大幅完成提速，供应链人员投入AI相配EVTOL综合生产，已能批量交付生态场景应用。
+                    {t('home.advantages.cards.technology.desc')}
                   </p>
                 </Card>
               </Col>
@@ -906,9 +912,9 @@ function Home() {
               />
                     </div>
                   </div>
-                  <h3 className="home-advantage-card-title">海量场景需求</h3>
+                  <h3 className="home-advantage-card-title">{t('home.advantages.cards.demand.title')}</h3>
                   <p className="home-advantage-card-desc">
-                    物流、交通、农业、安防场景倍增让大量市场业务增长需求井喷并需求不断深化，并与突破技术和应用工具应同步造就的持续增长。
+                    {t('home.advantages.cards.demand.desc')}
                   </p>
                 </Card>
               </Col>
@@ -921,9 +927,9 @@ function Home() {
                 <h3 className="home-advantage-large-title"> <img
                 src={require("../images/home/w4.png")}
                 style={{ width: 24, height:  24 ,marginTop:-10,marginRight:5}}
-              />巨大经济潜力</h3>
+              />{t('home.advantages.potential.title')}</h3>
                 <p className="home-advantage-large-desc">
-                  根据市场研究，低空经济产业链获客方式数据化对接，不仅相连产业链，超频后维护成本上升明显，且扩大金融资产产业回报延时获取潜力。依靠未来经济价值链优势配对，成为各类核心参与者中长期价值承接重点，让核心社区共享低空经济红利。
+                  {t('home.advantages.potential.desc')}
                 </p>
               </Card>
             </div>
@@ -935,25 +941,25 @@ function Home() {
           <div className="home-container">
             <div className="home-culture-header">
               <h2 className="home-culture-main-title">
-                我们的文化：
+                {t('home.culture.title')}
                 <span className="home-culture-title-highlight">
-                  引领低空经济
+                  {t('home.culture.highlight')}
                 </span>
-                的探索者
+                {t('home.culture.suffix')}
               </h2>
                 <img
                 src={require("../images/home/654.png")}
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-culture-subtitle">
-                DAO社区是低空币的核心，我们共同构建去中心化、透明、协作、创新的Web3文化氛围
+                {t('home.culture.subtitle')}
               </p>
             </div>
 
             <Row gutter={[48, 48]} className="home-culture-content">
               {/* 左侧：核心价值观 */}
               <Col xs={24} lg={14}>
-                <h3 className="home-culture-section-title">核心价值观</h3>
+                <h3 className="home-culture-section-title">{t('home.culture.values.title')}</h3>
                 <Row gutter={[24, 24]} className="home-culture-cards">
                   <Col xs={24} sm={12}>
                     <Card className="home-culture-card">
@@ -963,9 +969,9 @@ function Home() {
                 style={{ width: 48, height:  48 }}
               />
                       </div>
-                      <h4 className="home-culture-card-title">去中心化</h4>
+                      <h4 className="home-culture-card-title">{t('home.culture.values.decentralized.title')}</h4>
                       <p className="home-culture-card-desc">
-                        社区主导治理，无中心化权威，代码即法则
+                        {t('home.culture.values.decentralized.desc')}
                       </p>
                     </Card>
                   </Col>
@@ -978,9 +984,9 @@ function Home() {
                 style={{ width: 48, height:  48 }}
               />
                       </div>
-                      <h4 className="home-culture-card-title">创新思维</h4>
+                      <h4 className="home-culture-card-title">{t('home.culture.values.innovation.title')}</h4>
                       <p className="home-culture-card-desc">
-                        以Web3思维重塑生态发展，解决实际痛点
+                        {t('home.culture.values.innovation.desc')}
                       </p>
                     </Card>
                   </Col>
@@ -993,9 +999,9 @@ function Home() {
                 style={{ width: 48, height:  48 }}
               />
                       </div>
-                      <h4 className="home-culture-card-title">协作精神</h4>
+                      <h4 className="home-culture-card-title">{t('home.culture.values.collaboration.title')}</h4>
                       <p className="home-culture-card-desc">
-                        社区需高度参与治理，共享生态与机会，共同成长
+                        {t('home.culture.values.collaboration.desc')}
                       </p>
                     </Card>
                   </Col>
@@ -1008,9 +1014,9 @@ function Home() {
                 style={{ width: 48, height:  48 }}
               />
                       </div>
-                      <h4 className="home-culture-card-title">透明可信</h4>
+                      <h4 className="home-culture-card-title">{t('home.culture.values.transparent.title')}</h4>
                       <p className="home-culture-card-desc">
-                        链上可查，公开透明，建立社区信任基石
+                        {t('home.culture.values.transparent.desc')}
                       </p>
                     </Card>
                   </Col>
@@ -1021,42 +1027,42 @@ function Home() {
               <Col xs={24} lg={10}>
                 <div className="home-culture-right">
                   <Card className="home-community-card">
-                    <h3 className="home-community-title">社区口号</h3>
+                    <h3 className="home-community-title">{t('home.culture.community.sloganTitle')}</h3>
                     <div className="home-community-slogan-box">
                       <p className="home-community-slogan">
-                        在动荡中寻找平衡，在无常中体会自由。
+                        {t('home.culture.community.slogan')}
                       </p>
                     </div>
 
-                    <h4 className="home-dao-title">DAO社群入口</h4>
+                    <h4 className="home-dao-title">{t('home.culture.community.daoTitle')}</h4>
                     <div className="home-dao-icons">
                       <div className="home-dao-icon">
                        <img
                 src={require("../images/home/h5.png")}
                 style={{ width: 54, height:  54,marginBottom:20 }}
               />
-                        <span className="home-dao-label">官方Telegram</span>
+                        <span className="home-dao-label">{t('home.culture.community.telegram')}</span>
                       </div>
                       <div className="home-dao-icon">
                         <img
                 src={require("../images/home/h6.png")}
                 style={{ width: 54, height:  54,marginBottom:20 }}
               />
-                        <span className="home-dao-label">X(Twitter)社群</span>
+                        <span className="home-dao-label">{t('home.culture.community.twitter')}</span>
                       </div>
                       <div className="home-dao-icon">
                         <img
                 src={require("../images/home/h7.png")}
                style={{ width: 54, height:  54,marginBottom:20 }}
               />
-                        <span className="home-dao-label">腾讯会议</span>
+                        <span className="home-dao-label">{t('home.culture.community.meeting')}</span>
                       </div>
                       <div className="home-dao-icon">
                          <img
                 src={require("../images/home/h8.png")}
                 style={{ width: 54, height:  54,marginBottom:20 }}
               />
-                        <span className="home-dao-label">QQ社区群</span>
+                        <span className="home-dao-label">{t('home.culture.community.qq')}</span>
                       </div>
                     </div>
 
@@ -1067,7 +1073,7 @@ function Home() {
                       className="home-join-button"
                       onClick={() => navigate("/presale")}
                     >
-                      加入我们，成为低空经济Web3生态的共建者
+                      {t('home.culture.community.joinButton')}
                     </Button>
                   </Card>
                 </div>
@@ -1089,11 +1095,12 @@ function Home() {
           </div>
             <div className="home-cta-content">
               <h2 className="home-cta-main-title">
-                抢占万亿低空经济红利，从持有
-                <span className="home-cta-title-highlight">DKB</span>开始
+                {t('home.cta.title')}
+                <span className="home-cta-title-highlight">{t('home.cta.highlight')}</span>
+                {t('home.cta.suffix')}
               </h2>
               <p className="home-cta-subtitle">
-                成为去中心化低空经济基础设施的早期参与者，共享生态成长价值
+                {t('home.cta.subtitle')}
               </p>
               <div className="home-cta-buttons">
                 <Button
@@ -1118,14 +1125,14 @@ function Home() {
                     </svg>
                   }
                 >
-                  下载白皮书
+                  {t('home.cta.buttons.download')}
                 </Button>
                 <Button
                   size="large"
                   className="home-cta-btn-secondary"
                   onClick={() => navigate("/presale")}
                 >
-                  购买DKB
+                  {t('home.cta.buttons.buy')}
                 </Button>
               </div>
             </div>

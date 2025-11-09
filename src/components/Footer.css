@@ -229,6 +229,11 @@
 
   .footer-right {
     gap: 36px;
+    width: 100%;
+  }
+
+  .footer-verification {
+    width: 100%;
   }
 
   .footer-section-title {
@@ -237,9 +242,14 @@
     text-align: center;
   }
 
+  .verification-box {
+    width: 100%;
+  }
+
   .verification-input {
     font-size: 11px;
     padding: 9px 12px;
+    min-width: 0;
   }
 
   .copy-button {
@@ -297,6 +307,11 @@
 
   .footer-right {
     gap: 32px;
+    width: 100%;
+  }
+
+  .footer-verification {
+    width: 100%;
   }
 
   .footer-section-title {
@@ -304,9 +319,14 @@
     margin-bottom: 12px;
   }
 
+  .verification-box {
+    width: 100%;
+  }
+
   .verification-input {
     font-size: 10px;
     padding: 9px 10px;
+    min-width: 0;
   }
 
   .copy-button {
