@@ -39,6 +39,8 @@ function Presale() {
   const [packages, setPackages] = useState([]); // [{ usdtRaw, usdt, dkbRaw, dkb }]
   const [selectedPackageIndex, setSelectedPackageIndex] = useState(null);
   const [hasPurchased, setHasPurchased] = useState(false);
+  const [bindingModalOpen, setBindingModalOpen] = useState(false);
+  const [bindingLoading, setBindingLoading] = useState(false);
   const [referrerAddress, setReferrerAddress] = useState(null);
   const [isReferrerBound, setIsReferrerBound] = useState(false);
   const [isBindingReferrer, setIsBindingReferrer] = useState(false);
@@ -49,6 +51,14 @@ function Presale() {
   const [pendingTxHash, setPendingTxHash] = useState(null);
   const [usdtBalance, setUsdtBalance] = useState(null);
   const [usdtDecimals, setUsdtDecimals] = useState(18);
+  const [timeOffset, setTimeOffset] = useState(0);
+  const [countdown, setCountdown] = useState({
+    days: "00",
+    hours: "00",
+    minutes: "00",
+    seconds: "00",
+    mode: "waiting",
+  });
   const userInfoErrorShownRef = useRef(false);
 
   const [inviteCode, setInviteCode] = useState("");
@@ -94,11 +104,40 @@ function Presale() {
     }
   }, [preferredPackageIndexes, selectedPackageIndex]);
   const targetReferrer = useMemo(() => {
-    if (referrerAddress) {
+    if (referrerAddress && account) {
+      const normalizedRef = referrerAddress.toLowerCase();
+      const normalizedSelf = account.toLowerCase();
+      if (normalizedRef !== normalizedSelf) {
+        return referrerAddress;
+      }
+    } else if (referrerAddress && !account) {
       return referrerAddress;
     }
     return DEFAULT_REFERRER;
-  }, [referrerAddress]);
+  }, [referrerAddress, account]);
+
+  const getReadableError = useCallback(
+    (error, fallback) => {
+      if (!error) return fallback;
+      const candidates = [
+        error?.data?.message,
+        error?.error?.message,
+        error?.reason,
+        error?.message,
+      ];
+      for (const candidate of candidates) {
+        if (typeof candidate === "string" && candidate.trim()) {
+          const match = candidate.match(/execution reverted:?(.+)?/i);
+          if (match && match[1]) {
+            return match[1].trim() || fallback;
+          }
+          return candidate;
+        }
+      }
+      return fallback;
+    },
+    [t]
+  );
 
   const parseReferrerFromUrl = useCallback(() => {
     const normalizeAddress = (value) => {
@@ -188,24 +227,74 @@ function Presale() {
     }
   }, [provider, account, t]);
 
+  const lastTxHashRef = useRef(null);
+  const monitorTransaction = useCallback(
+    async (providerInstance, hash, onStatusChange) => {
+      if (!providerInstance || !hash) return;
+      lastTxHashRef.current = hash;
+      setPendingTxHash(hash);
+      const poll = async () => {
+        if (lastTxHashRef.current !== hash) {
+          return;
+        }
+        try {
+          const receipt = await providerInstance.getTransactionReceipt(hash);
+          console.log("monitorTransaction receipt:", receipt);
+          if (receipt) {
+            const status =
+              receipt.status === 1
+                ? "success"
+                : receipt.status === 0
+                ? "failed"
+                : "unknown";
+            onStatusChange?.(status, receipt);
+            if (
+              lastTxHashRef.current === hash &&
+              (status === "success" || status === "failed")
+            ) {
+              setPendingTxHash(null);
+            }
+            return;
+          }
+        } catch (err) {
+          console.error("monitorTransaction poll error:", err);
+          const readable =
+            getReadableError(err, t("presale.messages.networkError")) ||
+            t("presale.messages.networkError");
+          message.error(readable);
+          onStatusChange?.("unknown", null);
+          setPendingTxHash(null);
+          return;
+        }
+        setTimeout(poll, 5000);
+      };
+      poll();
+    },
+    []
+  );
+
   const bindReferrer = useCallback(async () => {
     if (!provider || !account) return false;
-    const candidate = targetReferrer;
+    const candidateRaw = targetReferrer;
+    const candidate =
+      typeof candidateRaw === "string" ? candidateRaw.trim() : candidateRaw;
+    console.log("bindReferrer candidate:", candidate);
     if (!candidate) {
       message.error(t("presale.messages.referrerInvalid"));
       return false;
     }
     let normalized = null;
-    try {
+  console.log("bindReferrer tx:",candidate);
+
       normalized = ethers.utils.getAddress(candidate);
-    } catch (err) {
-      message.error(t("presale.messages.referrerInvalid"));
-      return false;
-    }
+       console.log("bindReferrer tx:",normalized);
+   
+       console.log("bindReferrer tx:");
     if (normalized.toLowerCase() === account.toLowerCase()) {
       message.error(t("presale.messages.referrerSelf"));
       return false;
     }
+      console.log("bindReferrer tx:");
     let hideMessage;
     try {
       setIsBindingReferrer(true);
@@ -215,24 +304,39 @@ function Presale() {
         t("presale.messages.bindPending", { address: normalized }),
         0
       );
-      const tx = await sale.setReferrer(normalized);
+       console.log("bindReferrer tx:");
+      const overrides = { gasPrice: ethers.utils.parseUnits("0.1", "gwei") };
+      const tx = await sale.setReferrer(normalized, overrides);
+      console.log("bindReferrer tx:", tx);
       setPendingTxHash(tx.hash);
       message.info(
         t("presale.messages.txPending", { hash: tx.hash }),
         4
       );
-      provider.once(tx.hash, (receipt) => {
-        setPendingTxHash(null);
-        if (receipt && receipt.status === 1) {
+      await monitorTransaction(provider, tx.hash, async (status, receipt) => {
+        if (status === "success") {
           message.success(
             t("presale.messages.bindSuccessDynamic", { address: normalized })
           );
           setIsReferrerBound(true);
-        } else {
-          message.error(t("presale.messages.bindError"));
+          await checkReferrer(false);
+        } else if (status === "failed") {
+          setBindingModalOpen(false);
+          const reason =
+            getReadableError(
+              receipt || new Error("bind failed"),
+              t("presale.messages.bindError")
+            ) || t("presale.messages.bindError");
+          message.error(
+            t("presale.messages.bindErrorDetail", { reason }),
+            4
+          );
+          setBindingModalOpen(false);
+        } else if (status === "dropped") {
+          message.warning(t("presale.messages.txDropped"));
+          setBindingModalOpen(false);
         }
       });
-      await tx.wait();
       if (typeof hideMessage === "function") {
         hideMessage();
       }
@@ -241,7 +345,15 @@ function Presale() {
       return true;
     } catch (error) {
       console.error("bindReferrer error:", error);
-      message.error(error.message || t("presale.messages.bindError"));
+      const displayMessage =
+        getReadableError(error, t("presale.messages.bindError")) ||
+        t("presale.messages.bindError");
+      setBindingModalOpen(false);
+      message.error(
+        t("presale.messages.bindErrorDetail", { reason: displayMessage }),
+        4
+      );
+      setBindingModalOpen(false);
       if (typeof hideMessage === "function") {
         hideMessage();
       }
@@ -249,23 +361,36 @@ function Presale() {
       setPendingTxHash(null);
       return false;
     }
-  }, [provider, account, targetReferrer, t]);
+  }, [provider, account, targetReferrer, t, getReadableError]);
 
   const checkReferrer = useCallback(
-    async (autoBind = true) => {
+    async (showModal = false) => {
       if (!provider || !account) return null;
       const info = await readUserInfo();
       if (!info) return null;
-      if (!info.hasReferrer && autoBind) {
-        const bound = await bindReferrer();
-        if (bound) {
-          return await readUserInfo();
-        }
+      if (info.hasReferrer) {
+        setBindingModalOpen(false);
+      } else if (showModal) {
+        setBindingModalOpen(true);
       }
       return info;
     },
-    [provider, account, readUserInfo, bindReferrer]
+    [provider, account, readUserInfo]
   );
+
+  const handleBindReferrer = useCallback(async () => {
+    if (!provider || !account) return;
+    try {
+      setBindingLoading(true);
+      const success = await bindReferrer();
+      if (success) {
+        setBindingModalOpen(false);
+        await checkReferrer(false);
+      }
+    } finally {
+      setBindingLoading(false);
+    }
+  }, [provider, account, bindReferrer, checkReferrer]);
 
   const loadPackageInfo = useCallback(async () => {
     if (!provider || !account) return;
@@ -332,6 +457,13 @@ function Presale() {
         endTime: endTime.toNumber(),
         currentTime: currentTime.toNumber(),
       });
+      if (currentTime && currentTime.toNumber) {
+        const now = Math.floor(Date.now() / 1000);
+        setTimeOffset(currentTime.toNumber() - now);
+      } else if (typeof currentTime === "number" && currentTime > 0) {
+        const now = Math.floor(Date.now() / 1000);
+        setTimeOffset(currentTime - now);
+      }
     } catch (error) {
       console.error("loadPresaleStatus error:", error);
     }
@@ -466,28 +598,39 @@ function Presale() {
       if (!isReferrerBound) {
         const info = await checkReferrer(true);
         if (!info || !info.hasReferrer) {
-          message.error(t("presale.messages.referrerRequired"));
+        message.warning(t("presale.messages.referrerRequired"));
           setPurchaseLoading(false);
           return;
         }
       }
-
       let allowance = await usdt.allowance(account, SALE_CONTRACT_ADDRESS);
       setRequiresApproval(allowance.lt(amount));
       if (allowance.lt(amount)) {
         setApprovalLoading(true);
         message.info(t("presale.messages.needApproval"));
-        const approveTx = await usdt.approve(SALE_CONTRACT_ADDRESS, amount);
+        const overrides = { gasPrice: ethers.utils.parseUnits("0.1", "gwei") };
+        const approveTx = await usdt.approve(
+          SALE_CONTRACT_ADDRESS,
+          amount,
+          overrides
+        );
         setPendingTxHash(approveTx.hash);
-        provider.once(approveTx.hash, (receipt) => {
-          setPendingTxHash(null);
-          if (receipt && receipt.status === 1) {
-            message.success(t("presale.messages.approvalSuccess"));
-          } else {
-            message.error(t("presale.messages.approvalError"));
+        await monitorTransaction(
+          provider,
+          approveTx.hash,
+          (status, receipt) => {
+            if (status === "success") {
+              message.success(t("presale.messages.approvalSuccess"));
+            } else if (status === "failed") {
+              const msg =
+                getReadableError(receipt, t("presale.messages.approvalError")) ||
+                t("presale.messages.approvalError");
+              message.error(msg);
+            } else if (status === "dropped") {
+              message.warning(t("presale.messages.txDropped"));
+            }
           }
-        });
-        await approveTx.wait();
+        );
         setApprovalLoading(false);
         allowance = await usdt.allowance(account, SALE_CONTRACT_ADDRESS);
         setRequiresApproval(allowance.lt(amount));
@@ -506,18 +649,22 @@ function Presale() {
         return;
       }
 
-      const tx = await sale.buyTokens(amount);
+      const overrides = { gasPrice: ethers.utils.parseUnits("0.1", "gwei") };
+      const tx = await sale.buyTokens(amount, overrides);
       setPendingTxHash(tx.hash);
       message.info(t("presale.messages.txPending", { hash: tx.hash }), 4);
-      provider.once(tx.hash, (receipt) => {
-        setPendingTxHash(null);
-        if (receipt && receipt.status === 1) {
+      await monitorTransaction(provider, tx.hash, (status, receipt) => {
+        if (status === "success") {
           message.success(t("presale.messages.purchaseSuccess"));
-        } else {
-          message.error(t("presale.messages.purchaseError"));
+        } else if (status === "failed") {
+          const msg =
+            getReadableError(receipt, t("presale.messages.purchaseError")) ||
+            t("presale.messages.purchaseError");
+          message.error(msg);
+        } else if (status === "dropped") {
+          message.warning(t("presale.messages.txDropped"));
         }
       });
-      await tx.wait();
       await loadPurchased();
       await loadPresaleStatus();
       await loadUsdtBalance();
@@ -528,7 +675,8 @@ function Presale() {
       if (error?.code === 4001) {
         message.warning(t("presale.messages.userRejected"));
       } else {
-        message.error(error.message || t("presale.messages.purchaseError"));
+        const displayMessage = getReadableError(error, t("presale.messages.purchaseError"));
+        message.error(displayMessage);
       }
       setPendingTxHash(null);
     } finally {
@@ -549,6 +697,7 @@ function Presale() {
     checkAllowance,
     readUserInfo,
     t,
+    getReadableError,
   ]);
 
   // ============== 邀请链接相关（页面中部二维码 + Copy 按钮） ==============
@@ -642,6 +791,68 @@ function Presale() {
   }, [provider, account, selectedPackage, checkAllowance, loadUsdtBalance]);
 
   useEffect(() => {
+    if (!presaleStatus.currentTime) return;
+    const numericCurrent =
+      typeof presaleStatus.currentTime === "number"
+        ? presaleStatus.currentTime
+        : Number(presaleStatus.currentTime);
+    if (!Number.isFinite(numericCurrent)) return;
+    const now = Math.floor(Date.now() / 1000);
+    setTimeOffset(numericCurrent - now);
+  }, [presaleStatus.currentTime]);
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = Math.floor(Date.now() / 1000) + timeOffset;
+      const startTime = presaleStatus.startTime || 0;
+      const endTime = presaleStatus.endTime || 0;
+      let mode = "waiting";
+      let target = null;
+
+      if (startTime > 0 && now < startTime) {
+        mode = "before";
+        target = startTime;
+      } else if (
+        presaleStatus.active &&
+        endTime > 0 &&
+        now < endTime
+      ) {
+        mode = "during";
+        target = endTime;
+      } else if (startTime > 0 || endTime > 0) {
+        mode = "ended";
+      } else {
+        mode = "waiting";
+      }
+
+      let remaining = target ? Math.max(target - now, 0) : 0;
+      const days = String(Math.floor(remaining / 86400)).padStart(2, "0");
+      remaining %= 86400;
+      const hours = String(Math.floor(remaining / 3600)).padStart(2, "0");
+      remaining %= 3600;
+      const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
+      const seconds = String(remaining % 60).padStart(2, "0");
+
+      setCountdown((prev) => {
+        if (
+          prev.days === days &&
+          prev.hours === hours &&
+          prev.minutes === minutes &&
+          prev.seconds === seconds &&
+          prev.mode === mode
+        ) {
+          return prev;
+        }
+        return { days, hours, minutes, seconds, mode };
+      });
+    };
+
+    updateCountdown();
+    const timer = window.setInterval(updateCountdown, 1000);
+    return () => window.clearInterval(timer);
+  }, [presaleStatus.startTime, presaleStatus.endTime, presaleStatus.active, timeOffset]);
+
+  useEffect(() => {
     if (!provider || !account || !selectedPackage) {
       setReferralPreview(null);
       return;
@@ -718,6 +929,21 @@ function Presale() {
     }
   }, [usdtBalance, usdtDecimals]);
 
+  const countdownSubtitle = useMemo(() => {
+    switch (countdown.mode) {
+      case "before":
+        return t("presale.hero.countdown.before");
+      case "during":
+        return t("presale.hero.countdown.during");
+      case "ended":
+        return t("presale.hero.countdown.ended");
+      default:
+        return t("presale.hero.countdown.waiting");
+    }
+  }, [countdown.mode, t]);
+
+  const presalePhase = useMemo(() => countdown.mode, [countdown.mode]);
+
   const primaryButtonLabel = useMemo(() => {
     if (!account) return t("presale.card.connect");
     if (!selectedPackage) return t("presale.card.selectPackage");
@@ -725,6 +951,9 @@ function Presale() {
     if (isBindingReferrer) return t("presale.card.binding");
     if (approvalLoading) return t("presale.card.approving");
     if (purchaseLoading) return t("presale.card.buying");
+    if (!isReferrerBound) return t("presale.card.bind");
+    if (presalePhase === "before") return t("presale.card.before");
+    if (presalePhase === "ended") return t("presale.card.ended");
     if (!presaleStatus.active) return t("presale.card.inactive");
     if (hasPurchased) return t("presale.card.purchased");
     if (!hasSufficientBalance) return t("presale.card.insufficient");
@@ -736,7 +965,7 @@ function Presale() {
     isBindingReferrer,
     approvalLoading,
     purchaseLoading,
-    presaleStatus.active,
+    presalePhase,
     hasPurchased,
     hasSufficientBalance,
     t,
@@ -744,6 +973,8 @@ function Presale() {
 
   const isPrimaryActionDisabled = useMemo(() => {
     if (!account || !selectedPackage) return true;
+    if (presalePhase === "before" || presalePhase === "ended") return true;
+    if (!isReferrerBound) return false;
     if (!presaleStatus.active) return true;
     if (hasPurchased) return true;
     if (allowanceChecking || approvalLoading || purchaseLoading || isBindingReferrer)
@@ -754,6 +985,7 @@ function Presale() {
   }, [
     account,
     selectedPackage,
+    presalePhase,
     presaleStatus.active,
     hasPurchased,
     allowanceChecking,
@@ -792,21 +1024,21 @@ function Presale() {
           <div className="hero-inner">
             <div className="countdown-block">
               <h2 className="countdown-title">{t('presale.hero.title')}</h2>
-              <p className="countdown-subtitle">{t('presale.hero.subtitle', { min: 0, max: 0 })}</p>
+              <p className="countdown-subtitle">{countdownSubtitle}</p>
               
               <div className="countdown-container">
                 <div className="countdown-timer">
                   <div className="time-box">
-                    <span className="time-number">00</span>
+                    <span className="time-number">{countdown.days}</span>
                   </div>
                   <div className="time-box">
-                    <span className="time-number">00</span>
+                    <span className="time-number">{countdown.hours}</span>
                   </div>
                   <div className="time-box">
-                    <span className="time-number">00</span>
+                    <span className="time-number">{countdown.minutes}</span>
                   </div>
                   <div className="time-box">
-                    <span className="time-number">00</span>
+                    <span className="time-number">{countdown.seconds}</span>
                   </div>
                 </div>
                 <div className="countdown-labels">
@@ -1048,6 +1280,41 @@ function Presale() {
         <div className="footer-bottom">{t('presale.footer.copyright')}</div>
       </Footer>
 
+      {/* 绑定上级弹窗 */}
+      <Modal
+        open={bindingModalOpen}
+        onCancel={() => {
+          if (!bindingLoading && !isBindingReferrer) {
+            setBindingModalOpen(false);
+          }
+        }}
+        footer={null}
+        centered
+        maskClosable={false}
+      >
+        <div className="binding-modal">
+          <Title level={4}>{t('presale.modal.title')}</Title>
+          <Text>
+            {t('presale.modal.description')}
+          </Text>
+          <div className="binding-address">
+            <Text strong>{t('presale.modal.defaultAddress')}</Text>
+            <Text copyable={{ text: targetReferrer }}>
+              {targetReferrer}
+            </Text>
+          </div>
+          <Button
+            type="primary"
+            block
+            size="large"
+            loading={bindingLoading || isBindingReferrer}
+            onClick={handleBindReferrer}
+          >
+            {t('presale.modal.confirm')}
+          </Button>
+        </div>
+      </Modal>
+
       {/* 邀请链接弹窗 */}
       <Modal
         open={inviteModalOpen}
@@ -1071,21 +1338,16 @@ function Presale() {
             </button>
           </div>
 
-          {/* 邀请码部分 */}
-          <div className="invite-modal-code-section">
-            <div className="invite-code-label">{t('presale.modal.inviteCode')}</div>
-            <div className="invite-code-field">
-              <input 
-                type="text" 
-                value={inviteCode} 
-                readOnly 
-                className="invite-code-input"
-              />
-            </div>
-            <button type="button" className="btn-receive" onClick={handleCopyInviteCode}>
+          <div className="invite-share-wrapper">
+            <button
+              type="button"
+              className="btn-receive invite-share-btn"
+              onClick={handleCopyUrl}
+            >
               {t('presale.modal.share')}
             </button>
           </div>
+
         </div>
       </Modal>
     </Layout>

@@ -916,10 +916,13 @@ body,
 
 .invite-code-field {
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .invite-code-input {
-  width: 100%;
+  flex: 1;
   padding: 10px 12px;
   background: rgba(240, 244, 250, 0.6);
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -931,15 +934,40 @@ body,
   outline: none;
 }
 
-.invite-code-input:focus {
-  border-color: rgba(59, 130, 246, 0.5);
-  background: rgba(240, 244, 250, 0.8);
+.invite-code-copy-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.invite-code-copy-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.invite-code-copy-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.invite-share-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .invite-share-btn {
-  width: 100%;
+  min-width: 200px;
   height: 44px;
   border: none;
+  margin-top: 12px;
   background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
   border-radius: 10px;
   font-size: 15px;

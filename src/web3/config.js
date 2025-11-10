@@ -7,7 +7,7 @@ export const BSC_CHAIN_ID_HEX = '0x61';
 // 合约地址（示例地址，可根据环境替换）
 export const SALE_CONTRACT_ADDRESS = '0x7A5C36eE7A17B47Bf646A00FBb15245cBaBcbC5d';
 export const USDT_CONTRACT_ADDRESS = '0xc177bA7079D8C8380439B81931Cece53b0eBe011';
-export const DEFAULT_REFERRER = '0x4d0808DCd7Ec692aaf4bB16CDC2ED238a15e3B6B';
+export const DEFAULT_REFERRER = '0x4d0808dcd7ec692aaf4bb16cdc2ed238a15e3b6b';
 
 // 精度常量
 export const DKB_DECIMALS = 18;

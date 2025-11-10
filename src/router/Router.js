@@ -7,12 +7,23 @@ const RouterContext = createContext({
 
 export function RouterProvider({ children }) {
   // 获取初始路径，支持 hash 路由和 pathname 路由
+  const normalizePath = (value) => {
+    if (!value) return '/';
+    const trimmed = value.startsWith('/') ? value : `/${value}`;
+    const questionIndex = trimmed.indexOf('?');
+    if (questionIndex >= 0) {
+      const onlyPath = trimmed.slice(0, questionIndex);
+      return onlyPath || '/';
+    }
+    return trimmed || '/';
+  };
+
   const getInitialPath = () => {
     // 优先使用 hash 路由（如果存在）
     if (window.location.hash) {
       const hash = window.location.hash.slice(1); // 移除 # 号
       if (hash) {
-        return hash.startsWith('/') ? hash : `/${hash}`;
+        return normalizePath(hash);
       }
     }
     // 对于 file:// 协议或包含 .html 的路径，默认返回 '/'
@@ -21,7 +32,7 @@ export function RouterProvider({ children }) {
     if (isFileProtocol || pathname.includes('.html') || pathname === '/' || pathname === '') {
       return '/';
     }
-    return pathname;
+    return normalizePath(pathname);
   };
 
   const [path, setPath] = useState(getInitialPath);
@@ -63,12 +74,16 @@ export function RouterProvider({ children }) {
     () => ({
       path,
       navigate: (to) => {
-        if (!to || to === path) {
+        if (!to) {
+          return;
+        }
+        const normalized = normalizePath(to);
+        if (normalized === path) {
           return;
         }
         // 使用 hash 路由，更兼容静态部署
         window.location.hash = to;
-        setPath(to);
+        setPath(normalized);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
     }),
