@@ -443,49 +443,15 @@ function Presale() {
   };
 
 
-  // ============== 授权 & 购买逻辑 ==============
-  const handleApprove = useCallback(async () => {
-    if (!provider || !account || !selectedPackage) return;
-    setPendingTxHash(null);
-    try {
-      setApprovalLoading(true);
-      const signer = provider.getSigner();
-      const usdt = new ethers.Contract(USDT_CONTRACT_ADDRESS, erc20Abi, signer);
-      const amount = selectedPackage.usdtRaw;
-      const tx = await usdt.approve(SALE_CONTRACT_ADDRESS, amount);
-      setPendingTxHash(tx.hash);
-      message.info(t("presale.messages.txPending", { hash: tx.hash }), 4);
-      provider.once(tx.hash, (receipt) => {
-        setPendingTxHash(null);
-        if (receipt && receipt.status === 1) {
-          message.success(t("presale.messages.approvalSuccess"));
-          setRequiresApproval(false);
-        } else {
-          message.error(t("presale.messages.approvalError"));
-        }
-      });
-      await tx.wait();
-      await checkAllowance();
-      await loadUsdtBalance();
-    } catch (error) {
-      console.error("handleApprove error:", error);
-      if (error?.code === 4001) {
-        message.warning(t("presale.messages.userRejected"));
-      } else {
-        message.error(error.message || t("presale.messages.approvalError"));
-      }
-      setPendingTxHash(null);
-    } finally {
-      setApprovalLoading(false);
-    }
-  }, [provider, account, selectedPackage, t, checkAllowance, loadUsdtBalance]);
-
-  const handlePurchase = useCallback(async () => {
+  // ============== 授权 + 购买一体化逻辑 ==============
+  const handlePrimaryAction = useCallback(async () => {
     if (!provider || !account || !selectedPackage) return;
     if (hasPurchased) return;
+
     setPendingTxHash(null);
     try {
       setPurchaseLoading(true);
+
       const signer = provider.getSigner();
       const usdt = new ethers.Contract(USDT_CONTRACT_ADDRESS, erc20Abi, signer);
       const sale = new ethers.Contract(SALE_CONTRACT_ADDRESS, saleAbi, signer);
@@ -493,13 +459,7 @@ function Presale() {
 
       if (!presaleStatus.active) {
         message.warning(t("presale.messages.presaleInactive"));
-        return;
-      }
-
-      const balance = await usdt.balanceOf(account);
-      if (balance.lt(amount)) {
-        message.error(t("presale.messages.insufficient"));
-        setUsdtBalance(balance);
+        setPurchaseLoading(false);
         return;
       }
 
@@ -507,12 +467,42 @@ function Presale() {
         const info = await checkReferrer(true);
         if (!info || !info.hasReferrer) {
           message.error(t("presale.messages.referrerRequired"));
+          setPurchaseLoading(false);
           return;
         }
       }
 
-      if (requiresApproval) {
-        message.warning(t("presale.messages.needApproval"));
+      let allowance = await usdt.allowance(account, SALE_CONTRACT_ADDRESS);
+      setRequiresApproval(allowance.lt(amount));
+      if (allowance.lt(amount)) {
+        setApprovalLoading(true);
+        message.info(t("presale.messages.needApproval"));
+        const approveTx = await usdt.approve(SALE_CONTRACT_ADDRESS, amount);
+        setPendingTxHash(approveTx.hash);
+        provider.once(approveTx.hash, (receipt) => {
+          setPendingTxHash(null);
+          if (receipt && receipt.status === 1) {
+            message.success(t("presale.messages.approvalSuccess"));
+          } else {
+            message.error(t("presale.messages.approvalError"));
+          }
+        });
+        await approveTx.wait();
+        setApprovalLoading(false);
+        allowance = await usdt.allowance(account, SALE_CONTRACT_ADDRESS);
+        setRequiresApproval(allowance.lt(amount));
+        if (allowance.lt(amount)) {
+          message.error(t("presale.messages.approvalError"));
+          setPurchaseLoading(false);
+          return;
+        }
+      }
+
+      const balance = await usdt.balanceOf(account);
+      setUsdtBalance(balance);
+      if (balance.lt(amount)) {
+        message.error(t("presale.messages.insufficient"));
+        setPurchaseLoading(false);
         return;
       }
 
@@ -532,8 +522,9 @@ function Presale() {
       await loadPresaleStatus();
       await loadUsdtBalance();
       await readUserInfo();
+      await checkAllowance();
     } catch (error) {
-      console.error("handlePurchase error:", error);
+      console.error("handlePrimaryAction error:", error);
       if (error?.code === 4001) {
         message.warning(t("presale.messages.userRejected"));
       } else {
@@ -541,6 +532,7 @@ function Presale() {
       }
       setPendingTxHash(null);
     } finally {
+      setApprovalLoading(false);
       setPurchaseLoading(false);
     }
   }, [
@@ -550,22 +542,14 @@ function Presale() {
     hasPurchased,
     presaleStatus.active,
     isReferrerBound,
-    requiresApproval,
     checkReferrer,
     loadPurchased,
     loadPresaleStatus,
-    readUserInfo,
     loadUsdtBalance,
+    checkAllowance,
+    readUserInfo,
     t,
   ]);
-
-  const handlePrimaryAction = useCallback(async () => {
-    if (requiresApproval) {
-      await handleApprove();
-    } else {
-      await handlePurchase();
-    }
-  }, [requiresApproval, handleApprove, handlePurchase]);
 
   // ============== 邀请链接相关（页面中部二维码 + Copy 按钮） ==============
   const inviteUrl = useMemo(() => {
@@ -743,10 +727,8 @@ function Presale() {
     if (purchaseLoading) return t("presale.card.buying");
     if (!presaleStatus.active) return t("presale.card.inactive");
     if (hasPurchased) return t("presale.card.purchased");
-    if (!requiresApproval && !hasSufficientBalance) {
-      return t("presale.card.insufficient");
-    }
-    return requiresApproval ? t("presale.card.approve") : t("presale.card.buy");
+    if (!hasSufficientBalance) return t("presale.card.insufficient");
+    return t("presale.card.buy");
   }, [
     account,
     selectedPackage,
@@ -756,7 +738,6 @@ function Presale() {
     purchaseLoading,
     presaleStatus.active,
     hasPurchased,
-    requiresApproval,
     hasSufficientBalance,
     t,
   ]);
@@ -768,7 +749,7 @@ function Presale() {
     if (allowanceChecking || approvalLoading || purchaseLoading || isBindingReferrer)
       return true;
     if (pendingTxHash) return true;
-    if (!requiresApproval && !hasSufficientBalance) return true;
+    if (!hasSufficientBalance) return true;
     return false;
   }, [
     account,
@@ -780,7 +761,6 @@ function Presale() {
     purchaseLoading,
     isBindingReferrer,
     pendingTxHash,
-    requiresApproval,
     hasSufficientBalance,
   ]);
 
