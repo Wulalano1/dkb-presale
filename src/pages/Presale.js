@@ -47,6 +47,8 @@ function Presale() {
   const [approvalLoading, setApprovalLoading] = useState(false);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [pendingTxHash, setPendingTxHash] = useState(null);
+  const [usdtBalance, setUsdtBalance] = useState(null);
+  const [usdtDecimals, setUsdtDecimals] = useState(18);
   const userInfoErrorShownRef = useRef(false);
 
   const [inviteCode, setInviteCode] = useState("");
@@ -276,6 +278,7 @@ function Presale() {
         await sale.getFixedPackages();
 
       const usdtDecimals = await usdt.decimals();
+      setUsdtDecimals(usdtDecimals);
 
       const isValidBigNumber = (bn) =>
         ethers.BigNumber.isBigNumber(bn) && !bn.isZero();
@@ -343,6 +346,22 @@ function Presale() {
       setHasPurchased(participated);
     } catch (error) {
       console.error("loadPurchased error:", error);
+    }
+  }, [provider, account]);
+
+  const loadUsdtBalance = useCallback(async () => {
+    if (!provider || !account) return;
+    try {
+      const signer = provider.getSigner();
+      const usdt = new ethers.Contract(USDT_CONTRACT_ADDRESS, erc20Abi, signer);
+      const [decimals, balance] = await Promise.all([
+        usdt.decimals(),
+        usdt.balanceOf(account),
+      ]);
+      setUsdtDecimals(decimals);
+      setUsdtBalance(balance);
+    } catch (error) {
+      console.error("loadUsdtBalance error:", error);
     }
   }, [provider, account]);
 
@@ -447,6 +466,7 @@ function Presale() {
       });
       await tx.wait();
       await checkAllowance();
+      await loadUsdtBalance();
     } catch (error) {
       console.error("handleApprove error:", error);
       if (error?.code === 4001) {
@@ -458,7 +478,7 @@ function Presale() {
     } finally {
       setApprovalLoading(false);
     }
-  }, [provider, account, selectedPackage, t, checkAllowance]);
+  }, [provider, account, selectedPackage, t, checkAllowance, loadUsdtBalance]);
 
   const handlePurchase = useCallback(async () => {
     if (!provider || !account || !selectedPackage) return;
@@ -479,6 +499,7 @@ function Presale() {
       const balance = await usdt.balanceOf(account);
       if (balance.lt(amount)) {
         message.error(t("presale.messages.insufficient"));
+        setUsdtBalance(balance);
         return;
       }
 
@@ -509,6 +530,7 @@ function Presale() {
       await tx.wait();
       await loadPurchased();
       await loadPresaleStatus();
+      await loadUsdtBalance();
       await readUserInfo();
     } catch (error) {
       console.error("handlePurchase error:", error);
@@ -533,6 +555,7 @@ function Presale() {
     loadPurchased,
     loadPresaleStatus,
     readUserInfo,
+    loadUsdtBalance,
     t,
   ]);
 
@@ -612,6 +635,7 @@ function Presale() {
       await loadPackageInfo();
       await loadPurchased();
       await loadPresaleStatus();
+      await loadUsdtBalance();
     })();
   }, [
     provider,
@@ -620,6 +644,7 @@ function Presale() {
     loadPackageInfo,
     loadPurchased,
     loadPresaleStatus,
+    loadUsdtBalance,
   ]);
 
   useEffect(() => {
@@ -629,7 +654,8 @@ function Presale() {
       return;
     }
     checkAllowance();
-  }, [provider, account, selectedPackage, checkAllowance]);
+    loadUsdtBalance();
+  }, [provider, account, selectedPackage, checkAllowance, loadUsdtBalance]);
 
   useEffect(() => {
     if (!provider || !account || !selectedPackage) {
@@ -687,6 +713,27 @@ function Presale() {
     );
   }, [packages]);
 
+  const hasSufficientBalance = useMemo(() => {
+    if (!selectedPackage || !usdtBalance) return true;
+    try {
+      return usdtBalance.gte(selectedPackage.usdtRaw);
+    } catch (err) {
+      return true;
+    }
+  }, [selectedPackage, usdtBalance]);
+
+  const formattedUsdtBalance = useMemo(() => {
+    if (!usdtBalance) return "--";
+    try {
+      const value = ethers.utils.formatUnits(usdtBalance, usdtDecimals);
+      const [integer, fraction = ""] = value.split(".");
+      if (!fraction) return integer;
+      return `${integer}.${fraction.slice(0, 4)}`;
+    } catch (err) {
+      return "--";
+    }
+  }, [usdtBalance, usdtDecimals]);
+
   const primaryButtonLabel = useMemo(() => {
     if (!account) return t("presale.card.connect");
     if (!selectedPackage) return t("presale.card.selectPackage");
@@ -696,6 +743,9 @@ function Presale() {
     if (purchaseLoading) return t("presale.card.buying");
     if (!presaleStatus.active) return t("presale.card.inactive");
     if (hasPurchased) return t("presale.card.purchased");
+    if (!requiresApproval && !hasSufficientBalance) {
+      return t("presale.card.insufficient");
+    }
     return requiresApproval ? t("presale.card.approve") : t("presale.card.buy");
   }, [
     account,
@@ -707,6 +757,7 @@ function Presale() {
     presaleStatus.active,
     hasPurchased,
     requiresApproval,
+    hasSufficientBalance,
     t,
   ]);
 
@@ -717,6 +768,7 @@ function Presale() {
     if (allowanceChecking || approvalLoading || purchaseLoading || isBindingReferrer)
       return true;
     if (pendingTxHash) return true;
+    if (!requiresApproval && !hasSufficientBalance) return true;
     return false;
   }, [
     account,
@@ -728,6 +780,8 @@ function Presale() {
     purchaseLoading,
     isBindingReferrer,
     pendingTxHash,
+    requiresApproval,
+    hasSufficientBalance,
   ]);
 
   return (
@@ -828,6 +882,20 @@ function Presale() {
                     </div>
                     <div className="row-right">
                       <span className="row-value">USDT</span>
+                    </div>
+                  </div>
+
+                  <div className="card-row">
+                    <div className="row-left">
+                      <img src={require("../images/Presale/icon1.png")} alt="icon" className="row-icon" />
+                      <span className="row-label">{t('presale.card.balance')}</span>
+                    </div>
+                    <div className="row-right">
+                      <span className="row-value-small">
+                        {formattedUsdtBalance === "--"
+                          ? "--"
+                          : `${formattedUsdtBalance} USDT`}
+                      </span>
                     </div>
                   </div>
 
