@@ -1784,13 +1784,14 @@ background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
 
 .home-join-button {
   height: 52px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+
   border: none;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   color: #ffffff;
   transition: all 0.3s ease;
+  text-align: center;
 }
 
 .home-join-button:hover {
@@ -2260,8 +2261,8 @@ background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
   }
 
   .home-tokenomics-card-icon {
-    width: 36px;
-    height: 36px;
+    width: 48px;
+    height: 60px;
   }
 
   .home-tokenomics-card-icon svg {

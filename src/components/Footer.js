@@ -27,10 +27,10 @@ function Footer() {
               {t('common.footer.description')}
             </p>
             <div className="footer-social">
-              <a href="https://t.me/dkbio" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://x.com/botdkb" target="_blank" rel="noopener noreferrer" className="social-link">
                 <img src={require("../images/logo (2).png")} alt="Telegram" />
               </a>
-              <a href="https://twitter.com/dkbio" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://x.com/botdkb" target="_blank" rel="noopener noreferrer" className="social-link">
                 <img src={require("../images/logo (3).png")} alt="Twitter" />
               </a>
             </div>

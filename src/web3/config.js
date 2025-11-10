@@ -1,31 +1,28 @@
 // src/web3/config.js
 import { ethers } from 'ethers';
 
-// BSC 主网的 chainId（16进制）
-export const BSC_CHAIN_ID_HEX = '0x38';
+// BSC 测试网 chainId（16进制）
+export const BSC_CHAIN_ID_HEX = '0x61';
 
-// TODO：换成你自己的合约地址
-export const SALE_CONTRACT_ADDRESS = '0xYourSaleContract';
-export const USDT_CONTRACT_ADDRESS = '0xYourUsdtAddress';
-export const DEFAULT_REFERRER = '0xYourDefaultReferrer';
+// 合约地址（示例地址，可根据环境替换）
+export const SALE_CONTRACT_ADDRESS = '0x7A5C36eE7A17B47Bf646A00FBb15245cBaBcbC5d';
+export const USDT_CONTRACT_ADDRESS = '0xc177bA7079D8C8380439B81931Cece53b0eBe011';
+export const DEFAULT_REFERRER = '0x4d0808DCd7Ec692aaf4bB16CDC2ED238a15e3B6B';
 
-// 预售 / 绑定逻辑合约 ABI（这里只写会用到的方法，占位）
-// ⚠️：名字和参数要跟你真实合约一致，不一致就改这里
+// 精度常量
+export const DKB_DECIMALS = 18;
+
+// 预售合约 ABI（仅保留前端用到的方法）
 export const saleAbi = [
-  // 当前地址是否已经绑定上级
-  'function getUpline(address user) view returns (address)',
-
-  // 绑定上级
-  'function bindUpline(address referrer) external',
-
-  // 是否已经购买过
-  'function hasPurchased(address user) view returns (bool)',
-
-  // 套餐信息，比如返回 500 USDT，1000 DKB
-  'function getPackageInfo() view returns (uint256 usdtAmount, uint256 dkbAmount)',
-
-  // 购买预售
-  'function buyPresale() external',
+  'function setReferrer(address referrer) external',
+  'function buyTokens(uint256 usdtAmount) external',
+  'function getFixedPackages() external view returns (uint256 usdtPrice1, uint256 dkbAmount1, uint256 usdtPrice2, uint256 dkbAmount2)',
+  'function getUserInfo(address user) external view returns (uint256 totalPurchased, uint256 totalReceived, uint256 totalReferralReward, address referrer, uint256 referralCount, bool hasReferrer)',
+  'function hasParticipated(address user) external view returns (bool)',
+  'function calculateReferralRewards(uint256 usdtAmount) external view returns (uint256 level1Reward, uint256 level2Reward, uint256 level3Reward)',
+  'function getPresaleStatus() external view returns (bool active, uint256 startTime, uint256 endTime, uint256 currentTime)',
+  'function getStatistics() external view returns (uint256 totalRaised, uint256 totalSold, uint256 participants, uint256 totalRewards)',
+  'function getContractBalances() external view returns (uint256 usdtBalance, uint256 dkbBalance)',
 ];
 
 // USDT（ERC20）要用到的方法

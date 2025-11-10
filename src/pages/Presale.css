@@ -21,13 +21,37 @@ body,
   min-height: 100vh;
   padding: 60px 20px 80px;
   background-color: #000;
-  background-image: url('../images/Presale/hero-bg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.hero-video-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+      180deg,
+      rgba(10, 16, 32, 0.85) 0%,
+      rgba(10, 16, 32, 0.75) 40%,
+      rgba(10, 16, 32, 0.9) 100%
+    ),
+    rgba(8, 13, 26, 0.35);
+  pointer-events: none;
 }
 
 .hero-inner {
@@ -39,6 +63,21 @@ body,
   flex-direction: column;
   align-items: center;
   gap: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 1024px) {
+  .hero-video {
+    object-fit: contain;
+    background-color: #000;
+  }
+  .hero-video-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+  }
 }
 
 /* ===== Countdown Block ===== */
@@ -84,7 +123,7 @@ body,
 .time-box {
   width: 70px;
   height: 80px;
-  background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  background: #ffffff;
   border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 8px;
   display: flex;
@@ -97,7 +136,7 @@ body,
 .time-number {
   font-size: 36px;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #0055FF ;
   line-height: 1;
 }
 
@@ -111,7 +150,7 @@ body,
 .time-label {
   width: 70px;
   text-align: center;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
   letter-spacing: 0.5px;
@@ -243,34 +282,19 @@ body,
   color: #666666;
 }
 
-.card-input-section {
+.card-packages {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 12px;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.5);
   border-radius: 12px;
-  position: relative;
 }
 
-.input-wrapper {
+.package-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  width: 100%;
-}
-
-.input-label-left,
-.input-label-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  flex-shrink: 0;
-}
-
-.input-label-right {
-  align-items: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .input-label {
@@ -287,66 +311,39 @@ body,
   line-height: 1.2;
 }
 
-.input-container {
-  flex: 1;
+.package-options {
+  width: 100%;
+}
+
+.package-select {
+  width: 100%;
+}
+
+.package-select .ant-select-selector {
+  height: 48px !important;
+  padding: 0 16px !important;
+  border-radius: 10px !important;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #FFFFFF;
-  border-radius: 8px;
-  padding: 8px 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  min-width: 0;
+  border: 1px solid rgba(59, 130, 246, 0.4) !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
-.btn-expand-left,
-.btn-expand-right {
-  width: 24px;
-  height: 24px;
-  border: none;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  padding: 0;
-  flex-shrink: 0;
-}
-
-.btn-expand-left:hover,
-.btn-expand-right:hover {
-  transform: scale(1.1);
-}
-
-.btn-expand-left img,
-.btn-expand-right img {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-}
-
-.amount-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 16px;
+.package-select .ant-select-selection-item,
+.package-select .ant-select-selection-placeholder {
+  font-size: 14px;
   font-weight: 600;
   color: #1A1A1A;
-  text-align: center;
-  background: transparent;
-  padding: 0;
 }
 
-.amount-input::-webkit-inner-spin-button,
-.amount-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.package-select .ant-select-arrow {
+  color: #2563EB;
 }
 
 .btn-buy {
-      width: 20%;
-    margin-left: 40%;
+      width: 40%;
+    margin-left: 30%;
     height: 48px;
     border: none;
     background: linear-gradient( 135deg, #6214FF 0%, #213DFD 49%, #24CAF7 99%);
@@ -364,6 +361,25 @@ body,
 .btn-buy:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+.btn-buy:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+  box-shadow: none;
+}
+
+.tx-hash-tip {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(26, 26, 26, 0.65);
+  word-break: break-all;
+}
+
+.tx-hash-tip a {
+  color: #2563EB;
+  margin-left: 4px;
 }
 
 .card-rewards {
@@ -412,7 +428,14 @@ body,
 
 .btn-receive:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+.btn-receive:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
 /* Invite Rules */
@@ -603,7 +626,7 @@ body,
 
   .time-label {
     width: 56px;
-    font-size: 10px;
+    font-size: 16px;
   }
 
   .countdown-connector {
@@ -759,7 +782,7 @@ body,
 
   .time-label {
     width: 56px;
-    font-size: 11px;
+    font-size: 16px;
   }
 
   .countdown-timer {

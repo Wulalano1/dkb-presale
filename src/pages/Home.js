@@ -16,9 +16,9 @@ function Home() {
 
   // 返佣比例数据
   const rebateData = [
-    { level: t('home.rebate.ratio.levels.0'), ratio: "6%" },
-    { level: t('home.rebate.ratio.levels.1'), ratio: "3%" },
-    { level: t('home.rebate.ratio.levels.2'), ratio: "2%" },
+    { level: t("home.rebate.ratio.levels.0"), ratio: "6%" },
+    { level: t("home.rebate.ratio.levels.1"), ratio: "3%" },
+    { level: t("home.rebate.ratio.levels.2"), ratio: "2%" },
   ];
 
   return (
@@ -45,7 +45,7 @@ function Home() {
                   alt="Aircraft Manufacturing"
                 />
               </div>
-              <Text className="home-badge-text">{t('home.hero.badge')}</Text>
+              <Text className="home-badge-text">{t("home.hero.badge")}</Text>
             </div>
 
             <div className="home-hero-inner">
@@ -53,10 +53,12 @@ function Home() {
               <div className="home-hero-title-pc">
                 <div className="home-hero-title-line1">
                   <span className="home-hero-title-dkb">DKB</span>
-                  <span className="home-hero-title-coin">{t('home.hero.titleLine1')}</span>
+                  <span className="home-hero-title-coin">
+                    {t("home.hero.titleLine1")}
+                  </span>
                 </div>
                 <div className="home-hero-title-line2">
-                  {t('home.hero.titleLine2')}
+                  {t("home.hero.titleLine2")}
                 </div>
               </div>
 
@@ -64,26 +66,34 @@ function Home() {
               <div className="home-hero-title-mobile">
                 <div className="home-hero-title-line1">
                   <span className="home-hero-title-dkb">DKB</span>
-                  <span className="home-hero-title-coin">{t('home.hero.titleLine1')}</span>
+                  <span className="home-hero-title-coin">
+                    {t("home.hero.titleLine1")}
+                  </span>
                 </div>
                 <div className="home-hero-title-line2">
-                  {t('home.hero.titleLine2')}
+                  {t("home.hero.titleLine2")}
                 </div>
               </div>
 
               <Text className="home-hero-subtitle">
-                {t('home.hero.subtitle')}
+                {t("home.hero.subtitle")}
               </Text>
 
               {/* Feature Tags - Below buttons on PC, Above buttons on Mobile */}
               <div className="home-hero-features">
-                {t('home.hero.features.pc').map((feature, index) => (
-                  <span key={index} className="home-feature-tag home-feature-tag-pc">
+                {t("home.hero.features.pc").map((feature, index) => (
+                  <span
+                    key={index}
+                    className="home-feature-tag home-feature-tag-pc"
+                  >
                     {feature}
                   </span>
                 ))}
-                {t('home.hero.features.mobile').map((feature, index) => (
-                  <span key={index} className="home-feature-tag home-feature-tag-mobile">
+                {t("home.hero.features.mobile").map((feature, index) => (
+                  <span
+                    key={index}
+                    className="home-feature-tag home-feature-tag-mobile"
+                  >
                     {feature}
                   </span>
                 ))}
@@ -104,7 +114,7 @@ function Home() {
                       alt="Aircraft Manufacturing"
                     />
                   </span>
-                  {t('home.hero.buttons.download')}
+                  {t("home.hero.buttons.download")}
                 </Button>
                 <Button
                   size="large"
@@ -118,30 +128,38 @@ function Home() {
                       alt="Aircraft Manufacturing"
                     />
                   </span>
-                  {t('home.hero.buttons.buy')}
+                  {t("home.hero.buttons.buy")}
                 </Button>
               </div>
 
               {/* PC端统计数据 */}
               <div className="home-hero-stats-container home-hero-stats-pc">
                 <div className="home-hero-stats-labels-row">
-                  <Text className="home-stat-label">{t('home.hero.stats.totalSupply')}</Text>
-                  <Text className="home-stat-label">{t('home.hero.stats.burnRatio')}</Text>
-                  <Text className="home-stat-label">{t('home.hero.stats.contract')}</Text>
-                  <Text className="home-stat-label">{t('home.hero.stats.consensus')}</Text>
+                  <Text className="home-stat-label">
+                    {t("home.hero.stats.totalSupply")}
+                  </Text>
+                  <Text className="home-stat-label">
+                    {t("home.hero.stats.burnRatio")}
+                  </Text>
+                  <Text className="home-stat-label">
+                    {t("home.hero.stats.contract")}
+                  </Text>
+                  <Text className="home-stat-label">
+                    {t("home.hero.stats.consensus")}
+                  </Text>
                 </div>
                 <div className="home-hero-stats-values-row">
                   <Text className="home-stat-value home-stat-value-white">
-                    {t('home.hero.stats.totalSupplyValue')}
+                    {t("home.hero.stats.totalSupplyValue")}
                   </Text>
                   <Text className="home-stat-value home-stat-value-pink">
-                    {t('home.hero.stats.burnRatioValue')}
+                    {t("home.hero.stats.burnRatioValue")}
                   </Text>
                   <Text className="home-stat-value home-stat-value-cyan">
-                    {t('home.hero.stats.contractValue')}
+                    {t("home.hero.stats.contractValue")}
                   </Text>
                   <Text className="home-stat-value home-stat-value-white">
-                    {t('home.hero.stats.consensusValue')}
+                    {t("home.hero.stats.consensusValue")}
                   </Text>
                 </div>
               </div>
@@ -150,27 +168,35 @@ function Home() {
               <div className="home-hero-stats-container home-hero-stats-mobile">
                 <div className="home-hero-stats-grid">
                   <div className="home-stat-item-mobile">
-                    <Text className="home-stat-label">{t('home.hero.stats.totalSupply')}</Text>
+                    <Text className="home-stat-label">
+                      {t("home.hero.stats.totalSupply")}
+                    </Text>
                     <Text className="home-stat-value home-stat-value-white">
-                      {t('home.hero.stats.totalSupplyValue')}
+                      {t("home.hero.stats.totalSupplyValue")}
                     </Text>
                   </div>
                   <div className="home-stat-item-mobile">
-                    <Text className="home-stat-label">{t('home.hero.stats.burnRatio')}</Text>
+                    <Text className="home-stat-label">
+                      {t("home.hero.stats.burnRatio")}
+                    </Text>
                     <Text className="home-stat-value home-stat-value-pink">
-                      {t('home.hero.stats.burnRatioValue')}
+                      {t("home.hero.stats.burnRatioValue")}
                     </Text>
                   </div>
                   <div className="home-stat-item-mobile">
-                    <Text className="home-stat-label">{t('home.hero.stats.contract')}</Text>
+                    <Text className="home-stat-label">
+                      {t("home.hero.stats.contract")}
+                    </Text>
                     <Text className="home-stat-value home-stat-value-cyan">
-                      {t('home.hero.stats.contractValue')}
+                      {t("home.hero.stats.contractValue")}
                     </Text>
                   </div>
                   <div className="home-stat-item-mobile">
-                    <Text className="home-stat-label">{t('home.hero.stats.consensus')}</Text>
+                    <Text className="home-stat-label">
+                      {t("home.hero.stats.consensus")}
+                    </Text>
                     <Text className="home-stat-value home-stat-value-white">
-                      {t('home.hero.stats.consensusValue')}
+                      {t("home.hero.stats.consensusValue")}
                     </Text>
                   </div>
                 </div>
@@ -193,14 +219,14 @@ function Home() {
                     className="home-section-title home-section-title-left"
                   >
                     <span className="home-ecosystem-title-icon">
-                      ➤{t('home.ecosystem.title')}{" "}
+                      ➤{t("home.ecosystem.title")}{" "}
                     </span>{" "}
                     <span className="home-ecosystem-title-highlight">
-                      {t('home.ecosystem.highlight')}
+                      {t("home.ecosystem.highlight")}
                     </span>
                   </Title>
                   <Row gutter={[24, 24]} className="home-ecosystem-cards-row">
-                    <Col xs={14} sm={8}>
+                    <Col xs={24} sm={8}>
                       <Card className="home-feature-card">
                         <div className="home-feature-icon">
                           <img
@@ -208,9 +234,11 @@ function Home() {
                             alt="Aircraft Manufacturing"
                           />
                         </div>
-                        <div className="home-feature-title">{t('home.ecosystem.features.manufacturing.title')}</div>
+                        <div className="home-feature-title">
+                          {t("home.ecosystem.features.manufacturing.title")}
+                        </div>
                         <Text className="home-feature-desc">
-                          {t('home.ecosystem.features.manufacturing.desc')}
+                          {t("home.ecosystem.features.manufacturing.desc")}
                         </Text>
                       </Card>
                     </Col>
@@ -222,9 +250,11 @@ function Home() {
                             alt="Infrastructure"
                           />
                         </div>
-                        <div className="home-feature-title">{t('home.ecosystem.features.infrastructure.title')}</div>
+                        <div className="home-feature-title">
+                          {t("home.ecosystem.features.infrastructure.title")}
+                        </div>
                         <Text className="home-feature-desc">
-                          {t('home.ecosystem.features.infrastructure.desc')}
+                          {t("home.ecosystem.features.infrastructure.desc")}
                         </Text>
                       </Card>
                     </Col>
@@ -236,16 +266,18 @@ function Home() {
                             alt="Diverse Services"
                           />
                         </div>
-                        <div className="home-feature-title">{t('home.ecosystem.features.services.title')}</div>
+                        <div className="home-feature-title">
+                          {t("home.ecosystem.features.services.title")}
+                        </div>
                         <Text className="home-feature-desc">
-                          {t('home.ecosystem.features.services.desc')}
+                          {t("home.ecosystem.features.services.desc")}
                         </Text>
                       </Card>
                     </Col>
                   </Row>
                   <div className="home-ecosystem-desc">
                     <Text className="home-ecosystem-desc-text">
-                      {t('home.ecosystem.description')}
+                      {t("home.ecosystem.description")}
                     </Text>
                   </div>
                 </Col>
@@ -266,14 +298,14 @@ function Home() {
                       <div className="home-market-status">
                         <span className="home-market-dot"></span>
                         <Text className="home-market-status-text">
-                          {t('home.ecosystem.marketSize.status')}
+                          {t("home.ecosystem.marketSize.status")}
                         </Text>
                       </div>
                       <div className="home-market-title">
-                        {t('home.ecosystem.marketSize.title')}
+                        {t("home.ecosystem.marketSize.title")}
                       </div>
                       <Text className="home-market-projection">
-                        {t('home.ecosystem.marketSize.projection')}
+                        {t("home.ecosystem.marketSize.projection")}
                       </Text>
                     </div>
                   </div>
@@ -306,13 +338,13 @@ function Home() {
                       />
                       <span className="home-blockchain-title-icon">
                         {" "}
-                        {t('home.blockchain.title')}
+                        {t("home.blockchain.title")}
                       </span>{" "}
                       <span className="home-section-title-highlight">
-                        {t('home.blockchain.highlight')}
+                        {t("home.blockchain.highlight")}
                       </span>
                       <span className="home-blockchain-title-icon">
-                        {t('home.blockchain.suffix')}
+                        {t("home.blockchain.suffix")}
                       </span>
                     </Title>
                     <div className="home-blockchain-feature-item">
@@ -323,10 +355,10 @@ function Home() {
 
                       <div className="home-blockchain-feature-content">
                         <div className="home-blockchain-feature-title">
-                          {t('home.blockchain.features.decentralized.title')}
+                          {t("home.blockchain.features.decentralized.title")}
                         </div>
                         <Text className="home-blockchain-feature-desc">
-                          {t('home.blockchain.features.decentralized.desc')}
+                          {t("home.blockchain.features.decentralized.desc")}
                         </Text>
                       </div>
                     </div>
@@ -337,10 +369,10 @@ function Home() {
                       />
                       <div className="home-blockchain-feature-content">
                         <div className="home-blockchain-feature-title">
-                          {t('home.blockchain.features.binding.title')}
+                          {t("home.blockchain.features.binding.title")}
                         </div>
                         <Text className="home-blockchain-feature-desc">
-                          {t('home.blockchain.features.binding.desc')}
+                          {t("home.blockchain.features.binding.desc")}
                         </Text>
                       </div>
                     </div>
@@ -351,17 +383,17 @@ function Home() {
                       />
                       <div className="home-blockchain-feature-content">
                         <div className="home-blockchain-feature-title">
-                          {t('home.blockchain.features.fair.title')}
+                          {t("home.blockchain.features.fair.title")}
                         </div>
                         <Text className="home-blockchain-feature-desc">
-                          {t('home.blockchain.features.fair.desc')}
+                          {t("home.blockchain.features.fair.desc")}
                         </Text>
                       </div>
                     </div>
                   </div>
                   <div className="home-blockchain-desc-wrapper">
                     <Text className="home-blockchain-desc">
-                      {t('home.blockchain.description')}
+                      {t("home.blockchain.description")}
                     </Text>
                   </div>
                 </Col>
@@ -375,14 +407,14 @@ function Home() {
           <div className="home-container">
             <div className="home-tokenomics-header">
               <h2 className="home-tokenomics-main-title">
-                {t('home.tokenomics.title')}
+                {t("home.tokenomics.title")}
               </h2>
               <img
                 src={require("../images/home/654.png")}
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-tokenomics-subtitle">
-                {t('home.tokenomics.subtitle')}
+                {t("home.tokenomics.subtitle")}
               </p>
             </div>
 
@@ -398,8 +430,12 @@ function Home() {
                       />
                     </div>
                     <div className="home-tokenomics-card-title-group">
-                      <div className="home-tokenomics-card-title">{t('home.tokenomics.cards.totalSupply.title')}</div>
-                      <div className="home-tokenomics-card-value">{t('home.tokenomics.cards.totalSupply.value')}</div>
+                      <div className="home-tokenomics-card-title">
+                        {t("home.tokenomics.cards.totalSupply.title")}
+                      </div>
+                      <div className="home-tokenomics-card-value">
+                        {t("home.tokenomics.cards.totalSupply.value")}
+                      </div>
                     </div>
                   </div>
 
@@ -466,15 +502,25 @@ function Home() {
                     <div className="home-tokenomics-legend">
                       <div className="home-legend-item">
                         <span className="home-legend-dot home-legend-dot-red"></span>
-                        <span className="home-legend-text">{t('home.tokenomics.cards.totalSupply.legend.burn')}</span>
+                        <span className="home-legend-text">
+                          {t("home.tokenomics.cards.totalSupply.legend.burn")}
+                        </span>
                       </div>
                       <div className="home-legend-item">
                         <span className="home-legend-dot home-legend-dot-purple"></span>
-                        <span className="home-legend-text">{t('home.tokenomics.cards.totalSupply.legend.presale')}</span>
+                        <span className="home-legend-text">
+                          {t(
+                            "home.tokenomics.cards.totalSupply.legend.presale"
+                          )}
+                        </span>
                       </div>
                       <div className="home-legend-item">
                         <span className="home-legend-dot home-legend-dot-cyan"></span>
-                        <span className="home-legend-text">{t('home.tokenomics.cards.totalSupply.legend.liquidity')}</span>
+                        <span className="home-legend-text">
+                          {t(
+                            "home.tokenomics.cards.totalSupply.legend.liquidity"
+                          )}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -492,17 +538,23 @@ function Home() {
                       />
                     </div>
                     <div className="home-tokenomics-card-title-group">
-                      <div className="home-tokenomics-card-title">{t('home.tokenomics.cards.tax.title')}</div>
-                      <div className="home-tokenomics-card-value">{t('home.tokenomics.cards.tax.value')}</div>
+                      <div className="home-tokenomics-card-title">
+                        {t("home.tokenomics.cards.tax.title")}
+                      </div>
+                      <div className="home-tokenomics-card-value">
+                        {t("home.tokenomics.cards.tax.value")}
+                      </div>
                     </div>
                   </div>
 
                   <div className="home-tokenomics-tax-details">
                     <div className="home-tax-item">
                       <div className="home-tax-label">
-                        <span>{t('home.tokenomics.cards.tax.buyback')}</span>
+                        <span>{t("home.tokenomics.cards.tax.buyback")}</span>
                       </div>
-                      <div className="home-tax-percentage">{t('home.tokenomics.cards.tax.buybackValue')}</div>
+                      <div className="home-tax-percentage">
+                        {t("home.tokenomics.cards.tax.buybackValue")}
+                      </div>
                     </div>
                     <div className="home-tax-progress">
                       <div
@@ -513,9 +565,11 @@ function Home() {
 
                     <div className="home-tax-item">
                       <div className="home-tax-label">
-                        <span>{t('home.tokenomics.cards.tax.commission')}</span>
+                        <span>{t("home.tokenomics.cards.tax.commission")}</span>
                       </div>
-                      <div className="home-tax-percentage">{t('home.tokenomics.cards.tax.commissionValue')}</div>
+                      <div className="home-tax-percentage">
+                        {t("home.tokenomics.cards.tax.commissionValue")}
+                      </div>
                     </div>
                     <div className="home-tax-progress">
                       <div
@@ -538,15 +592,17 @@ function Home() {
                       />
                     </div>
                     <div className="home-tokenomics-card-title-group">
-                      <div className="home-tokenomics-card-title">{t('home.tokenomics.cards.burn.title')}</div>
+                      <div className="home-tokenomics-card-title">
+                        {t("home.tokenomics.cards.burn.title")}
+                      </div>
                       <div className="home-tokenomics-card-value home-tokenomics-value-burn">
-                        {t('home.tokenomics.cards.burn.value')}
+                        {t("home.tokenomics.cards.burn.value")}
                       </div>
                     </div>
                   </div>
 
                   <div className="home-tokenomics-card-desc">
-                    {t('home.tokenomics.cards.burn.desc')}
+                    {t("home.tokenomics.cards.burn.desc")}
                   </div>
                 </Card>
               </Col>
@@ -563,17 +619,17 @@ function Home() {
                     </div>
                     <div className="home-tokenomics-card-title-group">
                       <div className="home-tokenomics-card-title">
-                        {t('home.tokenomics.cards.transparent.title')}
+                        {t("home.tokenomics.cards.transparent.title")}
                       </div>
                     </div>
                   </div>
 
                   <div className="home-tokenomics-card-desc">
-                    {t('home.tokenomics.cards.transparent.desc')}
+                    {t("home.tokenomics.cards.transparent.desc")}
                   </div>
 
                   <a href="#" className="home-tokenomics-verify-link">
-                    {t('home.tokenomics.cards.transparent.verify')}
+                    {t("home.tokenomics.cards.transparent.verify")}
                   </a>
                 </Card>
               </Col>
@@ -586,16 +642,18 @@ function Home() {
           <div className="home-container">
             <div className="home-roadmap-header">
               <h2 className="home-roadmap-main-title">
-                {t('home.roadmap.title')}
-                <span className="home-roadmap-title-highlight">{t('home.roadmap.highlight')}</span>
-                {t('home.roadmap.suffix')}
+                {t("home.roadmap.title")}
+                <span className="home-roadmap-title-highlight">
+                  {t("home.roadmap.highlight")}
+                </span>
+                {t("home.roadmap.suffix")}
               </h2>
               <img
                 src={require("../images/home/654.png")}
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-roadmap-subtitle">
-                {t('home.roadmap.subtitle')}
+                {t("home.roadmap.subtitle")}
               </p>
             </div>
 
@@ -607,15 +665,23 @@ function Home() {
                 </div>
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badge">{t('home.roadmap.stages.foundation.status')}</div>
-                    <h3 className="home-timeline-card-title">{t('home.roadmap.stages.foundation.title')}</h3>
+                    <div className="home-timeline-badge">
+                      {t("home.roadmap.stages.foundation.status")}
+                    </div>
+                    <h3 className="home-timeline-card-title">
+                      {t("home.roadmap.stages.foundation.title")}
+                    </h3>
                     <div className="home-timeline-card-desc">
-                      {t('home.roadmap.stages.foundation.items').map((item, idx) => (
-                        <React.Fragment key={idx}>
-                          • {item}
-                          {idx < t('home.roadmap.stages.foundation.items').length - 1 && <br />}
-                        </React.Fragment>
-                      ))}
+                      {t("home.roadmap.stages.foundation.items").map(
+                        (item, idx) => (
+                          <React.Fragment key={idx}>
+                            • {item}
+                            {idx <
+                              t("home.roadmap.stages.foundation.items").length -
+                                1 && <br />}
+                          </React.Fragment>
+                        )
+                      )}
                     </div>
                   </Card>
                 </div>
@@ -625,15 +691,23 @@ function Home() {
               <div className="home-timeline-item home-timeline-item-right">
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badges">{t('home.roadmap.stages.warriors.status')}</div>
-                    <h3 className="home-timeline-card-title">{t('home.roadmap.stages.warriors.title')}</h3>
+                    <div className="home-timeline-badges">
+                      {t("home.roadmap.stages.warriors.status")}
+                    </div>
+                    <h3 className="home-timeline-card-title">
+                      {t("home.roadmap.stages.warriors.title")}
+                    </h3>
                     <div className="home-timeline-card-desc">
-                      {t('home.roadmap.stages.warriors.items').map((item, idx) => (
-                        <React.Fragment key={idx}>
-                          • {item}
-                          {idx < t('home.roadmap.stages.warriors.items').length - 1 && <br />}
-                        </React.Fragment>
-                      ))}
+                      {t("home.roadmap.stages.warriors.items").map(
+                        (item, idx) => (
+                          <React.Fragment key={idx}>
+                            • {item}
+                            {idx <
+                              t("home.roadmap.stages.warriors.items").length -
+                                1 && <br />}
+                          </React.Fragment>
+                        )
+                      )}
                     </div>
                   </Card>
                 </div>
@@ -648,13 +722,20 @@ function Home() {
                 </div>
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badges">{t('home.roadmap.stages.armor.status')}</div>
-                    <h3 className="home-timeline-card-title">{t('home.roadmap.stages.armor.title')}</h3>
+                    <div className="home-timeline-badges">
+                      {t("home.roadmap.stages.armor.status")}
+                    </div>
+                    <h3 className="home-timeline-card-title">
+                      {t("home.roadmap.stages.armor.title")}
+                    </h3>
                     <div className="home-timeline-card-desc">
-                      {t('home.roadmap.stages.armor.items').map((item, idx) => (
+                      {t("home.roadmap.stages.armor.items").map((item, idx) => (
                         <React.Fragment key={idx}>
                           • {item}
-                          {idx < t('home.roadmap.stages.armor.items').length - 1 && <br />}
+                          {idx <
+                            t("home.roadmap.stages.armor.items").length - 1 && (
+                            <br />
+                          )}
                         </React.Fragment>
                       ))}
                     </div>
@@ -664,13 +745,20 @@ function Home() {
               <div className="home-timeline-item home-timeline-item-right">
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badges">{t('home.roadmap.stages.fame.status')}</div>
-                    <h3 className="home-timeline-card-title">{t('home.roadmap.stages.fame.title')}</h3>
+                    <div className="home-timeline-badges">
+                      {t("home.roadmap.stages.fame.status")}
+                    </div>
+                    <h3 className="home-timeline-card-title">
+                      {t("home.roadmap.stages.fame.title")}
+                    </h3>
                     <div className="home-timeline-card-desc">
-                      {t('home.roadmap.stages.fame.items').map((item, idx) => (
+                      {t("home.roadmap.stages.fame.items").map((item, idx) => (
                         <React.Fragment key={idx}>
                           • {item}
-                          {idx < t('home.roadmap.stages.fame.items').length - 1 && <br />}
+                          {idx <
+                            t("home.roadmap.stages.fame.items").length - 1 && (
+                            <br />
+                          )}
                         </React.Fragment>
                       ))}
                     </div>
@@ -686,17 +774,23 @@ function Home() {
                 </div>
                 <div className="home-timeline-content">
                   <Card className="home-timeline-card">
-                    <div className="home-timeline-badgess">{t('home.roadmap.stages.explosion.status')}</div>
+                    <div className="home-timeline-badgess">
+                      {t("home.roadmap.stages.explosion.status")}
+                    </div>
                     <h3 className="home-timeline-card-title">
-                      {t('home.roadmap.stages.explosion.title')}
+                      {t("home.roadmap.stages.explosion.title")}
                     </h3>
                     <div className="home-timeline-card-desc">
-                      {t('home.roadmap.stages.explosion.items').map((item, idx) => (
-                        <React.Fragment key={idx}>
-                          • {item}
-                          {idx < t('home.roadmap.stages.explosion.items').length - 1 && <br />}
-                        </React.Fragment>
-                      ))}
+                      {t("home.roadmap.stages.explosion.items").map(
+                        (item, idx) => (
+                          <React.Fragment key={idx}>
+                            • {item}
+                            {idx <
+                              t("home.roadmap.stages.explosion.items").length -
+                                1 && <br />}
+                          </React.Fragment>
+                        )
+                      )}
                     </div>
                   </Card>
                 </div>
@@ -710,9 +804,9 @@ function Home() {
           <div className="home-container">
             <div className="home-rebate-header">
               <h2 className="home-rebate-main-title">
-                {t('home.rebate.title')}{" "}
+                {t("home.rebate.title")}{" "}
                 <span className="home-rebate-title-highlight">
-                  {t('home.rebate.highlight')}
+                  {t("home.rebate.highlight")}
                 </span>
               </h2>
               <img
@@ -720,7 +814,7 @@ function Home() {
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-rebate-subtitle">
-                {t('home.rebate.subtitle')}
+                {t("home.rebate.subtitle")}
               </p>
             </div>
 
@@ -728,34 +822,44 @@ function Home() {
               {/* 左侧：核心机制说明 */}
               <Col xs={24} lg={12}>
                 <div className="home-rebate-mechanisms">
-                  <h3 className="home-rebate-section-title">{t('home.rebate.mechanisms.title')}</h3>
+                  <h3 className="home-rebate-section-title">
+                    {t("home.rebate.mechanisms.title")}
+                  </h3>
 
                   <div className="home-rebate-mechanism-list">
                     <Card className="home-rebate-mechanism-card">
-                      <div className="home-mechanism-card-title">{t('home.rebate.mechanisms.binding.title')}</div>
+                      <div className="home-mechanism-card-title">
+                        {t("home.rebate.mechanisms.binding.title")}
+                      </div>
                       <div className="home-mechanism-card-desc">
-                        {t('home.rebate.mechanisms.binding.desc')}
+                        {t("home.rebate.mechanisms.binding.desc")}
                       </div>
                     </Card>
 
                     <Card className="home-rebate-mechanism-card">
-                      <div className="home-mechanism-card-title">{t('home.rebate.mechanisms.trigger.title')}</div>
+                      <div className="home-mechanism-card-title">
+                        {t("home.rebate.mechanisms.trigger.title")}
+                      </div>
                       <div className="home-mechanism-card-desc">
-                        {t('home.rebate.mechanisms.trigger.desc')}
+                        {t("home.rebate.mechanisms.trigger.desc")}
                       </div>
                     </Card>
 
                     <Card className="home-rebate-mechanism-card">
-                      <div className="home-mechanism-card-title">{t('home.rebate.mechanisms.logic.title')}</div>
+                      <div className="home-mechanism-card-title">
+                        {t("home.rebate.mechanisms.logic.title")}
+                      </div>
                       <div className="home-mechanism-card-desc">
-                        {t('home.rebate.mechanisms.logic.desc')}
+                        {t("home.rebate.mechanisms.logic.desc")}
                       </div>
                     </Card>
 
                     <Card className="home-rebate-mechanism-card">
-                      <div className="home-mechanism-card-title">{t('home.rebate.mechanisms.validity.title')}</div>
+                      <div className="home-mechanism-card-title">
+                        {t("home.rebate.mechanisms.validity.title")}
+                      </div>
                       <div className="home-mechanism-card-desc">
-                        {t('home.rebate.mechanisms.validity.desc')}
+                        {t("home.rebate.mechanisms.validity.desc")}
                       </div>
                     </Card>
                   </div>
@@ -766,7 +870,7 @@ function Home() {
               <Col xs={24} lg={12}>
                 <div className="home-rebate-right">
                   <h3 className="home-rebate-section-title">
-                    {t('home.rebate.ratio.title')}
+                    {t("home.rebate.ratio.title")}
                   </h3>
                   {/* 返佣比例表格 */}
                   <Card
@@ -777,10 +881,10 @@ function Home() {
                       {/* 表头 */}
                       <div className="home-rebate-table-header">
                         <div className="home-rebate-table-cell home-rebate-table-cell-header">
-                          {t('home.rebate.ratio.level')}
+                          {t("home.rebate.ratio.level")}
                         </div>
                         <div className="home-rebate-table-cell home-rebate-table-cell-header">
-                          {t('home.rebate.ratio.ratio')}
+                          {t("home.rebate.ratio.ratio")}
                         </div>
                       </div>
                       {/* 表格数据行 */}
@@ -799,7 +903,9 @@ function Home() {
 
                   {/* 执行亮点 */}
                   <div className="home-rebate-highlights">
-                    <h3 className="home-rebate-section-title">{t('home.rebate.highlights.title')}</h3>
+                    <h3 className="home-rebate-section-title">
+                      {t("home.rebate.highlights.title")}
+                    </h3>
 
                     <div className="home-highlight-list">
                       <div className="home-highlight-item">
@@ -812,10 +918,10 @@ function Home() {
                         </div>
                         <div className="home-highlight-content">
                           <span className="home-highlight-label">
-                            {t('home.rebate.highlights.efficiency.label')}
+                            {t("home.rebate.highlights.efficiency.label")}
                           </span>
                           <span className="home-highlight-text">
-                            {t('home.rebate.highlights.efficiency.text')}
+                            {t("home.rebate.highlights.efficiency.text")}
                           </span>
                         </div>
                       </div>
@@ -830,10 +936,10 @@ function Home() {
                         </div>
                         <div className="home-highlight-content">
                           <span className="home-highlight-label">
-                            {t('home.rebate.highlights.reward.label')}
+                            {t("home.rebate.highlights.reward.label")}
                           </span>
                           <span className="home-highlight-text">
-                            {t('home.rebate.highlights.reward.text')}
+                            {t("home.rebate.highlights.reward.text")}
                           </span>
                         </div>
                       </div>
@@ -850,17 +956,17 @@ function Home() {
           <div className="home-container">
             <div className="home-advantages-header">
               <h2 className="home-advantages-main-title">
-                {t('home.advantages.title')}
+                {t("home.advantages.title")}
                 <span className="home-advantages-title-highlight">
-                  {t('home.advantages.highlight')}
+                  {t("home.advantages.highlight")}
                 </span>
               </h2>
-               <img
+              <img
                 src={require("../images/home/654.png")}
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-advantages-subtitle">
-                {t('home.advantages.subtitle')}
+                {t("home.advantages.subtitle")}
               </p>
             </div>
 
@@ -869,16 +975,18 @@ function Home() {
               <Col xs={24} sm={24} lg={8}>
                 <Card className="home-advantage-card">
                   <div className="home-advantage-icon-wrapper">
-                    <div >
-                     <img
-                src={require("../images/home/w1.png")}
-                style={{ width: 64, height:  64 }}
-              />
+                    <div>
+                      <img
+                        src={require("../images/home/w1.png")}
+                        style={{ width: 64, height: 64 }}
+                      />
                     </div>
                   </div>
-                  <h3 className="home-advantage-card-title">{t('home.advantages.cards.strategy.title')}</h3>
+                  <h3 className="home-advantage-card-title">
+                    {t("home.advantages.cards.strategy.title")}
+                  </h3>
                   <p className="home-advantage-card-desc">
-                    {t('home.advantages.cards.strategy.desc')}
+                    {t("home.advantages.cards.strategy.desc")}
                   </p>
                 </Card>
               </Col>
@@ -887,16 +995,18 @@ function Home() {
               <Col xs={24} sm={24} lg={8}>
                 <Card className="home-advantage-card">
                   <div className="home-advantage-icon-wrapper">
-                  <div >
-                     <img
-                src={require("../images/home/w2.png")}
-                style={{ width: 64, height:  64 }}
-              />
+                    <div>
+                      <img
+                        src={require("../images/home/w2.png")}
+                        style={{ width: 64, height: 64 }}
+                      />
                     </div>
                   </div>
-                  <h3 className="home-advantage-card-title">{t('home.advantages.cards.technology.title')}</h3>
+                  <h3 className="home-advantage-card-title">
+                    {t("home.advantages.cards.technology.title")}
+                  </h3>
                   <p className="home-advantage-card-desc">
-                    {t('home.advantages.cards.technology.desc')}
+                    {t("home.advantages.cards.technology.desc")}
                   </p>
                 </Card>
               </Col>
@@ -905,16 +1015,18 @@ function Home() {
               <Col xs={24} sm={24} lg={8}>
                 <Card className="home-advantage-card">
                   <div className="home-advantage-icon-wrapper">
-                     <div >
-                     <img
-                src={require("../images/home/w3.png")}
-                style={{ width: 64, height:  64 }}
-              />
+                    <div>
+                      <img
+                        src={require("../images/home/w3.png")}
+                        style={{ width: 64, height: 64 }}
+                      />
                     </div>
                   </div>
-                  <h3 className="home-advantage-card-title">{t('home.advantages.cards.demand.title')}</h3>
+                  <h3 className="home-advantage-card-title">
+                    {t("home.advantages.cards.demand.title")}
+                  </h3>
                   <p className="home-advantage-card-desc">
-                    {t('home.advantages.cards.demand.desc')}
+                    {t("home.advantages.cards.demand.desc")}
                   </p>
                 </Card>
               </Col>
@@ -923,13 +1035,21 @@ function Home() {
             {/* 底部大卡片 */}
             <div className="home-advantages-bottom">
               <Card className="home-advantage-large-card">
-            
-                <h3 className="home-advantage-large-title"> <img
-                src={require("../images/home/w4.png")}
-                style={{ width: 24, height:  24 ,marginTop:-10,marginRight:5}}
-              />{t('home.advantages.potential.title')}</h3>
+                <h3 className="home-advantage-large-title">
+                  {" "}
+                  <img
+                    src={require("../images/home/w4.png")}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      marginTop: -10,
+                      marginRight: 5,
+                    }}
+                  />
+                  {t("home.advantages.potential.title")}
+                </h3>
                 <p className="home-advantage-large-desc">
-                  {t('home.advantages.potential.desc')}
+                  {t("home.advantages.potential.desc")}
                 </p>
               </Card>
             </div>
@@ -941,82 +1061,92 @@ function Home() {
           <div className="home-container">
             <div className="home-culture-header">
               <h2 className="home-culture-main-title">
-                {t('home.culture.title')}
+                {t("home.culture.title")}
                 <span className="home-culture-title-highlight">
-                  {t('home.culture.highlight')}
+                  {t("home.culture.highlight")}
                 </span>
-                {t('home.culture.suffix')}
+                {t("home.culture.suffix")}
               </h2>
-                <img
+              <img
                 src={require("../images/home/654.png")}
                 style={{ width: 80, height: 4, marginBottom: 20 }}
               />
               <p className="home-culture-subtitle">
-                {t('home.culture.subtitle')}
+                {t("home.culture.subtitle")}
               </p>
             </div>
 
             <Row gutter={[48, 48]} className="home-culture-content">
               {/* 左侧：核心价值观 */}
               <Col xs={24} lg={14}>
-                <h3 className="home-culture-section-title">{t('home.culture.values.title')}</h3>
+                <h3 className="home-culture-section-title">
+                  {t("home.culture.values.title")}
+                </h3>
                 <Row gutter={[24, 24]} className="home-culture-cards">
                   <Col xs={24} sm={12}>
                     <Card className="home-culture-card">
                       <div className="home-culture-icon-wrapper">
-                       <img
-                src={require("../images/home/h1.png")}
-                style={{ width: 48, height:  48 }}
-              />
+                        <img
+                          src={require("../images/home/h1.png")}
+                          style={{ width: 48, height: 48 }}
+                        />
                       </div>
-                      <h4 className="home-culture-card-title">{t('home.culture.values.decentralized.title')}</h4>
+                      <h4 className="home-culture-card-title">
+                        {t("home.culture.values.decentralized.title")}
+                      </h4>
                       <p className="home-culture-card-desc">
-                        {t('home.culture.values.decentralized.desc')}
+                        {t("home.culture.values.decentralized.desc")}
                       </p>
                     </Card>
                   </Col>
 
                   <Col xs={24} sm={12}>
                     <Card className="home-culture-card">
-                       <div className="home-culture-icon-wrapper">
-                       <img
-                src={require("../images/home/h2.png")}
-                style={{ width: 48, height:  48 }}
-              />
+                      <div className="home-culture-icon-wrapper">
+                        <img
+                          src={require("../images/home/h2.png")}
+                          style={{ width: 48, height: 48 }}
+                        />
                       </div>
-                      <h4 className="home-culture-card-title">{t('home.culture.values.innovation.title')}</h4>
+                      <h4 className="home-culture-card-title">
+                        {t("home.culture.values.innovation.title")}
+                      </h4>
                       <p className="home-culture-card-desc">
-                        {t('home.culture.values.innovation.desc')}
+                        {t("home.culture.values.innovation.desc")}
                       </p>
                     </Card>
                   </Col>
 
                   <Col xs={24} sm={12}>
                     <Card className="home-culture-card">
-                       <div className="home-culture-icon-wrapper">
-                       <img
-                src={require("../images/home/h3.png")}
-                style={{ width: 48, height:  48 }}
-              />
+                      <div className="home-culture-icon-wrapper">
+                        <img
+                          src={require("../images/home/h3.png")}
+                          style={{ width: 48, height: 48 }}
+                        />
                       </div>
-                      <h4 className="home-culture-card-title">{t('home.culture.values.collaboration.title')}</h4>
+                      <h4 className="home-culture-card-title">
+                        {t("home.culture.values.collaboration.title")}
+                      </h4>
                       <p className="home-culture-card-desc">
-                        {t('home.culture.values.collaboration.desc')}
+                        {t("home.culture.values.collaboration.desc")}
                       </p>
                     </Card>
                   </Col>
 
                   <Col xs={24} sm={12}>
                     <Card className="home-culture-card">
-                     <div className="home-culture-icon-wrapper">
-                       <img
-                src={require("../images/home/h4.png")}
-                style={{ width: 48, height:  48 }}
-              />
+                      <div className="home-culture-icon-wrapper">
+                        <img
+                          src={require("../images/home/h4.png")}
+                          style={{ width: 48, height: 48 }}
+                        />
                       </div>
-                      <h4 className="home-culture-card-title">{t('home.culture.values.transparent.title')}</h4>
+                      <h4 className="home-culture-card-title">
+                        {t("home.culture.values.transparent.title")}
+                      </h4>
                       <p className="home-culture-card-desc">
-                        {t('home.culture.values.transparent.desc')}
+                        {t("home.culture.values.transparent.desc")}
                       </p>
                     </Card>
                   </Col>
@@ -1027,54 +1157,60 @@ function Home() {
               <Col xs={24} lg={10}>
                 <div className="home-culture-right">
                   <Card className="home-community-card">
-                    <h3 className="home-community-title">{t('home.culture.community.sloganTitle')}</h3>
+                    <h3 className="home-community-title">
+                      {t("home.culture.community.sloganTitle")}
+                    </h3>
                     <div className="home-community-slogan-box">
                       <p className="home-community-slogan">
-                        {t('home.culture.community.slogan')}
+                        {t("home.culture.community.slogan")}
                       </p>
                     </div>
 
-                    <h4 className="home-dao-title">{t('home.culture.community.daoTitle')}</h4>
+                    <h4 className="home-dao-title">
+                      {t("home.culture.community.daoTitle")}
+                    </h4>
                     <div className="home-dao-icons">
                       <div className="home-dao-icon">
-                       <img
-                src={require("../images/home/h5.png")}
-                style={{ width: 54, height:  54,marginBottom:20 }}
-              />
-                        <span className="home-dao-label">{t('home.culture.community.telegram')}</span>
+                        <img
+                          src={require("../images/home/h5.png")}
+                          style={{ width: 54, height: 54, marginBottom: 20 }}
+                        />
+                        <span className="home-dao-label">
+                          {t("home.culture.community.telegram")}
+                        </span>
                       </div>
                       <div className="home-dao-icon">
                         <img
-                src={require("../images/home/h6.png")}
-                style={{ width: 54, height:  54,marginBottom:20 }}
-              />
-                        <span className="home-dao-label">{t('home.culture.community.twitter')}</span>
+                          src={require("../images/home/h6.png")}
+                          style={{ width: 54, height: 54, marginBottom: 20 }}
+                        />
+                        <span className="home-dao-label">
+                          {t("home.culture.community.twitter")}
+                        </span>
                       </div>
                       <div className="home-dao-icon">
                         <img
-                src={require("../images/home/h7.png")}
-               style={{ width: 54, height:  54,marginBottom:20 }}
-              />
-                        <span className="home-dao-label">{t('home.culture.community.meeting')}</span>
+                          src={require("../images/home/h7.png")}
+                          style={{ width: 54, height: 54, marginBottom: 20 }}
+                        />
+                        <span className="home-dao-label">
+                          {t("home.culture.community.meeting")}
+                        </span>
                       </div>
                       <div className="home-dao-icon">
-                         <img
-                src={require("../images/home/h8.png")}
-                style={{ width: 54, height:  54,marginBottom:20 }}
-              />
-                        <span className="home-dao-label">{t('home.culture.community.qq')}</span>
+                        <img
+                          src={require("../images/home/h8.png")}
+                          style={{ width: 54, height: 54, marginBottom: 20 }}
+                        />
+                        <span className="home-dao-label">
+                          {t("home.culture.community.qq")}
+                        </span>
                       </div>
                     </div>
 
-                    <Button
-                      type="primary"
-                      size="large"
-                      block
-                      className="home-join-button"
-                      onClick={() => navigate("/presale")}
-                    >
-                      {t('home.culture.community.joinButton')}
-                    </Button>
+                    <div className="home-join-button">
+                      {t("home.culture.community.joinButton")}
+                    </div>
                   </Card>
                 </div>
               </Col>
@@ -1084,24 +1220,23 @@ function Home() {
 
         {/* Final CTA Section */}
         <section className="home-section home-cta-section">
-            
           <div className="home-container">
             <div className="home-hero-backgrounds">
-            <img
-              src={require("../images/home/bg3.png")}
-              alt="Hero Background"
-              className="home-hero-bg-image"
-            />
-          </div>
+              <img
+                src={require("../images/home/bg3.png")}
+                alt="Hero Background"
+                className="home-hero-bg-image"
+              />
+            </div>
             <div className="home-cta-content">
               <h2 className="home-cta-main-title">
-                {t('home.cta.title')}
-                <span className="home-cta-title-highlight">{t('home.cta.highlight')}</span>
-                {t('home.cta.suffix')}
+                {t("home.cta.title")}
+                <span className="home-cta-title-highlight">
+                  {t("home.cta.highlight")}
+                </span>
+                {t("home.cta.suffix")}
               </h2>
-              <p className="home-cta-subtitle">
-                {t('home.cta.subtitle')}
-              </p>
+              <p className="home-cta-subtitle">{t("home.cta.subtitle")}</p>
               <div className="home-cta-buttons">
                 <Button
                   type="primary"
@@ -1125,14 +1260,14 @@ function Home() {
                     </svg>
                   }
                 >
-                  {t('home.cta.buttons.download')}
+                  {t("home.cta.buttons.download")}
                 </Button>
                 <Button
                   size="large"
                   className="home-cta-btn-secondary"
                   onClick={() => navigate("/presale")}
                 >
-                  {t('home.cta.buttons.buy')}
+                  {t("home.cta.buttons.buy")}
                 </Button>
               </div>
             </div>
