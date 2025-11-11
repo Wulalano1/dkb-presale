@@ -35,6 +35,7 @@ function Presale() {
   const { t } = useI18n();
   const [provider, setProvider] = useState(null);
   const [account, setAccount] = useState("");
+  const [messageApi, contextHolder] = message.useMessage();
 
   const [packages, setPackages] = useState([]); // [{ usdtRaw, usdt, dkbRaw, dkb }]
   const [selectedPackageIndex, setSelectedPackageIndex] = useState(null);
@@ -230,7 +231,7 @@ function Presale() {
     } catch (error) {
       console.error("readUserInfo error:", error);
       if (!userInfoErrorShownRef.current) {
-        message.error(t("presale.messages.userInfoError"));
+        messageApi.error(t("presale.messages.userInfoError"));
         userInfoErrorShownRef.current = true;
       }
       setUserInfo({
@@ -280,7 +281,7 @@ function Presale() {
           const readable =
             getReadableError(err, t("presale.messages.networkError")) ||
             t("presale.messages.networkError");
-          message.error(readable);
+          messageApi.error(readable);
           onStatusChange?.("unknown", null);
           setPendingTxHash(null);
           return;
@@ -299,7 +300,7 @@ function Presale() {
       typeof candidateRaw === "string" ? candidateRaw.trim() : candidateRaw;
     console.log("bindReferrer candidate:", candidate);
     if (!candidate) {
-      message.error(t("presale.messages.referrerInvalid"));
+      messageApi.error(t("presale.messages.referrerInvalid"));
       return false;
     }
     let normalized = null;
@@ -310,7 +311,7 @@ function Presale() {
    
        console.log("bindReferrer tx:");
     if (normalized.toLowerCase() === account.toLowerCase()) {
-      message.error(t("presale.messages.referrerSelf"));
+      messageApi.error(t("presale.messages.referrerSelf"));
       return false;
     }
       console.log("bindReferrer tx:");
@@ -319,7 +320,7 @@ function Presale() {
       setIsBindingReferrer(true);
       const signer = provider.getSigner();
       const sale = new ethers.Contract(SALE_CONTRACT_ADDRESS, saleAbi, signer);
-      hideMessage = message.loading(
+      hideMessage = messageApi.loading(
         t("presale.messages.bindPending", { address: normalized }),
         0
       );
@@ -328,13 +329,13 @@ function Presale() {
       const tx = await sale.setReferrer(normalized, overrides);
       console.log("bindReferrer tx:", tx);
       setPendingTxHash(tx.hash);
-      message.info(
+      messageApi.info(
         t("presale.messages.txPending", { hash: tx.hash }),
         4
       );
       await monitorTransaction(provider, tx.hash, async (status, receipt) => {
         if (status === "success") {
-          message.success(
+          messageApi.success(
             t("presale.messages.bindSuccessDynamic", { address: normalized })
           );
           setIsReferrerBound(true);
@@ -346,13 +347,13 @@ function Presale() {
               receipt || new Error("bind failed"),
               t("presale.messages.bindError")
             ) || t("presale.messages.bindError");
-          message.error(
+          messageApi.error(
             t("presale.messages.bindErrorDetail", { reason }),
             4
           );
           setBindingModalOpen(false);
         } else if (status === "dropped") {
-          message.warning(t("presale.messages.txDropped"));
+          messageApi.warning(t("presale.messages.txDropped"));
           setBindingModalOpen(false);
         }
       });
@@ -364,11 +365,15 @@ function Presale() {
       return true;
     } catch (error) {
       console.error("bindReferrer error:", error);
+      console.log('code:', error.code);
+  console.log('reason:', error.reason);
+  console.log('error:', error.error);
+  console.log('data:', error.data);
       const displayMessage =
         getReadableError(error, t("presale.messages.bindError")) ||
         t("presale.messages.bindError");
       setBindingModalOpen(false);
-      message.error(
+      messageApi.error(
         t("presale.messages.bindErrorDetail", { reason: displayMessage }),
         4
       );
@@ -457,7 +462,7 @@ function Presale() {
       }
     } catch (error) {
       console.error("loadPackageInfo error:", error);
-      message.error(t("presale.messages.packageError"));
+      messageApi.error(t("presale.messages.packageError"));
       setPackages([]);
       setSelectedPackageIndex(null);
     }
@@ -586,10 +591,13 @@ function Presale() {
       setAccount(addr);
       setInviteCode(addr.slice(-5).toUpperCase());
       userInfoErrorShownRef.current = false;
-      message.success(t('presale.messages.walletSuccess'));
+      messageApi.success(t('presale.messages.walletSuccess'));
     } catch (e) {
       console.error(e);
-      message.error(e.message || t('presale.messages.walletError'));
+    const readable =
+      getReadableError(e, t("presale.messages.walletError")) ||
+      t("presale.messages.walletError");
+    messageApi.error(readable);
     }
   };
 
@@ -609,7 +617,7 @@ function Presale() {
       const amount = selectedPackage.usdtRaw;
 
       if (!presaleStatus.active) {
-        message.warning(t("presale.messages.presaleInactive"));
+        messageApi.warning(t("presale.messages.presaleInactive"));
         setPurchaseLoading(false);
         return;
       }
@@ -617,7 +625,7 @@ function Presale() {
       if (!isReferrerBound) {
         const info = await checkReferrer(true);
         if (!info || !info.hasReferrer) {
-        message.warning(t("presale.messages.referrerRequired"));
+        messageApi.warning(t("presale.messages.referrerRequired"));
           setPurchaseLoading(false);
           return;
         }
@@ -626,7 +634,7 @@ function Presale() {
       setRequiresApproval(allowance.lt(amount));
       if (allowance.lt(amount)) {
         setApprovalLoading(true);
-        message.info(t("presale.messages.needApproval"));
+        messageApi.info(t("presale.messages.needApproval"));
         const overrides = { gasPrice: ethers.utils.parseUnits("0.1", "gwei") };
         const approveTx = await usdt.approve(
           SALE_CONTRACT_ADDRESS,
@@ -639,14 +647,14 @@ function Presale() {
           approveTx.hash,
           (status, receipt) => {
             if (status === "success") {
-              message.success(t("presale.messages.approvalSuccess"));
+              messageApi.success(t("presale.messages.approvalSuccess"));
             } else if (status === "failed") {
               const msg =
                 getReadableError(receipt, t("presale.messages.approvalError")) ||
                 t("presale.messages.approvalError");
-              message.error(msg);
+              messageApi.error(msg);
             } else if (status === "dropped") {
-              message.warning(t("presale.messages.txDropped"));
+              messageApi.warning(t("presale.messages.txDropped"));
             }
           }
         );
@@ -654,7 +662,7 @@ function Presale() {
         allowance = await usdt.allowance(account, SALE_CONTRACT_ADDRESS);
         setRequiresApproval(allowance.lt(amount));
         if (allowance.lt(amount)) {
-          message.error(t("presale.messages.approvalError"));
+          messageApi.error(t("presale.messages.approvalError"));
           setPurchaseLoading(false);
           return;
         }
@@ -663,7 +671,7 @@ function Presale() {
       const balance = await usdt.balanceOf(account);
       setUsdtBalance(balance);
       if (balance.lt(amount)) {
-        message.error(t("presale.messages.insufficient"));
+        messageApi.error(t("presale.messages.insufficient"));
         setPurchaseLoading(false);
         return;
       }
@@ -671,17 +679,17 @@ function Presale() {
       const overrides = { gasPrice: ethers.utils.parseUnits("0.1", "gwei") };
       const tx = await sale.buyTokens(amount, overrides);
       setPendingTxHash(tx.hash);
-      message.info(t("presale.messages.txPending", { hash: tx.hash }), 4);
+      messageApi.info(t("presale.messages.txPending", { hash: tx.hash }), 4);
       await monitorTransaction(provider, tx.hash, (status, receipt) => {
         if (status === "success") {
-          message.success(t("presale.messages.purchaseSuccess"));
+          messageApi.success(t("presale.messages.purchaseSuccess"));
         } else if (status === "failed") {
           const msg =
             getReadableError(receipt, t("presale.messages.purchaseError")) ||
             t("presale.messages.purchaseError");
-          message.error(msg);
+          messageApi.error(msg);
         } else if (status === "dropped") {
-          message.warning(t("presale.messages.txDropped"));
+          messageApi.warning(t("presale.messages.txDropped"));
         }
       });
       await loadPurchased();
@@ -692,10 +700,10 @@ function Presale() {
     } catch (error) {
       console.error("handlePrimaryAction error:", error);
       if (error?.code === 4001) {
-        message.warning(t("presale.messages.userRejected"));
+        messageApi.warning(t("presale.messages.userRejected"));
       } else {
         const displayMessage = getReadableError(error, t("presale.messages.purchaseError"));
-        message.error(displayMessage);
+        messageApi.error(displayMessage);
       }
       setPendingTxHash(null);
     } finally {
@@ -734,15 +742,15 @@ function Presale() {
   const handleCopyUrl = () => {
     navigator.clipboard
       .writeText(inviteUrl)
-      .then(() => message.success(t('presale.messages.copySuccess')))
-      .catch(() => message.error(t('presale.messages.copyError')));
+      .then(() => messageApi.success(t('presale.messages.copySuccess')))
+      .catch(() => messageApi.error(t('presale.messages.copyError')));
   };
 
   const handleCopyInviteCode = () => {
     navigator.clipboard
       .writeText(inviteCode)
-      .then(() => message.success(t('presale.messages.copyCodeSuccess')))
-      .catch(() => message.error(t('presale.messages.copyError')));
+      .then(() => messageApi.success(t('presale.messages.copyCodeSuccess')))
+      .catch(() => messageApi.error(t('presale.messages.copyError')));
   };
 
   // ============== 监听账户/链变化 ==============
@@ -767,7 +775,7 @@ function Presale() {
 
     const onChainChanged = (chainId) => {
       if (chainId !== BSC_CHAIN_ID_HEX) {
-        message.warning(t('presale.messages.switchChain'));
+        messageApi.warning(t('presale.messages.switchChain'));
       }
     };
 
@@ -1023,7 +1031,9 @@ function Presale() {
   ]);
 
   return (
-    <Layout className="presale-layout">
+    <>
+      {contextHolder}
+      <Layout className="presale-layout">
       {/* 顶部导航 */}
       <MainHeader 
         showWallet={true}
@@ -1379,6 +1389,7 @@ function Presale() {
         </div>
       </Modal>
     </Layout>
+    </>
   );
 }
 
