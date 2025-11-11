@@ -116,6 +116,25 @@ function Presale() {
     return DEFAULT_REFERRER;
   }, [referrerAddress, account]);
 
+  const translateDynamicMessage = useCallback((raw) => {
+    if (typeof raw !== "string") return raw;
+    const trimmed = raw.trim();
+    if (!trimmed) return trimmed;
+    const sanitized = trimmed
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "");
+    if (!sanitized) {
+      return trimmed;
+    }
+    const key = `presale.dynamicErrors.${sanitized}`;
+    const translated = t(key);
+    if (translated && translated !== key) {
+      return translated;
+    }
+    return trimmed;
+  }, [t]);
+
   const getReadableError = useCallback(
     (error, fallback) => {
       if (!error) return fallback;
@@ -129,14 +148,14 @@ function Presale() {
         if (typeof candidate === "string" && candidate.trim()) {
           const match = candidate.match(/execution reverted:?(.+)?/i);
           if (match && match[1]) {
-            return match[1].trim() || fallback;
+            return translateDynamicMessage(match[1].trim() || fallback);
           }
-          return candidate;
+          return translateDynamicMessage(candidate);
         }
       }
-      return fallback;
+      return translateDynamicMessage(fallback);
     },
-    [t]
+    [translateDynamicMessage, t]
   );
 
   const parseReferrerFromUrl = useCallback(() => {
@@ -708,6 +727,7 @@ function Presale() {
   }, [account]);
 
   const copyInviteUrl = () => {
+    if (!hasPurchased) return;
     setInviteModalOpen(true);
   };
 
@@ -779,6 +799,12 @@ function Presale() {
     loadPresaleStatus,
     loadUsdtBalance,
   ]);
+
+  useEffect(() => {
+    if (!hasPurchased && inviteModalOpen) {
+      setInviteModalOpen(false);
+    }
+  }, [hasPurchased, inviteModalOpen]);
 
   useEffect(() => {
     if (!account || !provider) return;
@@ -1202,32 +1228,34 @@ function Presale() {
         </section>
 
         {/* Invite Rules 区域 */}
-        <section className="invite-section" id="invite">
-          <div className="invite-title-block">
-            <Title level={3} style={{ marginBottom: 4 }}>
-              {t('presale.invite.title')}
-            </Title>
-            <Text type="secondary" style={{ fontSize: 13 }}>
-              {t('presale.invite.description')}
-            </Text>
-          </div>
+        {hasPurchased && (
+          <section className="invite-section" id="invite">
+            <div className="invite-title-block">
+              <Title level={3} style={{ marginBottom: 4 }}>
+                {t('presale.invite.title')}
+              </Title>
+              <Text type="secondary" style={{ fontSize: 13 }}>
+                {t('presale.invite.description')}
+              </Text>
+            </div>
 
-          <div className="invite-card-wrapper">
-            <Card className="invite-card">
-              <QRCodeCanvas value={inviteUrl} size={160} />
-              <div className="invite-link-text">{t('presale.invite.link')}</div>
-              <Button
-                type="primary"
-                block
-                size="middle"
-                icon={<LinkOutlined />}
-                onClick={copyInviteUrl}
-              >
-                {t('presale.invite.copy')}
-              </Button>
-            </Card>
-          </div>
-        </section>
+            <div className="invite-card-wrapper">
+              <Card className="invite-card">
+                <QRCodeCanvas value={inviteUrl} size={160} />
+                <div className="invite-link-text">{t('presale.invite.link')}</div>
+                <Button
+                  type="primary"
+                  block
+                  size="middle"
+                  icon={<LinkOutlined />}
+                  onClick={copyInviteUrl}
+                >
+                  {t('presale.invite.copy')}
+                </Button>
+              </Card>
+            </div>
+          </section>
+        )}
 
         {/* Our partners 区域 */}
         <section className="partners-section" id="partners">
@@ -1317,7 +1345,7 @@ function Presale() {
 
       {/* 邀请链接弹窗 */}
       <Modal
-        open={inviteModalOpen}
+        open={hasPurchased && inviteModalOpen}
         onCancel={() => setInviteModalOpen(false)}
         footer={null}
         centered

@@ -110,7 +110,7 @@ const translations = {
             title: '总供应量',
             value: '10亿枚',
             legend: {
-              burn: '黑洞销毁()',
+              burn: '黑洞销毁(70%)',
               presale: '私募预售(20%)',
               liquidity: '流动性(10%)',
             },
@@ -794,6 +794,16 @@ const translations = {
         link: '专属邀请链接',
         copy: '复制链接',
       },
+      dynamicErrors: {},
+      errors: {
+        userRejected: '已在钱包中拒绝交易',
+        insufficientFunds: '钱包余额不足以支付此次交易',
+        insufficientAllowance: '授权额度不足，请先提升授权额度',
+        presaleInactive: '预售尚未激活，请稍后再试',
+        alreadyParticipated: '已完成预购，无需重复操作',
+        referrerRequired: '请先绑定上级地址后再尝试',
+        insufficientLiquidity: '合约余额不足，请稍后重试',
+      },
       partners: {
         title: '全球合作伙伴',
       },
@@ -808,8 +818,8 @@ const translations = {
       },
       modal: {
         title: '绑定上级',
-        description: '检测到当前地址未绑定上级，需要绑定项目方默认地址才能继续预售。',
-        defaultAddress: '默认上级地址：',
+        description: '检测到当前地址未绑定上级，需要绑定上级地址才能继续预售。',
+        defaultAddress: '上级地址：',
         confirm: '确认绑定',
         inviteTitle: '邀请链接',
         inviteCode: '邀请码',
@@ -971,7 +981,7 @@ const translations = {
           },
           burn: {
             title: 'Black Hole Burn',
-            value: '70 Million',
+            value: '700 Million',
             desc: '70% of total supply, all sent to black hole address for instant burn, permanently removed from circulation, automatically executed by the system and irreversible',
           },
           transparent: {
@@ -1659,6 +1669,16 @@ const translations = {
         link: 'Invite Link',
         copy: 'Copy',
       },
+      dynamicErrors: {},
+      errors: {
+        userRejected: 'Transaction was rejected in your wallet',
+        insufficientFunds: 'Not enough balance to complete this transaction',
+        insufficientAllowance: 'Allowance is insufficient, please approve a higher amount',
+        presaleInactive: 'Presale is not active yet, please try later',
+        alreadyParticipated: 'You have already completed the presale purchase',
+        referrerRequired: 'Bind a referrer before proceeding',
+        insufficientLiquidity: 'Contract balance is insufficient, please try again later',
+      },
       partners: {
         title: 'Our partners',
       },
@@ -1675,8 +1695,8 @@ const translations = {
       modal: {
         title: 'Bind Upline',
         description:
-          'No inviter detected. Bind the default project address before continuing with the presale.',
-        defaultAddress: 'Default Upline Address:',
+          'The current address is not bound to a parent address. You need to bind a parent address to continue the pre-sale.',
+        defaultAddress: 'Parent address:',
         confirm: 'Confirm Bind',
         inviteTitle: 'Invite Link',
         inviteCode: 'Invitation Code',
