@@ -555,7 +555,7 @@ function Presale() {
   }, [provider, account, selectedPackage]);
 
   // ============== 连接钱包 & 切 BSC ==============
-  const handleConnect = async () => {
+  const handleConnect = useCallback(async () => {
     try {
       const pvd = getInjectedProvider();
 
@@ -612,12 +612,12 @@ function Presale() {
       messageApi.success(t('presale.messages.walletSuccess'));
     } catch (e) {
       console.error(e);
-    const readable =
-      getReadableError(e, t("presale.messages.walletError")) ||
-      t("presale.messages.walletError");
-    messageApi.error(readable);
+      const readable =
+        getReadableError(e, t("presale.messages.walletError")) ||
+        t("presale.messages.walletError");
+      messageApi.error(readable);
     }
-  };
+  }, [messageApi, t, getReadableError]);
 
 
   // ============== 授权 + 购买一体化逻辑 ==============
@@ -825,6 +825,25 @@ function Presale() {
     loadPresaleStatus,
     loadUsdtBalance,
   ]);
+
+  useEffect(() => {
+    const attemptAutoConnect = async () => {
+      if (provider || account) return;
+      if (typeof window === "undefined" || !window.ethereum) {
+        messageApi.warning(t("presale.messages.walletMissing"));
+        return;
+      }
+      try {
+        await handleConnect();
+      } catch (err) {
+        const readable =
+          getReadableError(err, t("presale.messages.walletError")) ||
+          t("presale.messages.walletError");
+        messageApi.warning(readable);
+      }
+    };
+    attemptAutoConnect();
+  }, [provider, account, handleConnect, messageApi, t, getReadableError]);
 
   useEffect(() => {
     if (!hasPurchased && inviteModalOpen) {
