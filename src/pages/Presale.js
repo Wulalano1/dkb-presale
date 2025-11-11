@@ -1306,14 +1306,70 @@ function Presale() {
             <div className="partners-inner">
               <h3 className="partners-title">{t('presale.partners.title')}</h3>
               <div className="partner-logos">
-                <img src={require("../images/Presale/partner-dapp.png")} alt="dapp" className="partner-logo" />
-                <img src={require("../images/Presale/partner-binance.png")} alt="binance" className="partner-logo" />
-                <img src={require("../images/Presale/partner-dappradar.png")} alt="dappradar" className="partner-logo" />
-                <img src={require("../images/Presale/partner-gate.png")} alt="gate" className="partner-logo" />
-                <img src={require("../images/Presale/partner-opensea.png")} alt="opensea" className="partner-logo" />
-                <img src={require("../images/Presale/partner-tp.png")} alt="tp" className="partner-logo" />
-                <img src={require("../images/Presale/partner-trustwallet.png")} alt="trustwallet" className="partner-logo" />
-                <img src={require("../images/Presale/partner-uniswap.png")} alt="uniswap" className="partner-logo" />
+                <a
+                  href="https://dapp.com"
+                  className="partner-logo-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={require("../images/Presale/partner-dapp.png")} alt="dapp.com" className="partner-logo" />
+                </a>
+                <a
+                  href="https://www.binance.com"
+                  className="partner-logo-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={require("../images/Presale/partner-binance.png")} alt="Binance" className="partner-logo" />
+                </a>
+                <a
+                  href="https://dappradar.com"
+                  className="partner-logo-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={require("../images/Presale/partner-dappradar.png")} alt="DappRadar" className="partner-logo" />
+                </a>
+                <a
+                  href="https://www.gate.io"
+                  className="partner-logo-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={require("../images/Presale/partner-gate.png")} alt="Gate.io" className="partner-logo" />
+                </a>
+                <a
+                  href="https://opensea.io"
+                  className="partner-logo-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={require("../images/Presale/partner-opensea.png")} alt="OpenSea" className="partner-logo" />
+                </a>
+                <a
+                  href="https://tpwallet.io"
+                  className="partner-logo-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={require("../images/Presale/partner-tp.png")} alt="TokenPocket" className="partner-logo" />
+                </a>
+                <a
+                  href="https://trustwallet.com"
+                  className="partner-logo-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={require("../images/Presale/partner-trustwallet.png")} alt="Trust Wallet" className="partner-logo" />
+                </a>
+                <a
+                  href="https://uniswap.org"
+                  className="partner-logo-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={require("../images/Presale/partner-uniswap.png")} alt="Uniswap" className="partner-logo" />
+                </a>
               </div>
             </div>
           </div>
