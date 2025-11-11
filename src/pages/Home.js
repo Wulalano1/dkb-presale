@@ -101,21 +101,7 @@ function Home() {
 
               {/* 移动端按钮 */}
               <div className="home-hero-buttons home-hero-buttons-mobile">
-                <Button
-                  type="primary"
-                  size="large"
-                  className="home-hero-btn-primary home-hero-btn-download"
-                  onClick={() => navigate("/introduction")}
-                >
-                  <span className="home-btn-icon">
-                    <img
-                      src={require("../images/home/1.png")}
-                      style={{ width: 16, height: 16, marginRight: 4 }}
-                      alt="Aircraft Manufacturing"
-                    />
-                  </span>
-                  {t("home.hero.buttons.download")}
-                </Button>
+               
                 <Button
                   size="large"
                   className="home-hero-btn-secondary home-hero-btn-buy"
@@ -127,8 +113,20 @@ function Home() {
                       style={{ width: 16, height: 16, marginRight: 4 }}
                       alt="Aircraft Manufacturing"
                     />
+                    
                   </span>
                   {t("home.hero.buttons.buy")}
+                </Button>
+                <Button
+                  type="primary"
+                  size="large"
+                  className="home-hero-btn-primary home-hero-btn-download"
+                  onClick={() => navigate("/introduction")}
+                >
+                  <span className="home-btn-icon">
+                    
+                  </span>
+                  {t("home.hero.buttons.download")}
                 </Button>
               </div>
 
@@ -1238,37 +1236,23 @@ function Home() {
               </h2>
               <p className="home-cta-subtitle">{t("home.cta.subtitle")}</p>
               <div className="home-cta-buttons">
-                <Button
-                  type="primary"
-                  size="large"
-                  className="home-cta-btn-primary"
-                  onClick={() => navigate("/introduction")}
-                  icon={
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      style={{ marginRight: "8px" }}
-                    >
-                      <path
-                        d="M8 2v10M8 12l-3-3M8 12l3-3M2 14h12"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  }
-                >
-                  {t("home.cta.buttons.download")}
-                </Button>
-                <Button
+              <Button
                   size="large"
                   className="home-cta-btn-secondary"
                   onClick={() => navigate("/presale")}
                 >
                   {t("home.cta.buttons.buy")}
                 </Button>
+                <Button
+                  type="primary"
+                  size="large"
+                  className="home-cta-btn-primary"
+                  onClick={() => navigate("/introduction")}
+                 
+                >
+                  {t("home.cta.buttons.download")}
+                </Button>
+               
               </div>
             </div>
           </div>

@@ -44,7 +44,7 @@ const translations = {
           mobile: ['链上顶生资产', 'DAO社区治理', '实体场景映射'],
         },
         buttons: {
-          download: '下载白皮书',
+          download: '下载PDF',
           buy: '购买DKB',
         },
         stats: {
@@ -294,7 +294,7 @@ const translations = {
         suffix: '开始',
         subtitle: '成为去中心化低空经济基础设施的早期参与者，共享生态成长价值',
         buttons: {
-          download: '下载白皮书',
+          download: '下载PDF',
           buy: '购买DKB',
         },
       },
@@ -917,7 +917,7 @@ const translations = {
           mobile: ['On-chain Top Assets', 'DAO Community Governance', 'Real-world Scenario Mapping'],
         },
         buttons: {
-          download: 'Download Whitepaper',
+          download: 'Download PDF',
           buy: 'Buy DKB',
         },
         stats: {
@@ -1167,7 +1167,7 @@ const translations = {
         suffix: '',
         subtitle: 'Become an early participant in decentralized low-altitude economy infrastructure, sharing ecosystem growth value',
         buttons: {
-          download: 'Download Whitepaper',
+          download: 'Download PDF',
           buy: 'Buy DKB',
         },
       },
