@@ -104,6 +104,24 @@ function Presale() {
       setSelectedPackageIndex(preferredPackageIndexes[0]);
     }
   }, [preferredPackageIndexes, selectedPackageIndex]);
+
+  const displayedReferrer = useMemo(() => {
+    if (isReferrerBound && userInfo) {
+      const ref = userInfo.referrer;
+      if (ref && ref !== ethers.constants.AddressZero) {
+        return ref;
+      }
+    }
+    if (referrerAddress) {
+      if (!account) {
+        return referrerAddress;
+      }
+      if (referrerAddress.toLowerCase() !== account.toLowerCase()) {
+        return referrerAddress;
+      }
+    }
+    return DEFAULT_REFERRER;
+  }, [isReferrerBound, userInfo, referrerAddress, account]);
   const targetReferrer = useMemo(() => {
     if (referrerAddress && account) {
       const normalizedRef = referrerAddress.toLowerCase();
@@ -1181,11 +1199,7 @@ function Presale() {
                       <span className="row-label">{t('presale.card.referrer')}</span>
                     </div>
                     <div className="row-right">
-                      <span className="row-value-small">
-                        {isReferrerBound && userInfo
-                          ? userInfo.referrer
-                          : targetReferrer || "--"}
-                      </span>
+                      <span className="row-value-small">{displayedReferrer}</span>
                     </div>
                   </div>
 
