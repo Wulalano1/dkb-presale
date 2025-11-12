@@ -44,7 +44,7 @@ const translations = {
           mobile: ['链上顶生资产', 'DAO社区治理', '实体场景映射'],
         },
         buttons: {
-          download: 'PDF',
+          download: '走进DKB世界',
           buy: '购买DKB',
         },
         stats: {
@@ -294,7 +294,7 @@ const translations = {
         suffix: '开始',
         subtitle: '成为去中心化低空经济基础设施的早期参与者，共享生态成长价值',
         buttons: {
-          download: 'PDF',
+          download: '走进DKB世界',
           buy: '购买DKB',
         },
       },
@@ -910,7 +910,7 @@ const translations = {
     home: {
       hero: {
         badge: 'BSC-based Aviation Economy Token',
-        titleLine1: 'DKB Low-Altitude Coin:',
+        titleLine1: 'Low-Altitude Coin:',
         titleLine2: 'Pioneering the Digital Ecosystem for Low-Altitude Economy',
         subtitle: 'A decentralized token based on BSC chain, creating the "blood" and "lubricant" of the low-altitude economy ecosystem',
         features: {
@@ -918,7 +918,7 @@ const translations = {
           mobile: ['On-chain Top Assets', 'DAO Community Governance', 'Real-world Scenario Mapping'],
         },
         buttons: {
-          download: 'PDF',
+          download: 'Step into the world of DKB',
           buy: 'Buy DKB',
         },
         stats: {
@@ -1168,7 +1168,7 @@ const translations = {
         suffix: '',
         subtitle: 'Become an early participant in decentralized low-altitude economy infrastructure, sharing ecosystem growth value',
         buttons: {
-          download: 'PDF',
+          download: 'Step into the world of DKB',
           buy: 'Buy DKB',
         },
       },
