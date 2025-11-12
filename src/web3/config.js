@@ -5,9 +5,10 @@ import { ethers } from 'ethers';
 export const BSC_CHAIN_ID_HEX = '0x61';
 
 // 合约地址（示例地址，可根据环境替换）
-export const SALE_CONTRACT_ADDRESS = '0x7A5C36eE7A17B47Bf646A00FBb15245cBaBcbC5d';
+export const SALE_CONTRACT_ADDRESS = '0xcAc5fce74729Fc97A7D3df001e2ACf58FF5AD5c5';
 export const USDT_CONTRACT_ADDRESS = '0xc177bA7079D8C8380439B81931Cece53b0eBe011';
-export const DEFAULT_REFERRER = '0x4d0808dcd7ec692aaf4bb16cdc2ed238a15e3b6b';
+export const DEFAULT_REFERRER = '0xc4Cc21b4b8b38d1EE70b28F997589f4E2456A141';
+export const HOME_CONTRACT_ADDRESS = '0xa42D7248Fb0aab0F6DCE81575598bCCb75ff696c';
 
 // 精度常量
 export const DKB_DECIMALS = 18;

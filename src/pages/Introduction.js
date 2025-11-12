@@ -751,8 +751,8 @@ function Introduction() {
               </div>
               <h3 className="intro-community-card-title">{t('introduction.community.email.title')}</h3>
               <p className="intro-community-card-desc">{t('introduction.community.email.desc')}</p>
-              <a href="mailto:dkbbot157@gmail.com" className="intro-community-card-link">
-                dkbbot157@gmail.com
+              <a href="dkbaibot@gmail.com" className="intro-community-card-link">
+               dkbaibot@gmail.com
               </a>
             </div>
 

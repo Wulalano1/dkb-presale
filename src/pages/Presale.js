@@ -1067,6 +1067,14 @@ function Presale() {
     hasSufficientBalance,
   ]);
 
+  const presaleStatusDisplay = useMemo(
+    () =>
+      presaleStatus.active
+        ? t("presale.card.statusActive")
+        : t("presale.card.statusInactive"),
+    [presaleStatus.active, t]
+  );
+
   return (
     <>
       {contextHolder}
@@ -1158,6 +1166,16 @@ function Presale() {
                       <span className="row-value-small">
                         {formatDateTime(presaleStatus.startTime)} - {formatDateTime(presaleStatus.endTime)}
                       </span>
+                    </div>
+                  </div>
+
+                  <div className="card-row">
+                    <div className="row-left">
+                      <img src={require("../images/Presale/icon1.png")} alt="icon" className="row-icon" />
+                      <span className="row-label">{t('presale.card.status')}</span>
+                    </div>
+                    <div className="row-right">
+                      <span className="row-value-small">{presaleStatusDisplay}</span>
                     </div>
                   </div>
 

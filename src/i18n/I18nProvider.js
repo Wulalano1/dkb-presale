@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
+import { HOME_CONTRACT_ADDRESS, shortAddress } from '../web3/config';
 
 const translations = {
   zh: {
@@ -23,7 +24,7 @@ const translations = {
         certification: '链上认证',
         disclaimer: '免责声明',
         disclaimerText: '本项目为区块链研究平台，展示作品均为，关于贸易、所有权纠纷、技术故障或临时系统无意为综合法律体系，堪察补偿要求三方布同投资建议。',
-        copyright: '© 2025. Design with by:',
+        copyright: '© 2025 DKB Team. All rights reserved.',
         copyAddress: '复制地址',
         copied: '已复制',
       },
@@ -54,7 +55,7 @@ const translations = {
           consensus: '共识机制',
           totalSupplyValue: '10亿枚',
         burnRatioValue: '70%',
-          contractValue: '0x123...4567',
+          contractValue: shortAddress(HOME_CONTRACT_ADDRESS),
           consensusValue: 'PoS + DAO',
         },
       },
@@ -779,6 +780,9 @@ const translations = {
         before: '预售未开始',
         ended: '预售已结束',
         purchased: '已参与预售',
+        status: '预售状态',
+        statusActive: '已开启',
+        statusInactive: '未开启',
         referrer: '上级地址',
         balance: '钱包余额',
         insufficient: 'USDT 余额不足',
@@ -897,7 +901,7 @@ const translations = {
         certification: 'On-chain Certification',
         disclaimer: 'Disclaimer',
         disclaimerText: 'This project is a blockchain research platform. All displayed works are for demonstration purposes. Regarding trade, ownership disputes, technical failures, or temporary system issues, this does not constitute comprehensive legal advice, investigation compensation requirements, or investment recommendations.',
-        copyright: '© 2025. Design with by:',
+        copyright: '© 2025 DKB Team. All rights reserved.',
         copyAddress: 'Copy Address',
         copied: 'Copied',
       },
@@ -928,7 +932,7 @@ const translations = {
           consensus: 'Consensus Mechanism',
           totalSupplyValue: '1 Billion',
           burnRatioValue: '70%',
-          contractValue: '0x123...4567',
+          contractValue: shortAddress(HOME_CONTRACT_ADDRESS),
           consensusValue: 'PoS + DAO',
         },
       },
@@ -1672,6 +1676,9 @@ const translations = {
         before: 'Presale not started',
         ended: 'Presale ended',
         purchased: 'Already participated',
+        status: 'Presale status',
+        statusActive: 'Active',
+        statusInactive: 'Inactive',
         referrer: 'Referrer',
         balance: 'Wallet balance',
         insufficient: 'Insufficient USDT balance',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useI18n } from '../i18n/I18nProvider';
 import './Footer.css';
+import {SALE_CONTRACT_ADDRESS} from "../web3/config";
 
 function Footer() {
   const { t } = useI18n();
@@ -27,10 +28,10 @@ function Footer() {
               {t('common.footer.description')}
             </p>
             <div className="footer-social">
-              <a href="https://x.com/botdkb" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://t.me/DKB_Ai" target="_blank" rel="noopener noreferrer" className="social-link">
                 <img src={require("../images/logo (2).png")} alt="Telegram" />
               </a>
-              <a href="https://t.me/DKB_Ai" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://x.com/botdkb" target="_blank" rel="noopener noreferrer" className="social-link">
                 <img src={require("../images/logo (3).png")} alt="Twitter" />
               </a>
             </div>
@@ -44,7 +45,7 @@ function Footer() {
               <div className="verification-box">
                 <input 
                   type="text" 
-                  value="0x1245678f90abcdef1234567890abcdef12345678" 
+                  value={SALE_CONTRACT_ADDRESS}
                   readOnly 
                   className="verification-input"
                 />
