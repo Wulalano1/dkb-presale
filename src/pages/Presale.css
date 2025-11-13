@@ -275,6 +275,11 @@ body,
   color: #666666;
 }
 
+.presale-status-inactive {
+  color: #ff4d4f;
+  font-weight: 600;
+}
+
 .card-packages {
   display: flex;
   flex-direction: column;

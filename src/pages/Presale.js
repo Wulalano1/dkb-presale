@@ -271,44 +271,56 @@ function Presale() {
       if (!providerInstance || !hash) return;
       lastTxHashRef.current = hash;
       setPendingTxHash(hash);
-      const poll = async () => {
-        if (lastTxHashRef.current !== hash) {
-          return;
-        }
-        try {
-          const receipt = await providerInstance.getTransactionReceipt(hash);
-          console.log("monitorTransaction receipt:", receipt);
-          if (receipt) {
-            const status =
-              receipt.status === 1
-                ? "success"
-                : receipt.status === 0
-                ? "failed"
-                : "unknown";
-            onStatusChange?.(status, receipt);
-            if (
-              lastTxHashRef.current === hash &&
-              (status === "success" || status === "failed")
-            ) {
-              setPendingTxHash(null);
+
+      return new Promise((resolve) => {
+        let timerId = null;
+
+        const finish = (status, receipt) => {
+          if (lastTxHashRef.current === hash) {
+            if (timerId) {
+              clearTimeout(timerId);
+              timerId = null;
             }
+            setPendingTxHash(null);
+          }
+          onStatusChange?.(status, receipt);
+          resolve();
+        };
+
+        const poll = async () => {
+          if (lastTxHashRef.current !== hash) {
+            resolve();
             return;
           }
-        } catch (err) {
-          console.error("monitorTransaction poll error:", err);
-          const readable =
-            getReadableError(err, t("presale.messages.networkError")) ||
-            t("presale.messages.networkError");
-          messageApi.error(readable);
-          onStatusChange?.("unknown", null);
-          setPendingTxHash(null);
-          return;
-        }
-        setTimeout(poll, 5000);
-      };
-      poll();
+          try {
+            const receipt = await providerInstance.getTransactionReceipt(hash);
+            console.log("monitorTransaction receipt:", receipt);
+            if (receipt) {
+              const status =
+                receipt.status === 1
+                  ? "success"
+                  : receipt.status === 0
+                  ? "failed"
+                  : "unknown";
+              finish(status, receipt);
+              return;
+            }
+          } catch (err) {
+            console.error("monitorTransaction poll error:", err);
+            const readable =
+              getReadableError(err, t("presale.messages.networkError")) ||
+              t("presale.messages.networkError");
+            messageApi.error(readable);
+            finish("unknown", null);
+            return;
+          }
+          timerId = window.setTimeout(poll, 5000);
+        };
+
+        poll();
+      });
     },
-    []
+    [getReadableError, messageApi, t]
   );
 
   const bindReferrer = useCallback(async () => {
@@ -701,6 +713,7 @@ function Presale() {
       await monitorTransaction(provider, tx.hash, (status, receipt) => {
         if (status === "success") {
           messageApi.success(t("presale.messages.purchaseSuccess"));
+          setHasPurchased(true);
         } else if (status === "failed") {
           const msg =
             getReadableError(receipt, t("presale.messages.purchaseError")) ||
@@ -1000,6 +1013,56 @@ function Presale() {
     }
   }, [usdtBalance, usdtDecimals]);
 
+  const formattedDkbBalance = useMemo(() => {
+    if (!userInfo) return "--";
+    try {
+      const raw = userInfo.totalReceived ?? ethers.constants.Zero;
+      const bigRaw = ethers.BigNumber.isBigNumber(raw)
+        ? raw
+        : ethers.BigNumber.from(raw);
+      const value = ethers.utils.formatUnits(bigRaw, DKB_DECIMALS);
+      const [integer, fraction = ""] = value.split(".");
+      if (!fraction) return integer;
+      const trimmedFraction = fraction.slice(0, 4).replace(/0+$/, "");
+      return trimmedFraction ? `${integer}.${trimmedFraction}` : integer;
+    } catch (err) {
+      return "--";
+    }
+  }, [userInfo]);
+
+  const hasReceivedDkb = useMemo(() => {
+    if (!userInfo) return false;
+    try {
+      const raw = userInfo.totalReceived ?? ethers.constants.Zero;
+      const bigRaw = ethers.BigNumber.isBigNumber(raw)
+        ? raw
+        : ethers.BigNumber.from(raw);
+      return !bigRaw.isZero();
+    } catch (err) {
+      return false;
+    }
+  }, [userInfo]);
+
+  const receiveLabel = useMemo(
+    () =>
+      hasReceivedDkb
+        ? t("presale.card.receiveDone")
+        : t("presale.card.receivePending"),
+    [hasReceivedDkb, t]
+  );
+
+  const claimableAmountDisplay = useMemo(() => {
+    if (hasReceivedDkb) {
+      return formattedDkbBalance === "--"
+        ? "--"
+        : `${formattedDkbBalance} DKB`;
+    }
+    if (selectedPackage) {
+      return `${selectedPackage.dkb} DKB`;
+    }
+    return "--";
+  }, [hasReceivedDkb, formattedDkbBalance, selectedPackage]);
+
   const countdownSubtitle = useMemo(() => {
     switch (countdown.mode) {
       case "before":
@@ -1073,6 +1136,14 @@ function Presale() {
         ? t("presale.card.statusActive")
         : t("presale.card.statusInactive"),
     [presaleStatus.active, t]
+  );
+
+  const presaleStatusClassName = useMemo(
+    () =>
+      presaleStatus.active
+        ? "row-value-small"
+        : "row-value-small presale-status-inactive",
+    [presaleStatus.active]
   );
 
   return (
@@ -1175,7 +1246,7 @@ function Presale() {
                       <span className="row-label">{t('presale.card.status')}</span>
                     </div>
                     <div className="row-right">
-                      <span className="row-value-small">{presaleStatusDisplay}</span>
+                      <span className={presaleStatusClassName}>{presaleStatusDisplay}</span>
                     </div>
                   </div>
 
@@ -1191,13 +1262,27 @@ function Presale() {
                   <div className="card-row">
                     <div className="row-left">
                       <img src={require("../images/Presale/icon1.png")} alt="icon" className="row-icon" />
-                      <span className="row-label">{t('presale.card.balance')}</span>
+                      <span className="row-label">{t('presale.card.balanceUsdt')}</span>
                     </div>
                     <div className="row-right">
                       <span className="row-value-small">
                         {formattedUsdtBalance === "--"
                           ? "--"
                           : `${formattedUsdtBalance} USDT`}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="card-row">
+                    <div className="row-left">
+                      <img src={require("../images/Presale/icon1.png")} alt="icon" className="row-icon" />
+                      <span className="row-label">{t('presale.card.balanceDkb')}</span>
+                    </div>
+                    <div className="row-right">
+                      <span className="row-value-small">
+                        {formattedDkbBalance === "--"
+                          ? "--"
+                          : `${formattedDkbBalance} DKB`}
                       </span>
                     </div>
                   </div>
@@ -1274,13 +1359,13 @@ function Presale() {
                     <div className="rewards-row">
                       <span className="rewards-label">{t('presale.card.amount')}</span>
                       <span className="rewards-value">
-                        {selectedPackage ? `${selectedPackage.dkb} DKB` : 0}
+                        {claimableAmountDisplay}
                       </span>
                     </div>
                   </div>
 
                   <button type="button" className="btn-receive" disabled>
-                    {t('presale.card.receive')}
+                    {receiveLabel}
                   </button>
                 </div>
               </div>
