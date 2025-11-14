@@ -261,6 +261,11 @@ body,
 .row-right {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  text-align: right;
+  min-width: 0;
+  gap: 6px;
 }
 
 .row-value {
@@ -273,6 +278,20 @@ body,
   font-size: 11px;
   font-weight: 400;
   color: #666666;
+  max-width: 100%;
+}
+
+.row-value,
+.row-value-small {
+  min-width: 0;
+}
+
+.ellipsis {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .presale-status-inactive {
@@ -372,12 +391,18 @@ body,
   margin-top: 12px;
   font-size: 12px;
   color: rgba(26, 26, 26, 0.65);
-  word-break: break-all;
+  word-break: normal;
 }
 
 .tx-hash-tip a {
   color: #2563EB;
   margin-left: 4px;
+  display: inline-block;
+  max-width: calc(100% - 4px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
 .card-rewards {

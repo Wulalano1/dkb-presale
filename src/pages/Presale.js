@@ -8,6 +8,7 @@ import {
   Typography,
   message,
   Select,
+  Tooltip,
 } from "antd";
 import { LinkOutlined } from "@ant-design/icons";
 import { QRCodeCanvas } from "qrcode.react";
@@ -355,7 +356,22 @@ function Presale() {
         0
       );
        console.log("bindReferrer tx:");
-      const overrides = { gasPrice: ethers.utils.parseUnits("0.1", "gwei") };
+      const baseOverrides = {
+        gasPrice: ethers.utils.parseUnits("0.05", "gwei"),
+      };
+      let overrides = baseOverrides;
+      try {
+        const estimatedGas = await sale.estimateGas.setReferrer(
+          normalized,
+          baseOverrides
+        );
+        overrides = {
+          ...baseOverrides,
+          gasLimit: estimatedGas.mul(110).div(100),
+        };
+      } catch (estimateError) {
+        console.warn("estimateGas setReferrer failed, fallback to base overrides", estimateError);
+      }
       const tx = await sale.setReferrer(normalized, overrides);
       console.log("bindReferrer tx:", tx);
       setPendingTxHash(tx.hash);
@@ -665,7 +681,23 @@ function Presale() {
       if (allowance.lt(amount)) {
         setApprovalLoading(true);
         messageApi.info(t("presale.messages.needApproval"));
-        const overrides = { gasPrice: ethers.utils.parseUnits("0.1", "gwei") };
+        const baseOverrides = {
+          gasPrice: ethers.utils.parseUnits("0.1", "gwei"),
+        };
+        let overrides = baseOverrides;
+        try {
+          const estimatedGas = await usdt.estimateGas.approve(
+            SALE_CONTRACT_ADDRESS,
+            amount,
+            baseOverrides
+          );
+          overrides = {
+            ...baseOverrides,
+            gasLimit: estimatedGas.mul(110).div(100),
+          };
+        } catch (estimateError) {
+          console.warn("estimateGas approve failed, fallback to base overrides", estimateError);
+        }
         const approveTx = await usdt.approve(
           SALE_CONTRACT_ADDRESS,
           amount,
@@ -706,7 +738,22 @@ function Presale() {
         return;
       }
 
-      const overrides = { gasPrice: ethers.utils.parseUnits("0.1", "gwei") };
+      const baseOverrides = {
+        gasPrice: ethers.utils.parseUnits("0.1", "gwei"),
+      };
+      let overrides = baseOverrides;
+      try {
+        const estimatedGas = await sale.estimateGas.buyTokens(
+          amount,
+          baseOverrides
+        );
+        overrides = {
+          ...baseOverrides,
+          gasLimit: estimatedGas.mul(110).div(100),
+        };
+      } catch (estimateError) {
+        console.warn("estimateGas buyTokens failed, fallback to base overrides", estimateError);
+      }
       const tx = await sale.buyTokens(amount, overrides);
       setPendingTxHash(tx.hash);
       messageApi.info(t("presale.messages.txPending", { hash: tx.hash }), 4);
@@ -1321,7 +1368,9 @@ function Presale() {
                       <span className="row-label">{t('presale.card.referrer')}</span>
                     </div>
                     <div className="row-right">
-                      <span className="row-value-small">{displayedReferrer}</span>
+                      <Tooltip title={displayedReferrer}>
+                        <span className="row-value-small ellipsis">{displayedReferrer}</span>
+                      </Tooltip>
                     </div>
                   </div>
 
@@ -1341,6 +1390,7 @@ function Presale() {
                         href={`https://testnet.bscscan.com/tx/${pendingTxHash}`}
                         target="_blank"
                         rel="noreferrer"
+                        title={pendingTxHash}
                       >
                         {pendingTxHash}
                       </a>
